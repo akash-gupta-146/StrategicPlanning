@@ -6,9 +6,11 @@ import { RepoBrowserComponent } from './pages/github/repo-browser/repo-browser.c
 import { RepoListComponent } from './pages/github/repo-list/repo-list.component';
 import { RepoDetailComponent } from './pages/github/repo-detail/repo-detail.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const rootRouterConfig: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'github', component: RepoBrowserComponent,
