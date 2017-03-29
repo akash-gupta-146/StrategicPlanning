@@ -5,7 +5,7 @@ import { CredentialService } from './services/credential.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  constructor(private credentialService:CredentialService){
+  constructor(private credentialService: CredentialService) {
 
   }
   isLoggedIn() {
