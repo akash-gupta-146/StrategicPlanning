@@ -42,6 +42,10 @@
                           <div class="row">
                             <span class="card-title">Set Measure For The Activity<i class="material-icons right" (click)="removeMeasure(initiativeForm.controls.activities.controls[i],j)">close</i></span>
                             <div class="row">
+                              <div class="input-field col s12">
+                                <textarea id="textarea2" formControlName="measure" class="materialize-textarea"></textarea>
+                                <label for="textarea2">Measure</label>
+                              </div>
                               <div class="col s6">
                                 <label>Measurement Unit</label>
                                 <select formControlName="unit">
@@ -63,16 +67,17 @@
                                 <option value="4">Quarterly</option>                                                                                     
                               </select>
                               </div>
-                              <table class="bordered">
+                              <table class="bordered centered">
                                 <thead>
                                   <tr>
-                                    <th colspan="2">2011-2013 Anual Target</th>
+                                    <th colspan="3">2011-2013 Annual Target</th>
                                   </tr>
                                 </thead>
                                 <thead>
                                   <tr>
-                                    <th>Year</th>
-                                    <th>Level</th>
+                                    <th width="20%">Year</th>
+                                    <th width="60%">Levels</th>
+                                    <th width="20%">Cost</th>
                                   </tr>
                                 </thead>
 
@@ -84,8 +89,9 @@
                                     <div style="display: inline-table;" formArrayName="levels">
                                       <td *ngFor="let le of initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.anualTarget.controls[k].controls.levels.controls;let l = index;"
                                         [formGroupName]="l">
-                                        <input value="" id="level_'k'" type="text" class="validate" formControlName="level"></td>
+                                        <input type="text" class="validate" formControlName="level"></td>
                                     </div>
+                                    <td><input type="text" class="validate" formControlName="cost"></td>
                                   </tr>
                                 </tbody>
                               </table>

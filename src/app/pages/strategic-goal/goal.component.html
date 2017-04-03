@@ -1,6 +1,6 @@
-<div class="container">
+<div class="row">
   <h3>Strategic Goals</h3>
-  <ul class="collapsible popout" data-collapsible="accordion">
+  <!--<ul class="collapsible popout" data-collapsible="accordion">
     <li *ngFor="let g of objectives; let i = index;">
       <div class="collapsible-header active"><b>{{g.objective}}</b><i class="material-icons right" style="margin-right: 0rem;">close</i></div>
       <div class="collapsible-body">
@@ -8,7 +8,6 @@
           <div class="row" *ngFor="let spi of g.spi; let j = index;">
             <div class="col s12 m12">
               <div class="card-panel" style="margin:1rem !important">
-                <!--<div class="card-content ">   -->
                 <span class="card-title"><i class="material-icons">label_outline</i><b>Strategic Performance indicator</b><i class="material-icons right">close</i></span>
                 <p style="    padding: 0 2rem !important;">{{spi.spi}}</p>
                 <b>CurrentLevel : </b>{{spi.currentLevel}}
@@ -29,7 +28,6 @@
                     </tr>
                   </tbody>
                 </table>
-                <!--</div>-->
               </div>
             </div>
           </div>
@@ -37,8 +35,8 @@
         </div>
       </div>
     </li>
-  </ul>
-  <form class="col s12" [formGroup]="goalForm" (submit)="onSubmit()" *ngIf="addGoalForm">
+  </ul>-->
+  <form class="col s12" [formGroup]="goalForm" (submit)="onSubmit()" >
     <div class="row">
       <div class="col s12 m12">
         <div class="card-panel ">
@@ -47,20 +45,24 @@
             <textarea id="textarea1" formControlName="objective" class="materialize-textarea"></textarea>
             <label for="textarea1">Enter Objective</label>
           </div>
+          <div class="input-field col s12">
+            <input id="total_cost" type="text" class="validate" formControlName="totalCost">
+            <label class="active" for="total_cost">Total Cost</label>
+          </div>
           <div class="card-action">
-            <div formArrayName="spi">
-              <div class="card-panel row" *ngFor="let s of goalForm.controls.spi.controls;let i = index;" [formGroupName]="i">
+            <div formArrayName="spis">
+              <div class="card-panel row" *ngFor="let s of goalForm.controls.spis.controls;let i = index;" [formGroupName]="i">
                 <span class="card-title activator">Strategic Performance indicator<i class="material-icons right" (click)="removeSpi(l)">close</i></span>
                 <div class="input-field col s12">
-                  <textarea id="textarea2" formControlName="spii" class="materialize-textarea"></textarea>
+                  <textarea id="textarea2" formControlName="spi" class="materialize-textarea"></textarea>
                   <label for="textarea2">Enter SPI</label>
                 </div>
-                <div class="input-field col s12">
+                <div class="col s12">
                   <label>Select Measure</label>
-                  <select formControlName="measure">
+                  <select formControlName="measureUnit">
                     <option value="" disabled selected>Choose Measurement Unit</option>
-                    <option value="1">Percent</option>
-                    <option value="2">Decimal</option>
+                    <option value="Percent">Percent</option>
+                    <option value="Decimal">Decimal</option>
                   </select>                  
                 </div>
                 <div class="input-field col s12">
@@ -80,7 +82,7 @@
                     </tr>
                   </thead>
                   <tbody formArrayName="targetDigital">
-                    <tr *ngFor="let td of goalForm.controls.spi.controls[i].controls.targetDigital.controls;let m = index;" [formGroupName]="m">
+                    <tr *ngFor="let td of goalForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;" [formGroupName]="m">
                       <td>{{td.value.year}}</td>
                       <td><input value="2011" id="level_'m'" type="text" class="validate" formControlName="level"></td>
                     </tr>
@@ -95,6 +97,6 @@
       </div>
     </div>
   </form>
-  <a class="waves-effect waves-light btn" style="float: right;right: 25px;" (click)="addGoalForm = true">
-    <i class="material-icons left">add</i>Add Goal</a>
+  <!--<a class="waves-effect waves-light btn" style="float: right;right: 25px;" (click)="addGoalForm = true">
+    <i class="material-icons left">add</i>Add Goal</a>-->
 </div>

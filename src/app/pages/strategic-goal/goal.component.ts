@@ -1,6 +1,8 @@
 import { Component, AfterViewInit, OnInit, AfterViewChecked } from '@angular/core';
 import { GoalService } from '../../services/goal.service';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { OrganizationService } from '../../services/organization.service';
 
 declare let $;
 @Component({
@@ -12,16 +14,26 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   public objectives;
   addGoalForm: boolean = false;
   public goalForm: FormGroup;
-  public spi;
-  public targetDigital;
   public cycle = [2011, 2012, 2013];
-  constructor(public goalService: GoalService, public formBuilder: FormBuilder) {
+  public orgId;
+  public orgInfo;
+  constructor(public goalService: GoalService, public formBuilder: FormBuilder, private route: ActivatedRoute, public orgService : OrganizationService) {
+    this.route.params.subscribe(param => {
+      if (param['orgId']) this.orgId = param['orgId'];
+      console.log("orgId",this.orgId)
+      this.orgService.fetchOrganizationInfoById(this.orgId).then(res =>{
+        this.orgInfo = res.json();
+      },(err)=>{
+        console.log(err);
+      })
+    });
     this.goalService.getJSON().then(res => {
       this.objectives = res.json();
     });
     this.goalForm = this.formBuilder.group({
       "objective": ['', [Validators.required]],
-      "spi": this.formBuilder.array([this.inItSpi()]),
+      "totalCost": ['',[Validators.required]],
+      "spis": this.formBuilder.array([this.inItSpi()]),
     });
   }
   ngOnInit() {
@@ -31,8 +43,8 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   }
   inItSpi() {
     return this.formBuilder.group({
-      "spii": ['', [Validators.required]],
-      "measure": ['', [Validators.required]],
+      "spi": ['', [Validators.required]],
+      "measureUnit": ['', [Validators.required]],
       "currentLevel": ['', [Validators.required]],
       "targetDigital": this.formBuilder.array(this.inItTarget()),
     });
@@ -44,11 +56,11 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     });
   }
   addSpi() {
-    const control = <FormArray>this.goalForm.controls['spi'];
+    const control = <FormArray>this.goalForm.controls['spis'];
     control.push(this.inItSpi());
   }
   removeSpi(index) {
-    const control = <FormArray>this.goalForm.controls['spi'];
+    const control = <FormArray>this.goalForm.controls['spis'];
     control.removeAt(index);
   }
   inItTarget() {
@@ -60,8 +72,14 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   }
   onSubmit() {
     console.log(this.goalForm.value);
-    this.goalForm.reset();
-    this.goalForm.removeControl;
+    this.orgService.addObjective(this.orgId,this.orgInfo.cycles[0].id,this.goalForm.value).then(response =>{
+      console.log(response.json());
+      this.goalForm.reset();
+      this.goalForm.removeControl;
+    },(error)=>{
+      console.log(error);
+    });
+    
   }
   ngAfterViewInit() {
     $('.collapsible').collapsible();

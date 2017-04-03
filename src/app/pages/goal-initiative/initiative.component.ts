@@ -63,6 +63,7 @@ export class GoalInitiative implements AfterViewInit, AfterViewChecked {
   }
   setMeasure() {
     return this.formBuilder.group({
+      "measure":['',[Validators.required]],
       "frequency": [1, [Validators.required]],
       "unit": ['', [Validators.required]],
       "currentLevel": ['', [Validators.required]],
@@ -79,7 +80,8 @@ export class GoalInitiative implements AfterViewInit, AfterViewChecked {
   inItTarget(year) {
     return this.formBuilder.group({
       "year": [year, [Validators.required]],
-      "levels": this.formBuilder.array([this.inItLevels()])
+      "levels": this.formBuilder.array([this.inItLevels()]),
+      "cost": ['',[Validators.required]]
     });
   }
   setTargetTable(form, e) {

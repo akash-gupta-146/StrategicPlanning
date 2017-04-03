@@ -1,33 +1,15 @@
 <div class="container">
   <h3>Initial Setup</h3>
-  <div class="row">
+  <div class="row" *ngIf="!submitted">
     <form class="col s12" [formGroup]="cmvvForm" (submit)="onSubmit()">
       <div class="row">
         <div class="col s5">Cycle :</div>
         <div class="input-field col s3">
-          <select formControlName="cycleStartFrom">
-            <option value="" disabled selected>Year</option>
-            <option value="1">2017</option>
-            <option value="2">2018</option>
-            <option value="3">2019</option>
-            <option value="3">2020</option>
-            <option value="3">2021</option>
-            <option value="3">2022</option>
-            <option value="3">2023</option>
-          </select>
+          <input type="date" formControlName="startCycle">
         </div>
         <div class="input-field col s1">To</div>
         <div class="input-field col s3">
-          <select formControlName="cycleEndTo">
-            <option value="" disabled selected>Year</option>
-            <option value="1">2017</option>
-            <option value="2">2018</option>
-            <option value="3">2019</option>
-            <option value="3">2020</option>
-            <option value="3">2021</option>
-            <option value="3">2022</option>
-            <option value="3">2023</option>
-          </select>
+          <input type="date" formControlName="endCycle">
         </div>
         <div class="row">
           <div class="col s5">Mission :</div>
@@ -69,6 +51,17 @@
         <i class="material-icons right">send</i>
       </button>
     </form>
+  </div>
+  <div *ngIf="submitted">
+    <h2>You created the following Initial Setup:</h2>
+    <p><label>Mission : </label> {{returnObject.mission}}</p>
+    <p><label>Vision : </label> {{returnObject.vision}}</p>
+    <p><label>Values :</label></p>
+    <div *ngFor="let val of returnObject.values;let i = index;">
+      <p><label>Title : </label> {{val.title}}</p>
+      <p><label>Description : </label> {{val.description}}</p>
+    </div>
+    <button class="btn btn-default" [routerLink]="['/strategic-goal',returnObject.id]">Add Objective</button>
   </div>
 </div>
 <script>

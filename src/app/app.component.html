@@ -1,14 +1,32 @@
-<nav *ngIf="isLoggedIn()">
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo">Logo</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a [routerLink]="['/']">Home</a></li>
-      <li><a [routerLink]="['/about']">About</a></li>
-      <li><a [routerLink]="['/github', 'angular']">Github Repos</a></li>
-      <li><a [routerLink]="['/contact']">Contact Us</a></li>
-    </ul>
-  </div>
-</nav>
+<div class="navbar-fixed">
+  <nav *ngIf="isLoggedIn()">
+    <div class="nav-wrapper">
+      <!--<a href="#" class="brand-logo"><img src="./app/images/ut-pic1.png" style="height: 60px;"></a>-->
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a [routerLink]="['/']">Home</a></li>
+        <li><a [routerLink]="['/strategic-goal']">Goals</a></li>
+        <li><a [routerLink]="['/github', 'angular']">Github Repos</a></li>
+        <li><a [routerLink]="['/contact']">Contact Us</a></li>
+      </ul>
+      <ul id="slide-out" class="side-nav fixed">
+        <li><div class="userView">
+          <div class="background">
+            <img src="./app/images/ut-back.jpg" style="height: 180px;">
+          </div>
+          <a href="#!user"><img class="circle" src="./app/images/John_Doe.png"></a>
+          <a href="#!name"><span class="white-text name">John Doe</span></a>
+          <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+        </div></li>
+        <li><a href="#!">Strategic Goal</a></li>
+        <!--<li><a href="#!">Second Link</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>-->
+      </ul>
+      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+</div>
 <main>
   <router-outlet></router-outlet>
 </main>

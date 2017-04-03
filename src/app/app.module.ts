@@ -3,7 +3,9 @@ import { RouterModule } from '@angular/router';
 import { rootRouterConfig } from './app.routes';
 import { GithubService } from './pages/github/shared/github.service';
 import { CredentialService } from './services/credential.service';
+import { ConfigurationService } from './services/configuration.service';
 import { GoalService } from './services/goal.service';
+import { OrganizationService } from './services/organization.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -43,6 +45,8 @@ import { GoalInitiative } from './pages/goal-initiative/initiative.component';
   providers: [
     GithubService,
     CredentialService,
+    ConfigurationService,
+    OrganizationService,
     GoalService
   ],
   bootstrap: [AppComponent]
