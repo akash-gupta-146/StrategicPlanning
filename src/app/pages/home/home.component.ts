@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-
+declare let $;
 @Component({
   selector: 'home',
   styleUrls: ['./home.component.css'],
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit{
   cmvvForm:FormGroup;
   constructor(public formBuilder:FormBuilder){
     this.cmvvForm = this.formBuilder.group({
@@ -19,6 +19,9 @@ export class HomeComponent {
     });
     const control = <FormArray>this.cmvvForm.controls['values'];
     control.push(this.inItValue());
+  }
+  ngAfterViewInit(){
+    // $('select').material_select();
   }
   inItValue() {
     return this.formBuilder.group({
