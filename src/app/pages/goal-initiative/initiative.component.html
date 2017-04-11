@@ -1,112 +1,134 @@
-<div class="container">
-  <div class="row">
-    <div class="col s12 m12">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Add Initiatives for Strategic Goal</span>
-          <!--<p>{{selectedGoal.objective}}</p>-->
-        </div>
-        <div class="card-action">
-          <div class="row">
-            <form class="col s12" [formGroup]="initiativeForm">
-              <div class="row">
-                <div class="input-field col s12">
-                  <textarea id="textarea1" formControlName="initiative" class="materialize-textarea"></textarea>
-                  <label for="textarea1">Proposed Initiative / Initiative</label>
-                </div>
+<div class="row">
+  <div class="col s12 m12">
+    <ul class="collapsible" data-collapsible="accordion">
+      <li *ngFor="let ini of initiatives;let i=index;">
+        <div class="collapsible-header">{{ini.initiative}}</div>
+        <div class="collapsible-body"><span>Initiative detail will come here ..... </span></div>
+      </li>
+    </ul>
+    <div class="card" *ngIf="!submited">
+      <div class="card-content">
+        <span class="card-title">Add Initiatives for Strategic Goal</span>
+        <p>{{dataservice.objective.objective}}</p>
+      </div>
+      <div class="card-action">
+        <div class="row">
+          <form class="col s12" [formGroup]="initiativeForm" (submit)="submitInitiative()">
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="textarea1" formControlName="initiative" class="materialize-textarea"></textarea>
+                <label for="textarea1">Proposed Initiative / Initiative</label>
               </div>
-              <div formArrayName="activities">
-                <div class="card-panel">
-                  <span class="card-title">Proposed Activities</span>
-                  <div class="card-panel" *ngFor="let act of initiativeForm.controls.activities.controls;let i = index;" [formGroupName]="i">
-                    <span class="card-title"><i class="material-icons right" (click)="removeActivity(initiativeForm,i)">close</i></span>
-                    <div class="row">
-                      <div class="row">
-                        <div class="input-field col s12">
-                          <textarea id="textarea1" class="materialize-textarea" formControlName="activity"></textarea>
-                          <label for="textarea1">Activity</label>
-                        </div>
-                        <div class="col s12">
-                          <label>Departments</label>
-                          <select formControlName="departments">
+              <div class="input-field col s12">
+                <input id="total_cost" type="text" class="validate" formControlName="totalCost">
+                <label class="active" for="total_cost">Toatal Cost</label>
+              </div>
+            </div>
+            <div class="card-panel" formArrayName="activities">
+              <span class="card-title">Proposed Activities</span>
+              <div class="card-panel" *ngFor="let act of initiativeForm.controls.activities.controls;let i = index;" [formGroupName]="i">
+                <span class="card-title"><i class="material-icons right" (click)="removeActivity(initiativeForm,i)">close</i></span>
+                <div class="row">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <textarea id="textarea1" class="materialize-textarea" formControlName="activity"></textarea>
+                      <label for="textarea1">Activity</label>
+                    </div>
+                    <div class="col s12">
+                      <label>Departments</label>
+                      <select formControlName="departments">
                           <option value="" disabled selected>Select Department</option>
                           <option value="1">Department 1</option>
                           <option value="2">Department 2</option>
                           <option value="3">Department 3</option>
                         </select>
-                        </div>
-                      </div>
-                      <div formArrayName="measures">
-                        <div class="card-panel" *ngFor="let measureAct of initiativeForm.controls.activities.controls[i].controls.measures.controls;let j = index;"
-                          [formGroupName]="j">
-                          <div class="row">
-                            <span class="card-title">Set Measure For The Activity<i class="material-icons right" (click)="removeMeasure(initiativeForm.controls.activities.controls[i],j)">close</i></span>
-                            <div class="row">
-                              <div class="input-field col s12">
-                                <textarea id="textarea2" formControlName="measure" class="materialize-textarea"></textarea>
-                                <label for="textarea2">Measure</label>
-                              </div>
-                              <div class="col s6">
-                                <label>Measurement Unit</label>
-                                <select formControlName="unit">
+                    </div>
+                  </div>
+                  <div formArrayName="measures">
+                    <div class="card-panel" *ngFor="let measureAct of initiativeForm.controls.activities.controls[i].controls.measures.controls;let j = index;"
+                      [formGroupName]="j">
+                      <div class="row">
+                        <span class="card-title">Set Measure For The Activity<i class="material-icons right" (click)="removeMeasure(initiativeForm.controls.activities.controls[i],j)">close</i></span>
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <textarea id="textarea2" formControlName="measure" class="materialize-textarea"></textarea>
+                            <label for="textarea2">Measure</label>
+                          </div>
+                          <div class="col s6">
+                            <label>Measurement Unit</label>
+                            <select formControlName="measureUnit">
                                 <option value="" disabled selected>Select Measurement Unit</option>
-                                <option value="1">Percent</option>
-                                <option value="2">Number</option>                                                         
+                                <option value="Percent">Percent</option>
+                                <option value="Number">Number</option>                                                         
                               </select>
-                              </div>
-                              <div class="input-field col s6">
-                                <input id="first_name2" type="text" class="validate" formControlName="currentLevel">
-                                <label class="active" for="first_name2">Current Level</label>
-                              </div>
-                              <div class="col s6">
-                                <label>Frequency of Measurement</label>
-                                <select formControlName="frequency" (ngModelChange)="setTargetTable(initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.anualTarget.controls,$event)">
+                          </div>
+                          <div class="input-field col s6">
+                            <input id="first_name2" type="text" class="validate" formControlName="currentLevel">
+                            <label class="active" for="first_name2">Current Level</label>
+                          </div>
+                          <div class="col s6">
+                            <label>Frequency of Measurement</label>
+                            <select formControlName="frequencyId" (ngModelChange)="setTargetTable(initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.annualTarget.controls,$event)">
                                 <option value="" disabled >Select frequency</option>
                                 <option value="1">Annually</option>
                                 <option value="2">Semi-Annual</option>      
                                 <option value="4">Quarterly</option>                                                                                     
                               </select>
-                              </div>
-                              <table class="bordered centered">
-                                <thead>
-                                  <tr>
-                                    <th colspan="3">2011-2013 Annual Target</th>
-                                  </tr>
-                                </thead>
-                                <thead>
-                                  <tr>
-                                    <th width="20%">Year</th>
-                                    <th width="60%">Levels</th>
-                                    <th width="20%">Cost</th>
-                                  </tr>
-                                </thead>
-
-
-                                <tbody formArrayName="anualTarget">
-                                  <tr *ngFor="let td of initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.anualTarget.controls;let k = index;"
-                                    [formGroupName]="k">
-                                    <td>{{td.value.year}}</td>
-                                    <div style="display: inline-table;" formArrayName="levels">
-                                      <td *ngFor="let le of initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.anualTarget.controls[k].controls.levels.controls;let l = index;"
-                                        [formGroupName]="l">
-                                        <input type="text" class="validate" formControlName="level"></td>
-                                    </div>
-                                    <td><input type="text" class="validate" formControlName="cost"></td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
                           </div>
+                          <table class="bordered centered">
+                            <thead>
+                              <tr>
+                                <th colspan="3">{{dataservice.objective.cycle[0]}} - {{dataservice.objective.cycle[dataservice.objective.cycle.length-1]}}
+                                  Annual Target</th>
+                              </tr>
+                            </thead>
+                            <thead>
+                              <tr>
+                                <th width="20%">Year</th>
+                                <th width="60%">Levels</th>
+                                <th width="20%">Cost</th>
+                              </tr>
+                            </thead>
+                            <tbody formArrayName="annualTarget">
+                              <tr *ngFor="let td of initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.annualTarget.controls;let k = index;"
+                                [formGroupName]="k">
+                                <td>{{td.value.year}}</td>
+                                <div style="display: inline-table;" formArrayName="levels">
+                                  <td *ngFor="let le of initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.annualTarget.controls[k].controls.levels.controls;let l = index;"
+                                    [formGroupName]="l">
+                                    <input type="text" formControlName="quarter" hidden>
+                                    <input type="text" class="validate" formControlName="level">
+                                  </td>
+                                </div>
+                                <td><input type="text" class="validate" formControlName="cost"></td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <a class="waves-effect waves-light btn" style="float: right;right: 25px;" (click)="addMeasure(initiativeForm.controls.activities.controls[i])">Add Measure</a>
                     </div>
                   </div>
+                  <a class="waves-effect waves-light btn" style="float: right;right: 25px;" (click)="addMeasure(initiativeForm.controls.activities.controls[i])">Add Measure</a>
                 </div>
               </div>
-              <a class="waves-effect waves-light btn" style="float: right;right: 25px;" (click)="addActivity()">Add Activities</a>
-            </form>
-          </div>
+            </div>
+            <a class="waves-effect waves-light btn" (click)="addActivity()">Add Activities</a>
+            <button class="waves-effect waves-light btn" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="card-panel" *ngIf="submited">
+      <span class="card-title">Added Initiative</span>
+      <p><label>Initiative :</label>{{returnObject.initiative}}</p>
+      <p><label>Total Cost :</label>{{returnObject.totalCost}}</p>
+      <p><label>Activities</label></p>
+      <div *ngFor="let act of returnObject.activities;let i=index;">
+        <p><label>{{i}}</label>) {{act.activity}}</p>
+        <p><label>Measures :</label></p>
+        <div *ngFor="let m of act.measures;let j=index;">
+          <p><label>{{j}}</label>) {{m.measure}}</p>
+          <p><label>Current Level :</label>{{m.currentLevel}}</p>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { CredentialService } from './services/credential.service';
 import { ConfigurationService } from './services/configuration.service';
 import { GoalService } from './services/goal.service';
 import { OrganizationService } from './services/organization.service';
+import { DataService } from './services/data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -47,7 +48,8 @@ import { GoalInitiative } from './pages/goal-initiative/initiative.component';
     CredentialService,
     ConfigurationService,
     OrganizationService,
-    GoalService
+    GoalService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
-<div class="container">
-  <h3>Initial Setup</h3>
+<div class="container" *ngIf="!organizationInfo">
+  <h3 class="global">Initial Setup</h3>
   <div class="row" *ngIf="!submitted">
     <form class="col s12" [formGroup]="cmvvForm" (submit)="onSubmit()">
       <div class="row">
@@ -64,8 +64,14 @@
     <button class="btn btn-default" [routerLink]="['/strategic-goal',returnObject.id]">Add Objective</button>
   </div>
 </div>
-<script>
-  $(document).ready(function() {
-    $('select').material_select();
-  });
-</script>
+<div class="container" *ngIf="organizationInfo">
+  <h3><b>Cycle : </b>{{organizationInfo[0].cycles[0].startCycle}} - {{organizationInfo[0].cycles[0].endCycle}}</h3>
+  <h6><b>Mission : </b>{{organizationInfo[0].mission}}</h6>
+  <h6><b>Vision : </b>{{organizationInfo[0].vision}}</h6>
+  <h6><b>Values :</b></h6>
+  <div *ngFor="let val of organizationInfo[0].values;let i = index;">
+    <h6><b>Title :  </b>{{val.title}}</h6>
+    <h6><b>Description : </b>{{val.description}}</h6>
+  </div>
+  <button class="btn btn-default" [routerLink]="['/strategic-goal',organizationInfo[0].id]">Add Objective</button>
+</div>
