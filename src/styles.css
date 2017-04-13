@@ -110,3 +110,12 @@ hr{
 .right{
     float:right;
 }
+.blue-text{
+    color:#4294fc;
+}
+.red-text{
+    color:#e84342;
+}
+.center-align{
+    text-align:center;
+}
