@@ -7,6 +7,7 @@ export class ConfigurationService {
   public baseUrl: string;
   constructor() {
     this.baseUrl = "https://strategic-planning.appspot.com";
+    // this.baseUrl = "http://192.168.1.4:8080/StrategicPlanning";
     // this.baseUrl = "http://localhost:8080/StrategicPlanning";
   }
   getHeaderWithWeb() {

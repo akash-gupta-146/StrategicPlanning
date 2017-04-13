@@ -1,56 +1,113 @@
-<div class="container" *ngIf="!organizationInfo">
-  <h3 class="global">Initial Setup</h3>
-  <div class="row" *ngIf="!submitted">
-    <form class="col s12" [formGroup]="cmvvForm" (submit)="onSubmit()">
-      <div class="row">
-        <div class="col s5">Cycle :</div>
-        <div class="input-field col s3">
-          <input type="date" formControlName="startCycle">
-        </div>
-        <div class="input-field col s1">To</div>
-        <div class="input-field col s3">
-          <input type="date" formControlName="endCycle">
-        </div>
-        <div class="row">
-          <div class="col s5">Mission :</div>
-          <div class="input-field col s7">
-            <input type="text" class="validate" formControlName="mission">
+<div class="background row" *ngIf="!organizationInfo">
+  <div class="heading">Initial Setup</div>
+  <div class="container main-content">
+    <div class="card col-lg-12 col-sm-12 col-md-12 padding-10" *ngIf="!submitted">
+      <form [formGroup]="cmvvForm" (submit)="onSubmit()">
+        <div class="row padding-50">
+          <span class="col-lg-12 col-sm-12 col-md-12 text-primary"><b>Cycle</b></span>
+          <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+            <label>Start Date</label>
+            <input type="date" formControlName="startCycle" class="form-control" placeholder="DD/MM/YYYY">
           </div>
-        </div>
-        <div class="row">
-          <div class="col s5">Vision :</div>
-          <div class="input-field col s7">
-            <input type="text" class="validate" formControlName="vision">
+          <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+            <label>End Date</label>
+            <input type="date" formControlName="endCycle" class="form-control" placeholder="DD/MM/YYYY">
           </div>
+          <hr>
+          <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="main-content text-primary">Mission</label>
+            <textarea formControlName="mission" class="form-control" placeholder="Add Misson Here"></textarea>
+          </div>      
+          <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+            <label class="main-content text-primary">Vision</label>
+            <textarea formControlName="vision" class="form-control" placeholder="Add vision Here"></textarea>
+          </div>    
+        <div class="col-lg-12 col-sm-12 col-md-12 text-primary">
+          <b>Values</b>
         </div>
-        <div class="row">
-          <div class="col s5">Values :</div>
-          <div class="col s6" formArrayName="values">
-            <div class="row" *ngFor="let stu of cmvvForm.controls.values.controls; let j=index;" [formGroupName]="j">
-              <div class="col s10">
-                <div class="input-field col s12">
-                  <input id="last_name" type="text" class="validate" formControlName="title">
-                  <label for="last_name">Title</label>
-                </div>
-                <div class="input-field col s12">
-                  <textarea id="textarea1" class="materialize-textarea" formControlName="description"></textarea>
-                  <label for="textarea1">Description</label>
-                </div>
-              </div>
-              <div class="col s2">
-                <a class="btn-floating btn-large waves-effect waves-light red" (click)="removeValue(j)"><i class="material-icons">delete</i></a>
-              </div>
-            </div>
+        
+        <div class="col-lg-12 col-sm-12 col-md-12">
+          <div class="row">
+        <div class="form-card col-lg-6 col-sm-12 col-md-6" formArrayName="values" *ngFor="let stu of cmvvForm.controls.values.controls; let j=index;">
+          <div [formGroupName]="j">
+          <div class="col-lg-12 col-md-12 col-sm-12 form-group" >
+            <label >Title</label>
+            <input type="text" formControlName="title" class="form-control" placeholder="Add Title Here">
           </div>
-          <div class="col s1">
-            <a class="btn-floating btn-large waves-effect waves-light red" (click)="addValue()"><i class="material-icons">add</i></a>
+          <div class="col-lg-12 col-md-12 col-sm-12 form-group" >
+            <label >Description</label>
+            <textarea  formControlName="title" class="form-control" placeholder="Add Description Here"> </textarea>
+          </div>          
           </div>
+          <button type="button" class="col-lg-offset-6 col-md-offset-6 col-sm-6  btn btn-danger" (click)="removeValue(j)">Delete</button>
+        </div>  
+         <div style="margin-top:70px" class="form-card col-lg-6 col-sm-12 col-md-6 center-block" >
+          <button type="button" class="btn btn-primary btn-lg btn-info center-block" (click)="addValue()">Add New Value</button>
+         </div>
+          </div> 
+        </div>  
+        <hr>
+        <button type="submit" style="margin-top:20px" class="btn btn-success btn-lg"  name="action">Submit</button>
         </div>
+        <hr>
+      </form>
+    </div>
+  </div>
+  
+  <div *ngIf="submitted">
+    <h2>You created the following Initial Setup:</h2>
+    <p><label>Mission : </label> {{returnObject.mission}}</p>
+    <p><label>Vision : </label> {{returnObject.vision}}</p>
+    <p><label>Values :</label></p>
+    <div *ngFor="let val of returnObject.values;let i = index;">
+      <p><label>Title : </label> {{val.title}}</p>
+      <p><label>Description : </label> {{val.description}}</p>
+    </div>
+    <button class="btn btn-default" [routerLink]="['/strategic-goal',returnObject.id]">Add Objective</button>
+  </div>
+</div>
+
+<div class="background paddingT-10" style="margin-top: -20px;">
+<div class="container" *ngIf="organizationInfo">
+  <div class="form-card" style="background:white">
+ <img src="./app/images/cycle.png" class="center-box" width="100px">
+ <div class="center-align">
+  <span class="blue-text"> {{organizationInfo[0].cycles[0].startCycle}} </span>
+  <b> To </b>
+  <span class="red-text"> {{organizationInfo[0].cycles[0].endCycle}} </span>
+ </div>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    Mission
+  </div>
+  <div class="panel-body">
+    {{organizationInfo[0].mission}}
+  </div>
+</div>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    Vision
+  </div>
+  <div class="panel-body">
+    {{organizationInfo[0].vision}}
+  </div>
+</div>
+<!------------------------------------------- -->
+<span class="text-primary center-align"><b>Values</b></span>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-info" *ngFor="let val of organizationInfo[0].values;let i = index;">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="true" aria-controls="collapseOne">
+          {{val.title}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+          {{val.description}}
       </div>
-      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-        <i class="material-icons right">send</i>
-      </button>
-    </form>
+    </div>
   </div>
   <div *ngIf="submitted">
     <h2>You created the following Initial Setup:</h2>
@@ -64,7 +121,12 @@
     <button class="btn btn-default" [routerLink]="['/strategic-goal',returnObject.id]">Add Objective</button>
   </div>
 </div>
-<div class="container" *ngIf="organizationInfo">
+<!------------------------- -->
+<button type="button" class="btn btn-info btn-lg center-block" [routerLink]="['/strategic-goal',organizationInfo[0].id]">Add Objective</button>
+  </div>
+</div>
+</div>
+<!--<div class="container" *ngIf="organizationInfo">
   <h3><b>Cycle : </b>{{organizationInfo[0].cycles[0].startCycle}} - {{organizationInfo[0].cycles[0].endCycle}}</h3>
   <h6><b>Mission : </b>{{organizationInfo[0].mission}}</h6>
   <h6><b>Vision : </b>{{organizationInfo[0].vision}}</h6>
@@ -74,4 +136,4 @@
     <h6><b>Description : </b>{{val.description}}</h6>
   </div>
   <button class="btn btn-default" [routerLink]="['/strategic-goal',organizationInfo[0].id]">Add Objective</button>
-</div>
+</div>-->
