@@ -13,9 +13,5 @@ export class AppComponent implements AfterViewInit{
     return this.credentialService.isLoggedIn();
   }
   ngAfterViewInit(){
-<<<<<<< HEAD
-    
-=======
->>>>>>> 36556492f08192514e12b09bd379d2e3060c29e6
   }
 }
