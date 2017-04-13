@@ -17,11 +17,11 @@ export class HomeComponent implements AfterViewInit {
     public orgService: OrganizationService,
     public dataservice: DataService) {
     this.cmvvForm = this.formBuilder.group({
-      startCycle: ['', Validators.required],
-      endCycle: ['', [Validators.required]],
-      mission: ['', [Validators.required]],
-      vision: ['', [Validators.required]],
-      values: this.formBuilder.array([this.inItValue()])
+      "startCycle": ['', [Validators.required]],
+      "endCycle": ['', [Validators.required]],
+      "mission": ['', [Validators.required]],
+      "vision": ['', [Validators.required]],
+      "values": this.formBuilder.array([this.inItValue()])
     });
     this.getOrganizationInfo();
   }
@@ -30,8 +30,8 @@ export class HomeComponent implements AfterViewInit {
   }
   inItValue() {
     return this.formBuilder.group({
-      "title": ['', Validators.required],
-      "description": ['', Validators.required]
+      "title": ['', [Validators.required]],
+      "description": ['', [Validators.required]]
     });
   }
   removeValue(index) {
