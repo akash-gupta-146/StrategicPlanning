@@ -1,23 +1,65 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { Http,Response, Headers, RequestOptions } from '@angular/http';
+import { ConfigurationService } from './configuration.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 @Injectable()
 export class CredentialService {
+  public baseUrl: string = "";
+  login: any = false;
+  headers: any;
+  access_token: string;
   public user = {
     username: "pankaj123",
     password: "pkj123456"
   };
   private loggedIn = false;
-  constructor() {
+  constructor(private http: Http, private conf: ConfigurationService) {
+    this.baseUrl = this.conf.baseUrl;
     this.loggedIn = !!localStorage.getItem('access_token');
   }
-  login(data): Promise<boolean> {
-    if (data.username == this.user.username && data.password == this.user.password) {
-      localStorage.setItem('access_token', "login_ho_gaya");
-    }
-    return Promise.resolve(this.loggedIn);
+
+  resetLoginStatus() {
+    this.login = false;
   }
+
   isLoggedIn() {
-    return this.loggedIn;
+    let access_token = localStorage.getItem("access_token");
+    if (access_token) {
+      return !this.login;
+    } else {
+      return this.login;
+    }
   }
+
+  verifyUser(data: Object) {
+    return this.http.post(this.baseUrl + "/login", data)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  private extractData(res: Response) {
+    let body = res.json();
+    return body || {};
+  }
+
+  private handleError(error: Response | any) {
+    return Observable.throw(error.status);
+  }
+
+  // login(data) {
+  //   return this.http.post(this.baseUrl + "/organization", data).toPromise()
+  //     .then((response) => {
+  //       return Promise.resolve(response);
+  //     }).catch((err) => { return Promise.reject(err); });
+  //   if (data.username == this.user.username && data.password == this.user.password) {
+  //     localStorage.setItem('access_token', "login_ho_gaya");
+  //   }
+  //   return Promise.resolve(this.loggedIn);
+  // }
+  // isLoggedIn() {
+  //   return this.loggedIn;
+  // }
 }
