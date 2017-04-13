@@ -1,6 +1,14 @@
-select {
-    display: inherit;
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
 }
-.form-label{
-  text-align: left;
+
+.dark-card{
+    background: #f9f9f9;
+}
+.custom-input{
+    background: #c7c6c6;
+    border: 0px;
+    padding: 10px;
+    border-radius: 5px;
 }

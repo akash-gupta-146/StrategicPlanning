@@ -1,7 +1,8 @@
 import { Component, AfterViewInit, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { GoalService } from '../../services/goal.service';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { OrganizationService } from '../../services/organization.service';
+import { DataService } from '../../services/data.service';
 declare let $;
 
 @Component({
@@ -9,34 +10,37 @@ declare let $;
   templateUrl: './initiative.component.html',
   styleUrls: ['./initiative.component.css']
 })
-export class GoalInitiative implements AfterViewInit, AfterViewChecked {
+export class GoalInitiative implements AfterViewInit{
   public selectedGoal;
-  public cycle = [2011, 2012, 2013];
+  public cycle = [];
+  public orgId;
+  public cycleId;
   public goalId;
   public goals = [];
+  public initiatives =[];
   initiativeForm: FormGroup;
-  constructor(private route: ActivatedRoute, private goalService: GoalService, public formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute,
+    public formBuilder: FormBuilder,
+    private orgService: OrganizationService,
+    private dataservice: DataService) {
     this.initiativeForm = this.formBuilder.group({
       "initiative": ['', [Validators.required]],
-      "activities": this.formBuilder.array([this.setActivity()]),
+      "totalCost": ['', [Validators.required]],
+      "activities": this.formBuilder.array([this.setActivity()])
     });
     this.route.params.subscribe(param => {
       if (param['goalId']) this.goalId = param['goalId'];
     });
-    this.goalService.getJSON().then(res => {
-      this.goals = res.json();
-      this.goals.forEach(element => {
-        if (element.id == this.goalId) {
-          this.selectedGoal = element;
-        }
-      });
-    })
+    this.orgService.fetchInitiative(this.dataservice.objective.id,this.dataservice.objective.cycles[0].id,this.goalId)
+    .then(response =>{
+      console.log(response);
+      this.initiatives = response.json();
+    },error =>{
+      console.log(error);
+    });
   }
   ngAfterViewInit() {
-    // $('select').material_select();
-  }
-  ngAfterViewChecked() {
-    // $('select').material_select();
+    $('.collapsible').collapsible();
   }
   addActivity() {
     const control = <FormArray>this.initiativeForm.controls['activities'];
@@ -63,37 +67,56 @@ export class GoalInitiative implements AfterViewInit, AfterViewChecked {
   }
   setMeasure() {
     return this.formBuilder.group({
-      "frequency": [1, [Validators.required]],
-      "unit": ['', [Validators.required]],
+      "measure": ['', [Validators.required]],
+      "frequencyId": [1, [Validators.required]],
+      "measureUnit": ['', [Validators.required]],
       "currentLevel": ['', [Validators.required]],
-      "anualTarget": this.formBuilder.array(this.setAnualTarget())
+      "annualTarget": this.formBuilder.array(this.setAnnualTarget())
     });
   }
-  setAnualTarget() {
-    const anualTarget = [];
-    this.cycle.forEach(element => {
-      anualTarget.push(this.inItTarget(element));
+  setAnnualTarget() {
+    const annualTarget = [];
+    this.dataservice.objective.cycle.forEach(element => {
+      annualTarget.push(this.inItTarget(element));
     });
-    return anualTarget;
+    return annualTarget;
   }
   inItTarget(year) {
     return this.formBuilder.group({
       "year": [year, [Validators.required]],
-      "levels": this.formBuilder.array([this.inItLevels()])
+      "levels": this.formBuilder.array([this.inItLevels(1)]),
+      "cost": ['', [Validators.required]]
     });
   }
   setTargetTable(form, e) {
-    for (var index = 0; index < this.cycle.length; index++) {
+    for (var index = 0; index < this.dataservice.objective.cycle.length; index++) {
       form[index].controls['levels'] = this.formBuilder.array([]);
       const levels = <FormArray>form[index].controls['levels'];
       for (var i = 0; i < e; i++) {
-        levels.push(this.inItLevels());
+        levels.push(this.inItLevels(i + 1));
       }
     }
   }
-  inItLevels() {
+  inItLevels(q) {
     return this.formBuilder.group({
+      "quarter": [q + "quarter"],
       "level": ['', [Validators.required]]
+    });
+  }
+  returnObject;
+  submited:boolean = false;
+  submitInitiative() {
+    this.orgId = this.dataservice.objective.id;
+    this.cycleId = this.dataservice.objective.cycles[0].id;
+    delete this.initiativeForm.value['activities'][0].departments;
+    console.log("object", this.initiativeForm.value);
+    this.orgService.addInitiative(this.orgId, this.cycleId, this.goalId, this.initiativeForm.value).then(res => {
+      this.submited = true;
+      this.initiatives.push(this.initiativeForm.value);
+      this.returnObject = res.json();
+      console.log("afsd", res);
+    }, err => {
+      console.log(err);
     });
   }
 }

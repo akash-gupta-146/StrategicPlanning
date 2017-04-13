@@ -15,6 +15,7 @@ export const rootRouterConfig: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'strategic-goal', component: StrategicGoal },
+  { path: 'strategic-goal/:orgId', component: StrategicGoal },
   { path: 'goal-initiative/:goalId', component: GoalInitiative },
   { path: 'about', component: AboutComponent },
   {
