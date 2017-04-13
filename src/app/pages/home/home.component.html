@@ -17,43 +17,44 @@
           <div class="col-lg-12 col-md-12 col-sm-12 form-group">
             <label class="main-content text-primary">Mission</label>
             <textarea formControlName="mission" class="form-control" placeholder="Add Misson Here"></textarea>
-          </div>      
+          </div>
           <div class="col-lg-12 col-md-12 col-sm-12 form-group">
             <label class="main-content text-primary">Vision</label>
             <textarea formControlName="vision" class="form-control" placeholder="Add vision Here"></textarea>
-          </div>    
-        <div class="col-lg-12 col-sm-12 col-md-12 text-primary">
-          <b>Values</b>
-        </div>
-        
-        <div class="col-lg-12 col-sm-12 col-md-12">
-          <div class="row">
-        <div class="form-card col-lg-6 col-sm-12 col-md-6" formArrayName="values" *ngFor="let stu of cmvvForm.controls.values.controls; let j=index;">
-          <div [formGroupName]="j">
-          <div class="col-lg-12 col-md-12 col-sm-12 form-group" >
-            <label >Title</label>
-            <input type="text" formControlName="title" class="form-control" placeholder="Add Title Here">
           </div>
-          <div class="col-lg-12 col-md-12 col-sm-12 form-group" >
-            <label >Description</label>
-            <textarea  formControlName="title" class="form-control" placeholder="Add Description Here"> </textarea>
-          </div>          
+          <div class="col-lg-12 col-sm-12 col-md-12 text-primary">
+            <b>Values</b>
           </div>
-          <button type="button" class="col-lg-offset-6 col-md-offset-6 col-sm-6  btn btn-danger" (click)="removeValue(j)">Delete</button>
-        </div>  
-         <div style="margin-top:70px" class="form-card col-lg-6 col-sm-12 col-md-6 center-block" >
-          <button type="button" class="btn btn-primary btn-lg btn-info center-block" (click)="addValue()">Add New Value</button>
-         </div>
-          </div> 
-        </div>  
-        <hr>
-        <button type="submit" style="margin-top:20px" class="btn btn-success btn-lg"  name="action">Submit</button>
+
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="row" formArrayName="values">
+              <div class="form-card col-lg-6 col-sm-12 col-md-6" *ngFor="let stu of cmvvForm.controls.values.controls; let j=index;">
+                <div [formGroupName]="j">
+                  <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                    <label>Title</label>
+                    <input type="text" formControlName="title" class="form-control" placeholder="Add Title Here">
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                    <label>Description</label>
+                    <textarea formControlName="description" class="form-control" placeholder="Add Description Here"> </textarea>
+                  </div>
+                </div>
+                <button type="button" class="col-lg-offset-6 col-md-offset-6 col-sm-6  btn btn-danger" 
+                (click)="removeValue(j)" *ngIf="cmvvForm.controls.values.controls.length > 1">Delete</button>
+              </div>
+              <div style="margin-top:70px" class="form-card col-lg-6 col-sm-12 col-md-6 center-block" *ngIf="cmvvForm.controls.values.valid">
+                <button type="button" class="btn btn-primary btn-lg btn-info center-block" (click)="addValue()">Add New Value</button>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <button type="submit" style="margin-top:20px" class="btn btn-success btn-lg" name="action" [disabled]="cmvvForm.invalid">Submit</button>
         </div>
         <hr>
       </form>
     </div>
   </div>
-  
+
   <div *ngIf="submitted">
     <h2>You created the following Initial Setup:</h2>
     <p><label>Mission : </label> {{returnObject.mission}}</p>
@@ -68,63 +69,61 @@
 </div>
 
 <div class="background paddingT-10" style="margin-top: -20px;">
-<div class="container" *ngIf="organizationInfo">
-  <div class="form-card" style="background:white">
- <img src="./app/images/cycle.png" class="center-box" width="100px">
- <div class="center-align">
-  <span class="blue-text"> {{organizationInfo[0].cycles[0].startCycle}} </span>
-  <b> To </b>
-  <span class="red-text"> {{organizationInfo[0].cycles[0].endCycle}} </span>
- </div>
-<div class="panel panel-info">
-  <div class="panel-heading">
-    Mission
-  </div>
-  <div class="panel-body">
-    {{organizationInfo[0].mission}}
-  </div>
-</div>
-<div class="panel panel-info">
-  <div class="panel-heading">
-    Vision
-  </div>
-  <div class="panel-body">
-    {{organizationInfo[0].vision}}
-  </div>
-</div>
-<!------------------------------------------- -->
-<span class="text-primary center-align"><b>Values</b></span>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-info" *ngFor="let val of organizationInfo[0].values;let i = index;">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="true" aria-controls="collapseOne">
+  <div class="container" *ngIf="organizationInfo">
+    <div class="form-card" style="background:white">
+      <img src="./app/images/cycle.png" class="center-box" width="100px">
+      <div class="center-align">
+        <span class="blue-text"> {{organizationInfo[0].cycles[0].startCycle}} </span>
+        <b> To </b>
+        <span class="red-text"> {{organizationInfo[0].cycles[0].endCycle}} </span>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          Mission
+        </div>
+        <div class="panel-body">
+          {{organizationInfo[0].mission}}
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          Vision
+        </div>
+        <div class="panel-body">
+          {{organizationInfo[0].vision}}
+        </div>
+      </div>
+      <span class="text-primary center-align"><b>Values</b></span>
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-info" *ngFor="let val of organizationInfo[0].values;let i = index;">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="true" aria-controls="collapseOne">
           {{val.title}}
         </a>
-      </h4>
-    </div>
-    <div id="collapse{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-          {{val.description}}
+            </h4>
+          </div>
+          <div id="collapse{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              {{val.description}}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="submitted">
+          <h2>You created the following Initial Setup:</h2>
+          <p><label>Mission : </label> {{returnObject.mission}}</p>
+          <p><label>Vision : </label> {{returnObject.vision}}</p>
+          <p><label>Values :</label></p>
+          <div *ngFor="let val of returnObject.values;let i = index;">
+            <p><label>Title : </label> {{val.title}}</p>
+            <p><label>Description : </label> {{val.description}}</p>
+          </div>
+          <button class="btn btn-default" [routerLink]="['/strategic-goal',returnObject.id]">Add Objective</button>
+        </div>
       </div>
+      <button type="button" class="btn btn-info btn-lg center-block" [routerLink]="['/strategic-goal',organizationInfo[0].id]">Add Objective</button>
     </div>
   </div>
-  <div *ngIf="submitted">
-    <h2>You created the following Initial Setup:</h2>
-    <p><label>Mission : </label> {{returnObject.mission}}</p>
-    <p><label>Vision : </label> {{returnObject.vision}}</p>
-    <p><label>Values :</label></p>
-    <div *ngFor="let val of returnObject.values;let i = index;">
-      <p><label>Title : </label> {{val.title}}</p>
-      <p><label>Description : </label> {{val.description}}</p>
-    </div>
-    <button class="btn btn-default" [routerLink]="['/strategic-goal',returnObject.id]">Add Objective</button>
-  </div>
-</div>
-<!------------------------- -->
-<button type="button" class="btn btn-info btn-lg center-block" [routerLink]="['/strategic-goal',organizationInfo[0].id]">Add Objective</button>
-  </div>
-</div>
 </div>
 <!--<div class="container" *ngIf="organizationInfo">
   <h3><b>Cycle : </b>{{organizationInfo[0].cycles[0].startCycle}} - {{organizationInfo[0].cycles[0].endCycle}}</h3>
