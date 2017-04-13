@@ -119,4 +119,8 @@ export class GoalInitiative implements AfterViewInit{
       console.log(err);
     });
   }
+  addMoreInitiative(){
+    this.initiativeForm.reset();
+    this.submited = false;
+  }
 }

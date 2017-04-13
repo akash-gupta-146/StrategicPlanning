@@ -15,7 +15,8 @@ export class OrganizationService {
       }).catch((err) => { return Promise.reject(err); });
   }
   fetchOrganizationInfo() {
-    return this.http.get(this.baseUrl + "/organization").toPromise()
+    var options = this.conf.getHeaderWithWeb();
+    return this.http.get(this.baseUrl + "/organization", options).toPromise()
       .then((response) => {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
@@ -27,7 +28,8 @@ export class OrganizationService {
       }).catch((err) => { return Promise.reject(err); });
   }
   addObjective(orgId, cycleId, objective) {
-    return this.http.post(this.baseUrl + "/organization/" + orgId + "/cycle/" + cycleId + "/objective", objective).toPromise()
+    var options = this.conf.getHeaderWithWeb();
+    return this.http.post(this.baseUrl + "/organization/" + orgId + "/cycle/" + cycleId + "/objective", objective, options).toPromise()
       .then((response) => {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });

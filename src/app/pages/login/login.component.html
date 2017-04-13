@@ -1,33 +1,8 @@
-<!--
-<div class="background marginT--50" style="background: #607D8B!important;">
-<div class="box">
-  <form [formGroup]="loginForm" (submit)="onSubmit()" method="post">
-    <div class="tag">SIGN IN</div>
-    <div>Log in to your account or sign up to create one.</div>
-    <div>
-      <input type='text' name='username' id='username' formControlName="username" placeholder="username"/>
-    </div>
-    <div>
-      <input type="password" type='password' name='password' id='password' formControlName="password"   placeholder="password">
-    </div>
-    <div class="row">
-      <div class="col-md-12 col-lg-12 col-sm-12">
-<button type="submit" class="btn">SUBMIT</button>
-      </div>
-      <div class="col-md-12 col-lg-12 col-sm-12">
-<a href='#!'><b>Forgot Password?</b></a>
-      </div>      
-    </div>
-  </form>
-</div>
-</div>
--->
-
-<form action="">
+<form [formGroup]="loginForm" (submit)="onSubmit()" method="post">
   <hr />
-  <h1>receipt login</h1>
-  <input type="text" class="user" placeholder="username"/>
-  <input type="password" class="pass" placeholder="password"/>
+  <h1>Login</h1>
+  <input type="text"  name='username' id='username' formControlName="username" class="user" placeholder="username"/>
+  <input type='password' name='password' id='password' formControlName="password" class="pass" placeholder="password"/>
   <input type="submit" class="btn" value="Sign in"/>
   <a href="#">Can't access your account?</a>
 </form>

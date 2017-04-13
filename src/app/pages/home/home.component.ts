@@ -1,11 +1,9 @@
-
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { OrganizationService } from '../../services/organization.service';
 import { DataService } from '../../services/data.service';
 
 declare let $;
-
 @Component({
   selector: 'home',
   styleUrls: ['./home.component.css'],
@@ -27,7 +25,8 @@ export class HomeComponent implements AfterViewInit {
     });
     this.getOrganizationInfo();
   }
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
   }
   inItValue() {
     return this.formBuilder.group({

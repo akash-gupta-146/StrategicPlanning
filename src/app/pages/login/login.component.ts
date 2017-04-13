@@ -25,8 +25,18 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit() {
-    this.credentialService.login(this.loginForm.value).then(res => {
-      location.reload();
-    })
+    this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
+      this.verifySuccessfully(res);
+      console.log("asfd",res);
+      this.router.navigate(['/home']);
+    }, (err) => {
+      this.verifyFailed(err);
+    });
+  }
+  public verifySuccessfully(res) {
+    localStorage.setItem("access_token", res.access_token);
+  }
+  public verifyFailed(err) {
+    
   }
 }
