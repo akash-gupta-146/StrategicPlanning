@@ -48,18 +48,4 @@ export class CredentialService {
   private handleError(error: Response | any) {
     return Observable.throw(error.status);
   }
-
-  // login(data) {
-  //   return this.http.post(this.baseUrl + "/organization", data).toPromise()
-  //     .then((response) => {
-  //       return Promise.resolve(response);
-  //     }).catch((err) => { return Promise.reject(err); });
-  //   if (data.username == this.user.username && data.password == this.user.password) {
-  //     localStorage.setItem('access_token', "login_ho_gaya");
-  //   }
-  //   return Promise.resolve(this.loggedIn);
-  // }
-  // isLoggedIn() {
-  //   return this.loggedIn;
-  // }
 }

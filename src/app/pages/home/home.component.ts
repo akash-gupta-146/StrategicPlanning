@@ -72,8 +72,8 @@ export class HomeComponent implements AfterViewInit {
   getOrganizationInfo() {
     this.orgService.fetchOrganizationInfo().then(res => {
       this.organizationInfo = res.json();
-      var startYear = new Date(this.organizationInfo[0].cycles[0].startCycle).getFullYear();
-      var endYear = new Date(this.organizationInfo[0].cycles[0].endCycle).getFullYear();
+      var startYear = new Date(this.organizationInfo[0].cycle.startCycle).getFullYear();
+      var endYear = new Date(this.organizationInfo[0].cycle.endCycle).getFullYear();
       for (var y = startYear; y <= endYear; y++)
         this.cycle.push(y);
       this.organizationInfo[0]['cycle']=this.cycle;
