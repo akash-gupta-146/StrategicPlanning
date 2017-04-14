@@ -16,6 +16,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { StrategicGoal } from './pages/strategic-goal/goal.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GoalInitiative } from './pages/goal-initiative/initiative.component';
+import { AddEmployee } from './pages/admin/employee/add.employee.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { GoalInitiative } from './pages/goal-initiative/initiative.component';
     LoginComponent,
     HomeComponent,
     StrategicGoal,
-    GoalInitiative
+    GoalInitiative,
+    AddEmployee
   ],
   imports: [
     BrowserModule,
