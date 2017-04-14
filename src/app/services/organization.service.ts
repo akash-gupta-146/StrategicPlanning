@@ -29,13 +29,13 @@ export class OrganizationService {
   }
   addObjective(orgId, cycleId, objective) {
     var options = this.conf.getHeaderWithWeb();
-    return this.http.post(this.baseUrl + "/organization/" + orgId + "/cycle/" + cycleId + "/objective", objective, options).toPromise()
+    return this.http.post(this.baseUrl + "planner/organization/" + orgId + "/cycle/" + cycleId + "/objective", objective, options).toPromise()
       .then((response) => {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
   }  
   fetchObjectives(orgId,cycleId){
-    return this.http.get(this.baseUrl + "/organization/" + orgId + "/cycle/" + cycleId + "/objective")
+    return this.http.get(this.baseUrl + "/planner/organization/" + orgId + "/cycle/" + cycleId + "/objective")
     .toPromise()
     .then((response) => {
       return Promise.resolve(response);

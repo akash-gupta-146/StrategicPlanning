@@ -110,6 +110,6 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     this.submited = false;
   }
   ngAfterViewInit() {
-    $('.collapsible').collapsible();
+    
   }
 }
