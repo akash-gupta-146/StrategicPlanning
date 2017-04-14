@@ -74,12 +74,12 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     const control = <FormArray>this.goalForm.controls['spis'];
     control.removeAt(index);
   }
-  getCycle(cycles) {
-    var startYear = new Date(cycles[0].startCycle).getFullYear();
-    var endYear = new Date(cycles[this.orgInfo.cycles.length - 1].endCycle).getFullYear();
-    for (var y = startYear; y <= endYear; y++)
-      this.cycle.push(y);
-  }
+  // getCycle(cycles) {
+  //   var startYear = new Date(cycles[0].startCycle).getFullYear();
+  //   var endYear = new Date(cycles[this.orgInfo.cycles.length - 1].endCycle).getFullYear();
+  //   for (var y = startYear; y <= endYear; y++)
+  //     this.cycle.push(y);
+  // }
   inItTarget() {
     const fa = [];
     this.dataservice.objective.cycle.forEach(element => {

@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     public credentialService: CredentialService,
     private router: Router, ) {
     if (this.credentialService.isLoggedIn()) {
-      this.router.navigateByUrl("/home");
+      this.router.navigateByUrl("/dashboard");
     }
   }
   ngOnInit() {

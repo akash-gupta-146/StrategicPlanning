@@ -9,7 +9,7 @@ export class OrganizationService {
     this.baseUrl = this.conf.baseUrl;
   }
   orgInitialSetup(data) {
-    return this.http.post(this.baseUrl + "/organization", data).toPromise()
+    return this.http.post(this.baseUrl + "/planner/organization/1/initialSetup", data).toPromise()
       .then((response) => {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
@@ -29,7 +29,7 @@ export class OrganizationService {
   }
   addObjective(orgId, cycleId, objective) {
     var options = this.conf.getHeaderWithWeb();
-    return this.http.post(this.baseUrl + "planner/organization/" + orgId + "/cycle/" + cycleId + "/objective", objective, options).toPromise()
+    return this.http.post(this.baseUrl + "/planner/organization/" + orgId + "/cycle/" + cycleId + "/objective", objective, options).toPromise()
       .then((response) => {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
@@ -42,14 +42,14 @@ export class OrganizationService {
     }).catch((err) => { return Promise.reject(err); });
   }
   addInitiative(organizationId, cycleId, goalId, initiative) {
-    return this.http.post(this.baseUrl + "/organization/" + organizationId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative)
+    return this.http.post(this.baseUrl + "/planner/organization/" + organizationId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative)
       .toPromise()
       .then((response) => {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
   }
   fetchInitiative(organizationId, cycleId, goalId){
-    return this.http.get(this.baseUrl + "/organization/" + organizationId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
+    return this.http.get(this.baseUrl + "/planner/organization/" + organizationId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
     .toPromise()
     .then((response) => {
       return Promise.resolve(response);
