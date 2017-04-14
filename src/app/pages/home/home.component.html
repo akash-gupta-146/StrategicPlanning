@@ -1,31 +1,68 @@
 <div class="background row" *ngIf="!organizationInfo">
-  <div class="heading">Initial Setup</div>
+  <!--<div class="container">
+  <h2>Initial Setup</h2>
+  <hr>
+   <form [formGroup]="cmvvForm" (submit)="onSubmit()">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="card row">
+      <div class="card-heading">
+      <h3>Cycle</h3>
+      </div>
+      <hr>
+      <div class="card-content">
+      <div class="col-lg-12 col-sm-12">
+        <label>Start Date</label>
+        <input type="date" formControlName="startCycle" class="form-control" placeholder="DD/MM/YYYY">
+      </div>
+      <div class="col-lg-12 col-sm-12">
+        <label>End Date</label>
+        <input type="date" formControlName="endCycle" class="form-control" placeholder="DD/MM/YYYY">   
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="card row">
+      <div class="card-heading">
+      <h3>Mission</h3>
+      </div>
+      <hr>
+      <div class="card-content">
+        <div class="col-lg-12 col-sm-12">
+          <label class="main-content text-primary">Mission</label>
+          <textarea formControlName="mission" class="form-control" placeholder="Add Misson Here"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  </DIV>
+   </form>-->
   <div class="container main-content">
+    <h2>Initial Setup</h2>
+    <hr>
     <div class="card col-lg-12 col-sm-12 col-md-12 padding-10" *ngIf="!submitted">
       <form [formGroup]="cmvvForm" (submit)="onSubmit()">
         <div class="row padding-50">
-          <span class="col-lg-12 col-sm-12 col-md-12 text-primary"><b>Cycle</b></span>
+          <span class="col-lg-12 col-sm-12 col-md-12 text-primary"><h3>Cycle</h3></span>
           <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-            <label>Start Date</label>
-            <input type="date" formControlName="startCycle" class="form-control" placeholder="DD/MM/YYYY">
+            <span>Start Date</span>
+            <input type="date" formControlName="startCycle" class="form-control" placeholder="Start Date">
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-            <label>End Date</label>
-            <input type="date" formControlName="endCycle" class="form-control" placeholder="DD/MM/YYYY">
+            <span>End Date</span>
+            <input type="date" formControlName="endCycle" class="form-control" placeholder="End Date">
           </div>
-          <hr>
           <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-            <label class="main-content text-primary">Mission</label>
+            <label class="main-content text-primary"><h3>Mission</h3></label>
             <textarea formControlName="mission" class="form-control" placeholder="Add Misson Here"></textarea>
           </div>
           <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-            <label class="main-content text-primary">Vision</label>
+            <label class="main-content text-primary"><h3>Vision</h3></label>
             <textarea formControlName="vision" class="form-control" placeholder="Add vision Here"></textarea>
           </div>
           <div class="col-lg-12 col-sm-12 col-md-12 text-primary">
-            <b>Values</b>
+            <h3>Values</h3>
           </div>
-
           <div class="col-lg-12 col-sm-12 col-md-12">
             <div class="row" formArrayName="values">
               <div class="form-card col-lg-6 col-sm-12 col-md-6" *ngFor="let stu of cmvvForm.controls.values.controls; let j=index;">
@@ -39,22 +76,18 @@
                     <textarea formControlName="description" class="form-control" placeholder="Add Description Here"> </textarea>
                   </div>
                 </div>
-                <button type="button" class="col-lg-offset-6 col-md-offset-6 col-sm-6  btn btn-danger" 
-                (click)="removeValue(j)" *ngIf="cmvvForm.controls.values.controls.length > 1">Delete</button>
+                <button type="button" class="col-lg-offset-6 col-md-offset-6 col-sm-6  btn btn-danger" (click)="removeValue(j)" *ngIf="cmvvForm.controls.values.controls.length > 1">Delete</button>
               </div>
               <div style="margin-top:70px" class="form-card col-lg-6 col-sm-12 col-md-6 center-block" *ngIf="cmvvForm.controls.values.valid">
                 <button type="button" class="btn btn-primary btn-lg btn-info center-block" (click)="addValue()">Add New Value</button>
               </div>
             </div>
           </div>
-          <hr>
           <button type="submit" style="margin-top:20px" class="btn btn-success btn-lg" name="action" [disabled]="cmvvForm.invalid">Submit</button>
         </div>
-        <hr>
       </form>
     </div>
   </div>
-
   <div *ngIf="submitted">
     <h2>You created the following Initial Setup:</h2>
     <p><label>Mission : </label> {{returnObject.mission}}</p>
@@ -67,16 +100,17 @@
     <button class="btn btn-default" [routerLink]="['/strategic-goal',returnObject.id]">Add Objective</button>
   </div>
 </div>
-
 <div class="background paddingT-10" style="margin-top: -20px;">
   <div class="container" *ngIf="organizationInfo">
+    <h2>Strategic Goal</h2>
+    <hr>
     <div class="form-card" style="background:white">
       <img src="./app/images/cycle.png" class="center-box" width="100px">
-      <div class="center-align">
+      <h3 class="center-align">
         <span class="blue-text"> {{organizationInfo[0].cycles[0].startCycle}} </span>
         <b> To </b>
         <span class="red-text"> {{organizationInfo[0].cycles[0].endCycle}} </span>
-      </div>
+      </h3>
       <div class="panel panel-info">
         <div class="panel-heading">
           Mission
@@ -97,11 +131,11 @@
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-info" *ngFor="let val of organizationInfo[0].values;let i = index;">
           <div class="panel-heading" role="tab" id="headingOne">
-            <h4 class="panel-title">
+            <h3 class="panel-title">
               <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="true" aria-controls="collapseOne">
-          {{val.title}}
+                {{val.title}}
         </a>
-            </h4>
+            </h3>
           </div>
           <div id="collapse{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
@@ -125,14 +159,3 @@
     </div>
   </div>
 </div>
-<!--<div class="container" *ngIf="organizationInfo">
-  <h3><b>Cycle : </b>{{organizationInfo[0].cycles[0].startCycle}} - {{organizationInfo[0].cycles[0].endCycle}}</h3>
-  <h6><b>Mission : </b>{{organizationInfo[0].mission}}</h6>
-  <h6><b>Vision : </b>{{organizationInfo[0].vision}}</h6>
-  <h6><b>Values :</b></h6>
-  <div *ngFor="let val of organizationInfo[0].values;let i = index;">
-    <h6><b>Title :  </b>{{val.title}}</h6>
-    <h6><b>Description : </b>{{val.description}}</h6>
-  </div>
-  <button class="btn btn-default" [routerLink]="['/strategic-goal',organizationInfo[0].id]">Add Objective</button>
-</div>-->

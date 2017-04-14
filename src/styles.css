@@ -1,3 +1,8 @@
+body{
+    padding-top: 70px;
+    background:#ececec;
+    padding-bottom:70px;
+}
 :root {
   --main-color: #408eba;
 }
@@ -11,7 +16,7 @@
     margin-left:20px;
 }
 .background{
-    background:#f9f9f9;
+    background:#ececec;
     height: 100vh;
 }
 
@@ -54,7 +59,7 @@
     margin:0 10px 0 10px;
 }
 .marginT-20{
-    margin-top: -50px;
+    margin-top: 20px;
 }
 .marginT--50{
     margin-top: -50px;
@@ -89,6 +94,16 @@ hr{
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
+    background:white;
+    margin:5px;
+}
+.card-heading{
+    padding:10px;
+}
+.card-content{
+    padding:10px;
+}
+hr{
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -118,4 +133,50 @@ hr{
 }
 .center-align{
     text-align:center;
+}
+bWhite{
+    background:white;
+}
+
+
+
+/* Loader css */
+h4 {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  margin: 0;
+  font-weight: 200;
+  opacity: .5;
+	font-family: sans-serif;
+  color: #fff;
+}
+#loader {
+  width: 100px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -20px -50px;
+}
+#loader div {
+	width: 20px;
+  height: 20px;
+	background: var(--main-color);
+  border-radius: 50%;
+  position: absolute; 
+
+}
+#d1 { animation: animate 2s linear infinite;}
+#d2 { animation: animate 2s linear infinite -.4s; }
+#d3 {animation: animate 2s linear infinite -.8s; }
+#d4 { animation: animate 2s linear infinite -1.2s; } 
+#d5 { animation: animate 2s linear infinite -1.6s; }
+@-webkit-keyframes animate {
+  0% { left: 100px; top:0}
+  80% { left: 0; top:0;}
+  85% { left: 0; top: -20px; width: 20px; height: 20px;}
+  90% { width: 40px; height: 15px; }
+  95% { left: 100px; top: -20px; width: 20px; height: 20px;}
+  100% { left: 100px; top:0; }
 }

@@ -1,3 +1,109 @@
+<div class="container">
+    <h2>Strategic Goals</h2>
+  <hr>
+  <div class="card row"> 
+    <div class="col-lg-12 col-sm-12">
+      <div class="panel panel-info" *ngFor="let g of objectives; let i = index;">
+        <div class="panel-heading">{{g.objective}}</div>
+        <div class="panel-body">
+          <div class="row" *ngFor="let spi of g.spis; let j = index;">
+            <div class="col s12 m12">
+              <div class="card-panel" style="margin:1rem !important">
+                <span class="card-title"><i class="material-icons">label_outline</i><b>Strategic Performance indicator</b><i class="material-icons right">close</i></span>
+                <p style="    padding: 0 2rem !important;">{{spi.spi}}</p>
+                <b>CurrentLevel : </b>{{spi.currentLevel}}
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Target Digital</th>
+                    </tr>
+                  </thead>
+                  <thead>
+                    <tr>
+                      <th *ngFor="let y of spi.targetDigital">{{y.year}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td *ngFor="let td of spi.targetDigital;">{{td.level}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-info" [routerLink]="['/goal-initiative',g.id]">Add Initiative</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card row">
+  <form [formGroup]="goalForm" (submit)="onSubmit()" *ngIf="!submited">
+
+ <div class="form-group col-lg-s12 col-lg-12">
+    <label for="exampleInputEmail1">Objective</label>
+    <textarea id="textarea1" formControlName="objective" class="form-control" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+      <input type="etext" class="form-control" id="inputEmail3" placeholder="Email">
+    </div>
+      
+      <div class="form-group col-lg-s12 col-lg-12">
+        <label for="exampleInputEmail1">Total Cose</label>
+        <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>
+
+ <div class="card-panel row" *ngFor="let s of goalForm.controls.spis.controls;let i = index;" [formGroupName]="i">
+<h3>Strategic performance indicator</h3>
+     <div class="form-group col-lg-s12 col-lg-12">
+        <label for="exampleInputEmail1">Total Cost</label>
+        <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>
+     <div class="form-group col-lg-s12 col-lg-12">
+        <label for="exampleInputEmail1">Enter SPI </label>
+        <input id="textarea2" formControlName="spi" type="number" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>      
+ </div>
+  <label>Select Measure</label>
+ <select class="form-control" formControlName="measureUnit">
+  <option value="" disabled selected>1</option>
+  <option value="Percent">Percentage</option>
+  <option value="Decimal">Decimal</option>
+</select>
+
+     <div class="form-group col-lg-s12 col-lg-12">
+        <label for="exampleInputEmail1">Enter Current Level</label>
+        <input id="cur_level" type="text" class="validate" formControlName="currentLevel" class="form-control"placeholder="Email">
+      </div>  
+               <table>
+                  <thead>
+                    <tr>
+                      <th>Target Digital</th>
+                    </tr>
+                  </thead>
+                  <thead>
+                    <tr>
+                      <th>Year</th>
+                      <th>Level</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="targetDigital">
+                    <tr *ngFor="let td of goalForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;" [formGroupName]="m">
+                      <td>{{td.value.year}}</td>
+                      <td><input value="2011" id="level_'m'" type="text" class="validate" formControlName="level"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button type="button" (click)="addSpi()" class="btn btn-info">Add SPI</button>
+                <button type="submit" name="action" class="btn btn-info">Submit</button>
+  </form>
+  </div>
+</div>
+<!--
+
+
+
 <div class="row">
   <h3>Strategic Goals</h3>
   <ul class="collapsible popout" data-collapsible="accordion">
@@ -113,4 +219,4 @@
     <button type="button" class="waves-effect waves-light btn" (click)="addMoreObjective()">Add More Objeactive</button>
     <button type="button" class="waves-effect waves-light btn" [routerLink]="['/goal-initiative',orgId]">Add Initiative</button>
   </div>
-</div>
+</div>-->

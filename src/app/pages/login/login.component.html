@@ -1,8 +1,9 @@
+
 <form [formGroup]="loginForm" (submit)="onSubmit()" method="post">
   <hr />
   <h1>Login</h1>
   <input type="text"  name='username' id='username' formControlName="username" class="user" placeholder="username"/>
   <input type='password' name='password' id='password' formControlName="password" class="pass" placeholder="password"/>
   <input type="submit" class="btn" value="Sign in"/>
-  <a href="#">Can't access your account?</a>
+  <a href="#" style="float:left" class="marginT-20" >Can't access account?</a><a href="#" style="float:right" class="marginT-20">Sign Up</a>
 </form>
