@@ -1,4 +1,4 @@
-<div class="background row" *ngIf="!organizationInfo">
+<div class="background row" *ngIf="!organizationInfo[0].cycles">
   <div class="container main-content">
     <h2>Initial Setup</h2>
     <hr>
@@ -67,15 +67,15 @@
   </div>
 </div>
 <div class="background paddingT-10" style="margin-top: -20px;">
-  <div class="container" *ngIf="organizationInfo">
+  <div class="container" *ngIf="organizationInfo[0].cycles">
     <h2>Strategic Goal</h2>
     <hr>
     <div class="form-card" style="background:white">
       <img src="./app/images/cycle.png" class="center-box" width="100px">
       <h3 class="center-align">
-        <span class="blue-text"> {{organizationInfo[0].cycles[0].startCycle}} </span>
+        <span class="blue-text"> {{organizationInfo[0].cycles.startCycle}} </span>
         <b> To </b>
-        <span class="red-text"> {{organizationInfo[0].cycles[0].endCycle}} </span>
+        <span class="red-text"> {{organizationInfo[0].cycles.endCycle}} </span>
       </h3>
       <div class="panel panel-info">
         <div class="panel-heading">
