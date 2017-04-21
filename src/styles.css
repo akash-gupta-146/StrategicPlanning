@@ -4,7 +4,11 @@ body{
     padding-bottom:70px;
 }
 :root {
-  --main-color: #408eba;
+  --main-color: rebeccapurple;
+  --main-text-color: white;
+
+  --main-light-border:#e6e6e6;
+  --main-gray-text: #727272;
 }
 .main-color{
     background:var(--main-color);
