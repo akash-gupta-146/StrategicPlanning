@@ -51,11 +51,11 @@ export class HomeComponent implements AfterViewInit {
     for (var y = startYear; y <= endYear; y++)
       this.cycle.push(y);
 
-    this.cmvvForm.value['cycles'] = [];
-    this.cmvvForm.value.cycles.push({
+    this.cmvvForm.value['cycle'] = {};
+    this.cmvvForm.value.cycle ={
       "startCycle": this.cmvvForm.value.startCycle,
       "endCycle": this.cmvvForm.value.endCycle
-    });
+    };
     delete this.cmvvForm.value['startCycle'];
     delete this.cmvvForm.value['endCycle'];
     this.orgService.orgInitialSetup(this.cmvvForm.value).then(res => {
@@ -71,6 +71,10 @@ export class HomeComponent implements AfterViewInit {
   organizationInfo;
   getOrganizationInfo() {
     this.orgService.fetchOrganizationInfo().then(res => {
+      console.log(res);
+      if (res["mission"] === null || res["vision"] == null) {
+        return;
+      }
       this.organizationInfo = res.json();
       var startYear = new Date(this.organizationInfo[0].cycle.startCycle).getFullYear();
       var endYear = new Date(this.organizationInfo[0].cycle.endCycle).getFullYear();

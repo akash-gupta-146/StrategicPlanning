@@ -98,6 +98,7 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     console.log(this.goalForm.value);
     this.orgService.addObjective(this.orgId, this.orgInfo.cycles[0].id, this.goalForm.value).then(response => {
       console.log(response.json());
+      console.log(response)
       this.returnedObject = this.goalForm.value;
       this.objectives.push(this.returnedObject);
       this.resetForm();
