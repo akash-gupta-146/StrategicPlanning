@@ -27,7 +27,7 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     this.route.params.subscribe(param => {
       if (param['orgId']) this.orgId = param['orgId'];
     });
-    this.orgService.fetchObjectives(this.orgId,this.dataservice.objective.cycles[0].id).then(response =>{
+    this.orgService.fetchObjectives(this.orgId,this.dataservice.objective.cycles.id).then(response =>{
       this.objectives = response.json();
     },error =>{
 

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { OrganizationService } from '../../services/organization.service';
 import { DataService } from '../../services/data.service';
@@ -7,12 +7,12 @@ declare let $;
 @Component({
   selector: 'home',
   styleUrls: ['./home.component.css'],
-  templateUrl: './home.component.html',
-  providers: [OrganizationService]
+  templateUrl: './home.component.html'
 })
 
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit {
   cmvvForm: FormGroup;
+  showCycle:boolean = true;
   constructor(public formBuilder: FormBuilder,
     public orgService: OrganizationService,
     public dataservice: DataService) {
@@ -23,10 +23,12 @@ export class HomeComponent implements AfterViewInit {
       "vision": ['', [Validators.required]],
       "values": this.formBuilder.array([this.inItValue()])
     });
+    this.getCycle();
     this.getOrganizationInfo();
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
+    
   }
   inItValue() {
     return this.formBuilder.group({
@@ -68,16 +70,13 @@ export class HomeComponent implements AfterViewInit {
       console.log(error);
     })
   }
-  organizationInfo;
+  public organizationInfo = [];
   getOrganizationInfo() {
     this.orgService.fetchOrganizationInfo().then(res => {
-      console.log(res);
-      if (res["mission"] === null || res["vision"] == null) {
-        return;
-      }
       this.organizationInfo = res.json();
-      var startYear = new Date(this.organizationInfo[0].cycle.startCycle).getFullYear();
-      var endYear = new Date(this.organizationInfo[0].cycle.endCycle).getFullYear();
+      console.log(this.organizationInfo);
+      var startYear = new Date(this.organizationInfo[0].cycles.startCycle).getFullYear();
+      var endYear = new Date(this.organizationInfo[0].cycles.endCycle).getFullYear();
       for (var y = startYear; y <= endYear; y++)
         this.cycle.push(y);
       this.organizationInfo[0]['cycle']=this.cycle;
@@ -86,4 +85,16 @@ export class HomeComponent implements AfterViewInit {
       console.log(error);
     });
   }
+  orgCycle;
+  getCycle(){
+    this.orgService.getCycle().then(res =>{
+      this.orgCycle = res.json();
+      console.log("print nhi",this.orgCycle);
+    }, err =>{
+      console.log(err);
+      this.orgCycle = err.json();
+      console.log("print nhi",this.orgCycle);
+    })
+  }
+
 }
