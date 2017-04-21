@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CredentialService } from '../../services/credential.service';
-
+declare let $;
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -24,9 +24,18 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]]
     });
   }
+  ngAfterViewChecked() {
+     $("#login-button").click(function(event) {
+ 	event.preventDefault();
+
+ 	$('form').fadeOut(500);
+ 	$('.wrapper').addClass('form-success');
+ });
+  }  
   onSubmit() {
     this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
       this.verifySuccessfully(res);
+      localStorage.setItem("access_token", res.access_token);
       console.log("asfd",res);
       this.router.navigate(['/home']);
     }, (err) => {

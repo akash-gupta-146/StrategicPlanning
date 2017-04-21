@@ -44,10 +44,126 @@
         </div>
       </div>
     </div>
-    <form class="col-lg-12 col-sm-12" [formGroup]="goalForm" (submit)="onSubmit()" *ngIf="!submited">
+  </div>
+
+<form [formGroup]="goalForm" (submit)="onSubmit()" *ngIf="!submited">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="card">
+        <div class="card-heading">
+          New Goal
+        </div>
+        <hr>
+        <div class="card-content">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Objective</label>
+            <div class="col-sm-10">
+             <textarea class="form-control" rows="3" id="textarea1" formControlName="objective" ></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Total Cost</label>
+            <div class="col-sm-10">
+             <input class="form-control" id="total_cost" type="number" formControlName="totalCost" placeholder="2000">
+            </div>
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="card">
+        <div class="card-heading">
+          Strategic Performance Indicator
+        </div>
+        <hr>
+        <div class="card-content">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">SPI</label>
+            <div class="col-sm-10">
+             <input class="form-control" id="spi" type="number" formControlName="spi" placeholder="Add SPI">
+            </div>
+          </div>  
+          <div class="form-group">
+            <label>Measure</label>
+            <select formControlName="measureUnit" id="measure" class="form-control">
+              <option value="" disabled selected>Choose Measurement Unit</option>
+              <option value="Percent">Percent</option>
+              <option value="Decimal">Decimal</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-sm-12">
+      <div class="card">
+        <div class="card-heading">  
+          Current Level
+        </div>
+        <hr>
+        <div class="card-content">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Target Digital</th>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Level</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="targetDigital">
+              <tr *ngFor="let td of goalForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;" [formGroupName]="m">
+                <td>{{td.value.year}}</td>
+                <td><input value="2011" id="level_'m'" type="text" class="validate" formControlName="level"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+     <button type="button" class="btn btn-info btn-lg" (click)="addSpi()">Add SPI</button>
+      <button type="button" type="submit" name="action" class="btn btn-primary btn-lg">Submit</button>
+     </div>
+</form>
+
+<div class="col-lg-12 col-sm-12" *ngIf="submited">
+  <div class="card">
+    <div class="card-title">
+
+    </div>
+    <hr>
+  </div>
+</div>
+
+
+
+  <!--<div *ngIf="submited">
+    <h3>You have added...</h3>
+    <p><label>Objective : </label> {{returnedObject.objective}}</p>
+    <p><label>Total Cost</label> : {{returnedObject.totalCost}}</p>
+    <p><label>Spis:</label></p>
+    <div *ngFor="let s of returnedObject.spis;let i = index;">
+      <p><label>{{i}}) SPI :</label>{{s.spi}}</p>
+      <p><label> CurrentLevel :</label>{{s.currentLevel}}</p>
+      <p><label> Measure Unit :</label>{{s.measureUnit}}</p>
+      <div *ngFor="let t of s.targetDigital;let j = index;">
+        <p><label>{{t.year}} : </label>{{t.level}}</p>
+      </div>
+    </div>
+    <button type="button" class="waves-effect waves-light btn" (click)="addMoreObjective()">Add More Objeactive</button>
+    <button type="button" class="waves-effect waves-light btn" [routerLink]="['/goal-initiative',orgId]">Add Initiative</button>
+  </div>
+</div>-->
+
+
+
+  <!--<div class="card">
+    <form [formGroup]="goalForm" (submit)="onSubmit()" *ngIf="!submited">
       <div class="row">
         <div class="col-lg-12 col-sm-12">
-          <div class="card-panel ">
+          <div class="card-panel">
             <span class="card-title">New Goal<i class="material-icons right" (click)="addGoalForm = false">close</i></span>
             <div class="input-field col-lg-12 col-sm-12">
               <textarea id="textarea1" formControlName="objective" class="materialize-textarea" style="margin: 0 !important"></textarea>
@@ -74,7 +190,7 @@
                   </select>
                   </div>
                   <div class="input-field col-lg-12 col-sm-12">
-                    <input id="cur_level" type="text" class="validate" formControlName="currentLevel">
+                    <input id="cur_level" type="text" formControlName="currentLevel">
                     <label class="active" for="cur_level">Enter Current Level</label>
                   </div>
                   <table>
@@ -105,7 +221,8 @@
         </div>
       </div>
     </form>
-  </div>
+  </div>-->
+
   <div *ngIf="submited">
     <h3>You have added...</h3>
     <p><label>Objective : </label> {{returnedObject.objective}}</p>
