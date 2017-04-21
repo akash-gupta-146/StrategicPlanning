@@ -55,32 +55,32 @@
 <main>
   <div class="container-fluid">
     <div class="row content">
+      <!-- side bar -->
       <div class="col-sm-3 sidenav">
-        <h4>John's Blog</h4>
-        <ul class="nav nav-pills nav-stacked">
-          <li class="active"><a href="#section1">Home</a></li>
-          <li><a href="#section2">Friends</a></li>
-          <li><a href="#section3">Family</a></li>
-          <li><a href="#section3">Photos</a></li>
-        </ul><br>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search Blog..">
-          <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
-          </span>
+        <div class="sidebar-header">
+          <img class="sidebar-image center-box" src="https://www.thersa.org/globalassets/profile-images/staff/ben-dellot.jpg">
+          <div class="text-center">
+            <h5 class="text-white">Mr. Andrew Williams</h5>
+          </div>  
         </div>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="#section1"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+          <li><a href="#section2"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Friends</a></li>
+          <li><a href="#section3"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Family</a></li>
+          <li><a href="#section3"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Photos</a></li>
+        </ul><br>
       </div>
-
+      <!-- End of sidebar -->
+      <!-- Main content -->
       <div class="col-sm-9">
         <router-outlet></router-outlet>
       </div>
+      <!-- End of main content -->
     </div>
   </div>
 </main>
 <nav class="navbar navbar-default navbar-fixed-bottom bWhite">
   <div class="container">
-    <div class="center-align paddingT-10">Powered by <b>NxtLife Technologies Ltd.</b></div>
+    <div class="center-align paddingT-10">Powered by <b class="main-text-color">NxtLife Technologies Ltd.</b></div>
   </div>
 </nav>
