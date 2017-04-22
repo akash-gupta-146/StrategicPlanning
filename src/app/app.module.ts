@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core'
+import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RequestOptions, HttpModule, XHRBackend } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { rootRouterConfig } from './app.routes';
 import { CredentialService } from './services/credential.service';
@@ -9,7 +10,6 @@ import { DataService } from './services/data.service';
 import { LoggedInGuard } from './pages/login/login.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -19,7 +19,11 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GoalInitiative } from './pages/goal-initiative/initiative.component';
 import { Dashboard } from './pages/dashboard/dashboard.component';
 import { AddEmployee } from './pages/admin/employee/add.employee.component';
+
+// import service
+import { CustomHttpService } from './services/default.header.service';
 import { CommonService } from './services/common.service';
+import { OrganizationService2 } from './services/organization.service2';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,15 @@ import { CommonService } from './services/common.service';
     GoalService,
     DataService,
     LoggedInGuard,
-    CommonService
+    CommonService,
+    OrganizationService2,
+    {
+      provide: CustomHttpService,
+      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
+        return new CustomHttpService(backend, defaultOptions);
+      },
+      deps: [XHRBackend, RequestOptions]
+    }
   ],
   bootstrap: [AppComponent]
 })
