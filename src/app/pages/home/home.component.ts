@@ -92,8 +92,6 @@ export class HomeComponent implements OnInit {
       console.log("print nhi",this.orgCycle);
     }, err =>{
       console.log(err);
-      this.orgCycle = err.json();
-      console.log("print nhi",this.orgCycle);
     })
   }
 
