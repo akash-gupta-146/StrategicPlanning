@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
               public navService: NavService,
               private router: Router) {
     if (this.credentialService.isLoggedIn()) {
-      this.router.navigateByUrl("/dashboard");
+      this.router.navigateByUrl("/home");
     }
   }
 
