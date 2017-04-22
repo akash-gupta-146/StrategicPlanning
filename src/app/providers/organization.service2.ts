@@ -24,11 +24,36 @@ export class OrganizationService2 {
                     .catch(this.handleError);
   }
 
+  public fetchObjectives(orgId, cycleId) {
+    return this.http.get(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective")
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  public addObjective(orgId, cycleId, objective) {
+    return this.http.post(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective", objective)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  public addInitiative(universityId, cycleId, goalId, initiative) {
+    return this.http.post(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  public fetchInitiative(universityId, cycleId, goalId){
+    return this.http.get(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     if (res.status === 204) { return res; }
     let body = res.json();
     return body || { };
   }
+
 
   private handleError(error: Response | any) {
     let errMsg: string;

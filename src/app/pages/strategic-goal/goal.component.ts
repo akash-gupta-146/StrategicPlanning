@@ -2,8 +2,9 @@ import { Component, AfterViewInit, OnInit, AfterViewChecked } from '@angular/cor
 import { GoalService } from '../../services/goal.service';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OrganizationService } from '../../services/organization.service';
+import { OrganizationService2 } from '../../providers/organization.service2';
 import { DataService } from '../../services/data.service';
+import { CommonService } from '../../providers/common.service';
 
 declare let $;
 @Component({
@@ -22,13 +23,16 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   constructor(public goalService: GoalService,
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    public orgService: OrganizationService,
+    public orgService: OrganizationService2,
+    public commonService: CommonService,
     public dataservice: DataService) {
     this.route.params.subscribe(param => {
       if (param['orgId']) this.orgId = param['orgId'];
     });
-    this.orgService.fetchObjectives(this.orgId,this.dataservice.objective.cycles.id).then(response =>{
-      this.objectives = response.json();
+    let cycleId = commonService.getData('org_info')[0].cycles.id;
+    console.log("DSDA", cycleId);
+    this.orgService.fetchObjectives(this.orgId,cycleId).subscribe(response =>{
+      this.objectives = response;
     },error =>{
 
     });
@@ -46,8 +50,9 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     });
   }
   ngOnInit() {
-    this.orgInfo = this.dataservice.getObjective();
-    this.cycle = this.dataservice.objective.cycle;
+    // this.orgInfo = this.dataservice.getObjective();
+    this.cycle = this.commonService.getData('org_info')[0].cycle;
+    console.log("DSADASDAS", this.cycle)
   }
   ngAfterViewChecked() {
     // $('select').material_select();
@@ -82,7 +87,7 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   // }
   inItTarget() {
     const fa = [];
-    this.dataservice.objective.cycle.forEach(element => {
+    this.cycle.forEach(element => {
       fa.push(this.inItTargetDigital(element));
     });
     return fa;
@@ -96,9 +101,7 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   submited: boolean = false;
   onSubmit() {
     console.log(this.goalForm.value);
-    this.orgService.addObjective(this.orgId, this.orgInfo.cycles[0].id, this.goalForm.value).then(response => {
-      console.log(response.json());
-      console.log(response)
+    this.orgService.addObjective(this.orgId, this.orgInfo.cycles[0].id, this.goalForm.value).subscribe(response => {
       this.returnedObject = this.goalForm.value;
       this.objectives.push(this.returnedObject);
       this.resetForm();

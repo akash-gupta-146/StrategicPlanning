@@ -35,7 +35,7 @@ export class OrganizationService {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
   }  
-  fetchObjectives(orgId,cycleId){
+  fetchObjectives(orgId,cycleId){ 
     return this.http.get(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective")
     .toPromise()
     .then((response) => {

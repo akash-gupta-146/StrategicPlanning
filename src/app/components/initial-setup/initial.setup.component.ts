@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { OrganizationService } from '../../services/organization.service';
 import { DataService } from '../../services/data.service';
@@ -8,14 +8,16 @@ import { DataService } from '../../services/data.service';
   templateUrl: './initial.setup.component.html'
 })
 
-export class InitialSetup {
+export class InitialSetup implements OnInit {
 
   cmvvForm: FormGroup;
 
   constructor(public formBuilder: FormBuilder,
               public orgService: OrganizationService,
-              public dataservice: DataService) {
-    this.cmvvForm = this.formBuilder.group({
+              public dataservice: DataService) { }
+
+  ngOnInit() {
+     this.cmvvForm = this.formBuilder.group({
       "startCycle": ['', [Validators.required]],
       "endCycle": ['', [Validators.required]],
       "mission": ['', [Validators.required]],
