@@ -36,8 +36,8 @@ export class CredentialService {
 
   verifyUser(data: Object) {
     return this.http.post(this.baseUrl + "/login", data)
-      .map(this.extractData)
-      .catch(this.handleError);
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
   private extractData(res: Response) {

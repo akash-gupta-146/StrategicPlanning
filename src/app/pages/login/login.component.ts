@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialService } from '../../services/credential.service';
 import { CommonService } from '../../services/common.service';
+import { OrganizationService2 } from '../../services/organization.service2';
 declare let $;
 
 @Component({
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(public formBuilder: FormBuilder,
               private commonService: CommonService,
               public credentialService: CredentialService,
+              public org_ser: OrganizationService2,
               private router: Router) {
     if (this.credentialService.isLoggedIn()) {
       this.router.navigateByUrl("/dashboard");
@@ -44,9 +46,20 @@ export class LoginComponent implements OnInit {
   private onSubmit() {
     this.loginStart = true;
     this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
-      this.onSuccess(res);
+      this.getCycle(res);
+      // this.onSuccess(res);
     }, (err) => {
       this.onError();
+    });
+  }
+
+  public getCycle(data) {
+    console.log(data)
+    this.commonService.storeData("access_token", data.access_token);
+    this.org_ser.getCycle().subscribe((res) => {
+      console.log("AAAAAA", res)
+    }, (err) => {
+
     });
   }
 
