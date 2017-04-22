@@ -1,51 +1,65 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { CredentialService } from '../../services/credential.service';
+import { CommonService } from '../../services/common.service';
 declare let $;
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
+  loginStart: boolean = false;
+  error:boolean = false;
+
   constructor(public formBuilder: FormBuilder,
-    public credentialService: CredentialService,
-    private router: Router, ) {
+              private commonService: CommonService,
+              public credentialService: CredentialService,
+              private router: Router) {
     if (this.credentialService.isLoggedIn()) {
       this.router.navigateByUrl("/dashboard");
     }
   }
+
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required]]
     });
   }
-  ngAfterViewChecked() {
-     $("#login-button").click(function(event) {
- 	event.preventDefault();
 
- 	$('form').fadeOut(500);
- 	$('.wrapper').addClass('form-success');
- });
-  }  
-  onSubmit() {
-    this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
-      this.verifySuccessfully(res);
-      localStorage.setItem("access_token", res.access_token);
-      console.log("asfd",res);
-      this.router.navigate(['/home']);
-    }, (err) => {
-      this.verifyFailed(err);
+  ngAfterViewChecked() {
+    $("#login-button").click(function(event) {
+      event.preventDefault();
+      $('form').fadeOut(500);
+      $('.wrapper').addClass('form-success');
     });
   }
-  public verifySuccessfully(res) {
-    localStorage.setItem("access_token", res.access_token);
+
+  private onSubmit() {
+    this.loginStart = true;
+    this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
+      this.onSuccess(res);
+    }, (err) => {
+      this.onError();
+    });
   }
-  public verifyFailed(err) {
-    
+
+  public onSuccess(data) {
+    this.loginStart = false;
+    this.router.navigate(['/home']);
+    this.commonService.storeData("access_token", data.access_token);
   }
+
+  public onError() {
+    this.loginStart = false;
+    this.error = true;
+  }
+
 }
+
