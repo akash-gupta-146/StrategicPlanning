@@ -40,7 +40,7 @@ export class GoalInitiative implements AfterViewInit{
     });
   }
   ngAfterViewInit() {
-    $('.collapsible').collapsible();
+    // $('.collapsible').collapsible();
   }
   addActivity() {
     const control = <FormArray>this.initiativeForm.controls['activities'];
