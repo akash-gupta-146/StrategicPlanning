@@ -56,24 +56,24 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public getCycle(data) {
-    this.commonService.storeData("access_token", data.access_token);
+  public getCycle(user_info) {
+    this.commonService.storeData("access_token", user_info.access_token);
     this.org_ser.getCycle().subscribe((res) => {
-      this.fetchOrganizationInfo(res);
+      this.fetchOrganizationInfo(user_info, res);
     }, (err) => {
       this.onError();
     });
   }
 
-  public fetchOrganizationInfo(data) {
+  public fetchOrganizationInfo(user_info, data) {
     this.org_ser.fetchOrganizationInfo().subscribe((res) => {
-      this.buildData(data, res);
+      this.buildData(user_info, data, res);
     }, (err) => {
       this.onError();
     });
   }
 
-  public buildData(org_cycle, info) {
+  public buildData(user_info, org_cycle, info) {
     let cycle = [];
     let org_info = info;
     var startYear = new Date(org_info[0].cycles.startCycle).getFullYear();
@@ -82,6 +82,12 @@ export class LoginComponent implements OnInit {
       cycle.push(y);
     }
     org_info[0]['cycle'] = cycle;
+    this.storeDataToLocalStorage(user_info, org_cycle, org_info);
+  }
+
+  public storeDataToLocalStorage(user_info, org_cycle, org_info) {
+    this.commonService.storeData("user_departmentInfo", user_info.departmentInfo)
+    this.commonService.storeData("user_roleInfo", user_info.roleInfo)
     this.commonService.storeData("org_cycle", org_cycle);
     this.commonService.storeData("org_info", org_info);
     this.onSuccess();
