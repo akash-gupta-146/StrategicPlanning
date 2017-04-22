@@ -40,7 +40,7 @@ import { OrganizationService2 } from './providers/organization.service2';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: true })
+    RouterModule.forRoot(rootRouterConfig)
   ],
   providers: [
     CredentialService,
