@@ -18,12 +18,6 @@ export class OrganizationService2 {
     this.baseUrl = con.baseUrl;
   }
 
-  public getCycle(): Observable<any> {
-    return this.http.get(this.baseUrl + "/planner/university/1/cycle")
-                    .map(this.extractData)
-                    .catch(this.handleError);
-  }
-
   public fetchOrganizationInfo() {
     return this.http.get(this.baseUrl + "/university")
                     .map(this.extractData)
