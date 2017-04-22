@@ -20,6 +20,7 @@ import { GoalInitiative } from './pages/goal-initiative/initiative.component';
 import { Dashboard } from './pages/dashboard/dashboard.component';
 import { AddEmployee } from './pages/admin/employee/add.employee.component';
 import { InitialSetup } from './pages/initial-setup/initial.setup.component';
+import { HODComponent } from './pages/hod/hod.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { InitialSetup } from './pages/initial-setup/initial.setup.component';
     StrategicGoal,
     GoalInitiative,
     AddEmployee,
-    InitialSetup
+    InitialSetup,
+    HODComponent
   ],
   imports: [
     BrowserModule,
