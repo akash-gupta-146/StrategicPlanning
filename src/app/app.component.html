@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top bWhite" style="margin-bottom: 0px !important;" *ngIf="loggedIn">
+<nav class="navbar navbar-default navbar-fixed-top bWhite" style="margin-bottom: 0px !important;" *ngIf="isLoggedIn()">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -23,7 +23,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
         <li><a><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> </a></li>
-        <li><a [routerLink]="['/home']">Home </a></li>
+        <li><a [routerLink]="['/dashboard']">Home </a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Role<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -56,7 +56,7 @@
   <div class="container-fluid">
     <div class="row content">
       <!-- side bar -->
-      <div class="col-sm-3 sidenav" *ngIf="loggedIn">
+      <div class="col-sm-3 sidenav" *ngIf="isLoggedIn()">
         <div class="sidebar-header">
           <img class="sidebar-image center-box" src="https://www.thersa.org/globalassets/profile-images/staff/ben-dellot.jpg">
           <div class="text-center">

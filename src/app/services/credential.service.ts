@@ -26,7 +26,7 @@ export class CredentialService {
   }
 
   isLoggedIn() {
-    let access_token = localStorage.getItem("access_token");
+    let access_token = localStorage.getItem("org_cycle");
     if (access_token) {
       return !this.login;
     } else {

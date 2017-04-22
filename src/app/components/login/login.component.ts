@@ -77,9 +77,7 @@ export class LoginComponent implements OnInit {
 
   public onSuccess() {
     this.loginStart = false;
-    this.userLogin.emit("user:login");
-    this.navService.emitNavChangeEvent("user:login");
-    // this.router.navigate(['/home']);
+    this.router.navigate(['/home']);
   }
 
   public onError() {
