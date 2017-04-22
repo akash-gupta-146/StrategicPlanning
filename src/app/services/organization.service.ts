@@ -35,22 +35,25 @@ export class OrganizationService {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
   }  
-  fetchObjectives(orgId,cycleId){ 
-    return this.http.get(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective")
+  fetchObjectives(orgId,cycleId){
+    var options = this.conf.getHeaderWithWeb();
+    return this.http.get(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective",options)
     .toPromise()
     .then((response) => {
       return Promise.resolve(response);
     }).catch((err) => { return Promise.reject(err); });
   }
   addInitiative(universityId, cycleId, goalId, initiative) {
-    return this.http.post(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative)
+    var options = this.conf.getHeaderWithWeb();
+    return this.http.post(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative,options)
       .toPromise()
       .then((response) => {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
   }
   fetchInitiative(universityId, cycleId, goalId){
-    return this.http.get(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
+    var options = this.conf.getHeaderWithWeb();
+    return this.http.get(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative",options)
     .toPromise()
     .then((response) => {
       return Promise.resolve(response);

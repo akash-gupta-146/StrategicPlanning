@@ -20,6 +20,7 @@ import { GoalInitiative } from './pages/goal-initiative/initiative.component';
 import { Dashboard } from './pages/dashboard/dashboard.component';
 import { AddEmployee } from './pages/admin/employee/add.employee.component';
 import { InitialSetup } from './components/initial-setup/initial.setup.component';
+import { HODComponent } from './pages/hod/hod.component';
 
 // import service
 import { CustomHttpService } from './providers/default.header.service';
@@ -36,7 +37,8 @@ import { NavService } from './providers/event.service';
     StrategicGoal,
     GoalInitiative,
     AddEmployee,
-    InitialSetup
+    InitialSetup,
+    HODComponent
   ],
   imports: [
     BrowserModule,
