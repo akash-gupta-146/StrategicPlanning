@@ -21,9 +21,9 @@ import { Dashboard } from './pages/dashboard/dashboard.component';
 import { AddEmployee } from './pages/admin/employee/add.employee.component';
 
 // import service
-import { CustomHttpService } from './services/default.header.service';
-import { CommonService } from './services/common.service';
-import { OrganizationService2 } from './services/organization.service2';
+import { CustomHttpService } from './providers/default.header.service';
+import { CommonService } from './providers/common.service';
+import { OrganizationService2 } from './providers/organization.service2';
 
 @NgModule({
   declarations: [

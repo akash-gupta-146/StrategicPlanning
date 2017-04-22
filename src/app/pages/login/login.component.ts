@@ -2,8 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialService } from '../../services/credential.service';
-import { CommonService } from '../../services/common.service';
-import { OrganizationService2 } from '../../services/organization.service2';
+import { CommonService } from '../../providers/common.service';
+import { OrganizationService2 } from '../../providers/organization.service2';
 declare let $;
 
 @Component({
