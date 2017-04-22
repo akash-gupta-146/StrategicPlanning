@@ -1,10 +1,14 @@
+    main{
+      margin-right: 15px;
+    
+    }
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 100vh}
     
     /* Set gray background color and 100% height */
     .sidenav {
       background:white;
-      height: 100%;
+      height: 110%;
       padding: 0px;
     }
     
@@ -58,7 +62,7 @@
 
 .nav li{
   border-top:2px solid var(--main-light-border);
-
+  padding-left:20px;
 }
 
 .nav li a:hover{
