@@ -13,7 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { StrategicGoal } from './pages/strategic-goal/goal.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GoalInitiative } from './pages/goal-initiative/initiative.component';

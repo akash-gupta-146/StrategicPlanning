@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { OrganizationService } from '../../services/organization.service';
 import { DataService } from '../../services/data.service';
+import { CommonService } from '../../providers/common.service';
 
 declare let $;
 @Component({
@@ -11,18 +12,23 @@ declare let $;
 })
 
 export class HomeComponent implements OnInit {
+
   constructor(public formBuilder: FormBuilder,
-    public orgService: OrganizationService,
-    public dataservice: DataService) {
-    this.getCycle();
-    this.getOrganizationInfo();
+              public orgService: OrganizationService,
+              public commonService: CommonService,
+              public dataservice: DataService) {
+    // this.getCycle();
+    // this.getOrganizationInfo();
   }
 
   ngOnInit() {
-
+    this.organizationInfo = this.commonService.getData('org_info');
   }
+
   cycle = [];
+
   public organizationInfo = [];
+
   getOrganizationInfo() {
     this.orgService.fetchOrganizationInfo().then(res => {
       this.organizationInfo = res.json();
@@ -37,7 +43,9 @@ export class HomeComponent implements OnInit {
       console.log(error);
     });
   }
+
   orgCycle;
+
   getCycle() {
     this.orgService.getCycle().then(res => {
       this.orgCycle = res.json();

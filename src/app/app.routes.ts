@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuard } from './components/login/login.guard';
 import { StrategicGoal } from './pages/strategic-goal/goal.component';
