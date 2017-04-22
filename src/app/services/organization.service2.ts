@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Response } from '@angular/http';
+import { Response, Http } from '@angular/http';
 import { CommonService } from './common.service';
 import { CustomHttpService } from './default.header.service';
 
@@ -18,8 +18,14 @@ export class OrganizationService2 {
     this.baseUrl = con.baseUrl;
   }
 
-  getCycle(): Observable<any> {
+  public getCycle(): Observable<any> {
     return this.http.get(this.baseUrl + "/planner/university/1/cycle")
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  public fetchOrganizationInfo() {
+    return this.http.get(this.baseUrl + "/university")
                     .map(this.extractData)
                     .catch(this.handleError);
   }

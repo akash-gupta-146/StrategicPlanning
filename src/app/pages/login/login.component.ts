@@ -47,26 +47,32 @@ export class LoginComponent implements OnInit {
     this.loginStart = true;
     this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
       this.getCycle(res);
-      // this.onSuccess(res);
     }, (err) => {
       this.onError();
     });
   }
 
   public getCycle(data) {
-    console.log(data)
     this.commonService.storeData("access_token", data.access_token);
     this.org_ser.getCycle().subscribe((res) => {
-      console.log("AAAAAA", res)
+      this.fetchOrganizationInfo();
     }, (err) => {
-
+      this.onError();
     });
   }
 
-  public onSuccess(data) {
+  public fetchOrganizationInfo() {
+    this.org_ser.fetchOrganizationInfo().subscribe((res) => {
+      console.log("AAAAAA", res);
+      this.onSuccess();
+    }, (err) => {
+      this.onError();
+    });
+  }
+
+  public onSuccess() {
     this.loginStart = false;
-    this.router.navigate(['/home']);
-    this.commonService.storeData("access_token", data.access_token);
+    // this.router.navigate(['/home']);
   }
 
   public onError() {
