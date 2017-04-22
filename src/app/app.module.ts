@@ -25,6 +25,7 @@ import { InitialSetup } from './pages/initial-setup/initial.setup.component';
 import { CustomHttpService } from './providers/default.header.service';
 import { CommonService } from './providers/common.service';
 import { OrganizationService2 } from './providers/organization.service2';
+import { NavService } from './providers/event.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { OrganizationService2 } from './providers/organization.service2';
     LoggedInGuard,
     CommonService,
     OrganizationService2,
+    NavService,
     {
       provide: CustomHttpService,
       useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {

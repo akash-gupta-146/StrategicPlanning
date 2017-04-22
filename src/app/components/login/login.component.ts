@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CredentialService } from '../../services/credential.service';
 import { CommonService } from '../../providers/common.service';
 import { OrganizationService2 } from '../../providers/organization.service2';
+import { NavService } from '../../providers/event.service';
 declare let $;
 
 @Component({
@@ -18,10 +19,13 @@ export class LoginComponent implements OnInit {
   loginStart: boolean = false;
   error:boolean = false;
 
+  @Output() userLogin: EventEmitter<any> = new EventEmitter();
+
   constructor(public formBuilder: FormBuilder,
               private commonService: CommonService,
               public credentialService: CredentialService,
               public org_ser: OrganizationService2,
+              public navService: NavService,
               private router: Router) {
     if (this.credentialService.isLoggedIn()) {
       this.router.navigateByUrl("/dashboard");
@@ -73,7 +77,9 @@ export class LoginComponent implements OnInit {
 
   public onSuccess() {
     this.loginStart = false;
-    this.router.navigate(['/home']);
+    this.userLogin.emit("user:login");
+    this.navService.emitNavChangeEvent("user:login");
+    // this.router.navigate(['/home']);
   }
 
   public onError() {
