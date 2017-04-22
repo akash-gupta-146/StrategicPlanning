@@ -19,7 +19,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GoalInitiative } from './pages/goal-initiative/initiative.component';
 import { Dashboard } from './pages/dashboard/dashboard.component';
 import { AddEmployee } from './pages/admin/employee/add.employee.component';
-import { InitialSetup } from './pages/initial-setup/initial.setup.component';
+import { InitialSetup } from './components/initial-setup/initial.setup.component';
 
 // import service
 import { CustomHttpService } from './providers/default.header.service';

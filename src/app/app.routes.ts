@@ -6,7 +6,7 @@ import { LoggedInGuard } from './components/login/login.guard';
 import { StrategicGoal } from './pages/strategic-goal/goal.component';
 import { GoalInitiative } from './pages/goal-initiative/initiative.component';
 import { Dashboard } from './pages/dashboard/dashboard.component';
-import { InitialSetup } from './pages/initial-setup/initial.setup.component';
+import { InitialSetup } from './components/initial-setup/initial.setup.component';
 
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
