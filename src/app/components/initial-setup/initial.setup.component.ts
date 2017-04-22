@@ -1,17 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { OrganizationService } from '../../services/organization.service';
 import { DataService } from '../../services/data.service';
+
 @Component({
   selector: 'initial-setup',
   templateUrl: './initial.setup.component.html'
 })
-export class InitialSetup {
+
+export class InitialSetup implements OnInit {
+
   cmvvForm: FormGroup;
+
   constructor(public formBuilder: FormBuilder,
-    public orgService: OrganizationService,
-    public dataservice: DataService) {
-    this.cmvvForm = this.formBuilder.group({
+              public orgService: OrganizationService,
+              public dataservice: DataService) { }
+
+  ngOnInit() {
+     this.cmvvForm = this.formBuilder.group({
       "startCycle": ['', [Validators.required]],
       "endCycle": ['', [Validators.required]],
       "mission": ['', [Validators.required]],
@@ -19,23 +25,28 @@ export class InitialSetup {
       "values": this.formBuilder.array([this.inItValue()])
     });
   }
+
   inItValue() {
     return this.formBuilder.group({
       "title": ['', [Validators.required]],
       "description": ['', [Validators.required]]
     });
   }
+
   removeValue(index) {
     const control = <FormArray>this.cmvvForm.controls['values'];
     control.removeAt(index);
   }
+
   addValue() {
     const control = <FormArray>this.cmvvForm.controls['values'];
     control.push(this.inItValue());
   }
+
   returnObject;
   cycle = [];
   submitted: boolean = false;
+
   onSubmit() {
     var startYear = new Date(this.cmvvForm.value.startCycle).getFullYear();
     var endYear = new Date(this.cmvvForm.value.endCycle).getFullYear();
@@ -59,4 +70,5 @@ export class InitialSetup {
       console.log(error);
     })
   }
+
 }

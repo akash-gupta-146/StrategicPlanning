@@ -9,7 +9,7 @@
     <div class="card" *ngIf="!submited">
       <div class="card-content">
         <span class="card-title">Add Initiatives for Strategic Goal</span>
-        <p>{{dataservice.objective.objective}}</p>
+        <!--<p>{{dataservice.objective.objective}}</p>-->
       </div>
       <div class="card-action">
         <div class="row">
@@ -78,7 +78,7 @@
                           <table class="bordered centered">
                             <thead>
                               <tr>
-                                <th colspan="3">{{dataservice.objective.cycle[0]}} - {{dataservice.objective.cycle[dataservice.objective.cycle.length-1]}}
+                                <th colspan="3">{{commonService.getData('org_info')[0].cycle[0]}} - {{commonService.getData('org_info')[0].cycle[0][commonService.getData('org_info')[0].cycle.length-1]}}
                                   Annual Target</th>
                               </tr>
                             </thead>

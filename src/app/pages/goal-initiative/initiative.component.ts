@@ -1,8 +1,9 @@
 import { Component, AfterViewInit, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { OrganizationService } from '../../services/organization.service';
+import { OrganizationService2 } from '../../providers/organization.service2';
 import { DataService } from '../../services/data.service';
+import { CommonService } from '../../providers/common.service';
 declare let $;
 
 @Component({
@@ -21,7 +22,8 @@ export class GoalInitiative implements AfterViewInit{
   initiativeForm: FormGroup;
   constructor(private route: ActivatedRoute,
     public formBuilder: FormBuilder,
-    private orgService: OrganizationService,
+    private orgService: OrganizationService2,
+    private commonService: CommonService,
     private dataservice: DataService) {
     this.initiativeForm = this.formBuilder.group({
       "initiative": ['', [Validators.required]],
@@ -31,16 +33,20 @@ export class GoalInitiative implements AfterViewInit{
     this.route.params.subscribe(param => {
       if (param['goalId']) this.goalId = param['goalId'];
     });
-    this.orgService.fetchInitiative(this.dataservice.objective.id,this.dataservice.objective.cycles.id,this.goalId)
-    .then(response =>{
+    this.orgService.fetchInitiative(commonService.getData('org_info')[0].id, commonService.getData('org_info')[0].cycles.id,this.goalId)
+    .subscribe(response =>{
+      if (response.status === 204) {
+        return
+      }
       console.log(response);
-      this.initiatives = response.json();
+      this.initiatives = response;
     },error =>{
       console.log(error);
     });
+    this.cycle = commonService.getData('org_info')[0].cycle;
   }
   ngAfterViewInit() {
-    $('.collapsible').collapsible();
+    // $('.collapsible').collapsible();
   }
   addActivity() {
     const control = <FormArray>this.initiativeForm.controls['activities'];
@@ -76,7 +82,7 @@ export class GoalInitiative implements AfterViewInit{
   }
   setAnnualTarget() {
     const annualTarget = [];
-    this.dataservice.objective.cycle.forEach(element => {
+    this.cycle.forEach(element => {
       annualTarget.push(this.inItTarget(element));
     });
     return annualTarget;
@@ -89,7 +95,7 @@ export class GoalInitiative implements AfterViewInit{
     });
   }
   setTargetTable(form, e) {
-    for (var index = 0; index < this.dataservice.objective.cycle.length; index++) {
+    for (var index = 0; index < this.cycle.length; index++) {
       form[index].controls['levels'] = this.formBuilder.array([]);
       const levels = <FormArray>form[index].controls['levels'];
       for (var i = 0; i < e; i++) {
@@ -106,14 +112,14 @@ export class GoalInitiative implements AfterViewInit{
   returnObject;
   submited:boolean = false;
   submitInitiative() {
-    this.orgId = this.dataservice.objective.id;
-    this.cycleId = this.dataservice.objective.cycles.id;
+    this.orgId = this.commonService.getData('org_info')[0].id;
+    this.cycleId = this.commonService.getData('org_info')[0].cycles.id;
     delete this.initiativeForm.value['activities'][0].departments;
     console.log("object", this.initiativeForm.value);
-    this.orgService.addInitiative(this.orgId, this.cycleId, this.goalId, this.initiativeForm.value).then(res => {
+    this.orgService.addInitiative(this.orgId, this.cycleId, this.goalId, this.initiativeForm.value).subscribe(res => {
       this.submited = true;
       this.initiatives.push(this.initiativeForm.value);
-      this.returnObject = res.json();
+      this.returnObject = res;
       console.log("afsd", res);
     }, err => {
       console.log(err);
