@@ -9,7 +9,8 @@ export class OrganizationService {
     this.baseUrl = this.conf.baseUrl;
   }
   orgInitialSetup(data) {
-    return this.http.post(this.baseUrl + "/planner/university/1/initialSetup", data).toPromise()
+    var options = this.conf.getHeaderWithWeb();
+    return this.http.post(this.baseUrl + "/planner/university/1/initialSetup", data, options).toPromise()
       .then((response) => {
         return Promise.resolve(response);
       }).catch((err) => { return Promise.reject(err); });
@@ -35,7 +36,8 @@ export class OrganizationService {
       }).catch((err) => { return Promise.reject(err); });
   }  
   fetchObjectives(orgId,cycleId){
-    return this.http.get(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective")
+    var options = this.conf.getHeaderWithWeb();
+    return this.http.get(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective",options)
     .toPromise()
     .then((response) => {
       return Promise.resolve(response);
@@ -50,6 +52,14 @@ export class OrganizationService {
   }
   fetchInitiative(universityId, cycleId, goalId){
     return this.http.get(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
+    .toPromise()
+    .then((response) => {
+      return Promise.resolve(response);
+    }).catch((err) => { return Promise.reject(err); });
+  }
+  getCycle(){
+    var options = this.conf.getHeaderWithWeb();
+    return this.http.get(this.baseUrl + "/planner/university/1/cycle",options)
     .toPromise()
     .then((response) => {
       return Promise.resolve(response);

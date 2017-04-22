@@ -6,6 +6,7 @@ import { ConfigurationService } from './services/configuration.service';
 import { GoalService } from './services/goal.service';
 import { OrganizationService } from './services/organization.service';
 import { DataService } from './services/data.service';
+import { LoggedInGuard } from './pages/login/login.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -18,6 +19,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GoalInitiative } from './pages/goal-initiative/initiative.component';
 import { Dashboard } from './pages/dashboard/dashboard.component';
 import { AddEmployee } from './pages/admin/employee/add.employee.component';
+import { InitialSetup } from './pages/initial-setup/initial.setup.component';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { AddEmployee } from './pages/admin/employee/add.employee.component';
     StrategicGoal,
     GoalInitiative,
     AddEmployee,
+    InitialSetup
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,8 @@ import { AddEmployee } from './pages/admin/employee/add.employee.component';
     ConfigurationService,
     OrganizationService,
     GoalService,
-    DataService
+    DataService,
+    LoggedInGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,228 +1,199 @@
-<div class="container">
-  <h2>Strategic Goals</h2>
-  <hr>
-  <div class="card row">
-    <div class="col-lg-12 col-sm-12 panel-group" id="accordion" role="tablist" aria-multiselectable="true" *ngFor="let g of objectives; let i = index;">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h3 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+<h3>Strategic Goals</h3>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" *ngFor="let g of objectives; let i = index;">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <b class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{i}}" aria-expanded="true" aria-controls="collapseOne">
           {{g.objective}}
         </a>
-          </h3>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <div class="row" *ngFor="let spi of g.spis; let j = index;">
-              <div class="col-lg-12 col-sm-12">
-                <div class="card-panel" style="margin:1rem !important">
-                  <span class="card-title"><i class="material-icons">label_outline</i><b>Strategic Performance indicator</b><i class="material-icons right">close</i></span>
-                  <p style="    padding: 0 2rem !important;">{{spi.spi}}</p>
-                  <b>CurrentLevel : </b>{{spi.currentLevel}}
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Target Digital</th>
-                      </tr>
-                    </thead>
-                    <thead>
-                      <tr>
-                        <th *ngFor="let y of spi.targetDigital">{{y.year}}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td *ngFor="let td of spi.targetDigital;">{{td.level}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+      </b>
+    </div>
+    <div id="collapseOne{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="row">
+          <div class="row" *ngFor="let spi of g.spis; let j = index;">
+            <div class="col-lg-12">
+              <div class="card">
+                <span class="card-title"><i class="material-icons">label_outline</i><b>Strategic Performance indicator</b><i class="material-icons right">close</i></span>
+                <p style="    padding: 0 2rem !important;">{{spi.spi}}</p>
+                <b>CurrentLevel : </b>{{spi.currentLevel}}
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Target Digital</th>
+                    </tr>
+                  </thead>
+                  <thead>
+                    <tr>
+                      <th *ngFor="let y of spi.targetDigital">{{y.year}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td *ngFor="let td of spi.targetDigital;">{{td.level}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-            <button type="button" class="btn btn-info" [routerLink]="['/goal-initiative',g.id]">Add Initiative</button>
           </div>
+          <a class="waves-effect waves-light btn" style="float: right;right: 25px;" [routerLink]="['/goal-initiative',g.id]">Add Initiative</a>
         </div>
       </div>
     </div>
   </div>
-
-<form [formGroup]="goalForm" (submit)="onSubmit()" *ngIf="!submited">
+</div>
+<div class="container">
   <div class="row">
-    <div class="col-lg-6 col-sm-12">
-      <div class="card">
-        <div class="card-heading">
-          New Goal
-        </div>
-        <hr>
-        <div class="card-content">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Objective</label>
-            <div class="col-sm-10">
-             <textarea class="form-control" rows="3" id="textarea1" formControlName="objective" ></textarea>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Total Cost</label>
-            <div class="col-sm-10">
-             <input class="form-control" id="total_cost" type="number" formControlName="totalCost" placeholder="2000">
-            </div>
-          </div>          
-        </div>
+    <form [formGroup]="goalForm" >
+      <div class="row">
+          <b>New Goal</b>
       </div>
-    </div>
-    <div class="col-lg-6 col-sm-12">
-      <div class="card">
-        <div class="card-heading">
-          Strategic Performance Indicator
-        </div>
-        <hr>
-        <div class="card-content">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">SPI</label>
-            <div class="col-sm-10">
-             <input class="form-control" id="spi" type="number" formControlName="spi" placeholder="Add SPI">
-            </div>
-          </div>  
-          <div class="form-group">
-            <label>Measure</label>
-            <select formControlName="measureUnit" id="measure" class="form-control">
+      <div class="col-lg-12 col-sm-12">
+        <label class="control-label">Enter Objective</label>
+        <textarea class="form-control" rows="3" formControlName="objective"></textarea>
+      </div>
+      <div class="col-lg-12 col-sm-12">
+        <label class="control-label">Total Estimated Cost</label>
+        <input type="number" class="form-control" placeholder="20000" formControlName="totalCost">
+      </div>
+      <div formArrayName="spis">
+        <div class="row" *ngFor="let s of goalForm.controls.spis.controls;let i = index;" [formGroupName]="i">
+          <b>Strategic Performance indicator</b>
+          <div class="col-lg-12 col-sm-12">
+            <label class="control-label">Enter Spi</label>
+            <textarea class="form-control" rows="3" formControlName="spi"></textarea>
+          </div>
+          <div class="col-lg-12 col-sm-12">
+            <label class="control-label">Select Measure</label>
+            <select class="form-control" formControlName="measureUnit">
               <option value="" disabled selected>Choose Measurement Unit</option>
               <option value="Percent">Percent</option>
               <option value="Decimal">Decimal</option>
-            </select>
+            </select>  
+          </div>
+          <div class="col-lg-12 col-sm-12">
+            <label class="active" >Enter Current Level</label>
+            <input type="text" class="form-control" formControlName="currentLevel">                  
+          </div>
+          <div class="col-lg-12 col-sm-12" formArrayName="targetDigital">
+            <label class="control-label">Target Digital</label>
+            <div class="col-lg-6 col-sm-12" *ngFor="let td of goalForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;" [formGroupName]="m">
+              <div class="row">
+                <div class="col-lg-4 col-sm-6">{{td.value.year}}</div>
+                <div class="col-lg-4 col-sm-6"><input type="text" class="validate" formControlName="level"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-12 col-sm-12">
-      <div class="card">
-        <div class="card-heading">  
-          Current Level
-        </div>
-        <hr>
-        <div class="card-content">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Target Digital</th>
-              </tr>
-            </thead>
-            <thead>
-              <tr>
-                <th>Year</th>
-                <th>Level</th>
-              </tr>
-            </thead>
-            <tbody formArrayName="targetDigital">
-              <tr *ngFor="let td of goalForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;" [formGroupName]="m">
-                <td>{{td.value.year}}</td>
-                <td><input value="2011" id="level_'m'" type="text" class="validate" formControlName="level"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-     <button type="button" class="btn btn-info btn-lg" (click)="addSpi()">Add SPI</button>
-      <button type="button" type="submit" name="action" class="btn btn-primary btn-lg">Submit</button>
-     </div>
-</form>
-
-<div class="col-lg-12 col-sm-12" *ngIf="submited">
-  <div class="card">
-    <div class="card-title">
-
-    </div>
-    <hr>
+      <button type="button" class="btn" (click)="addSpi()">Add SPI</button>
+      <button class="btn" type="button" (click)="onSubmit()">Submit</button>
+    </form>
   </div>
 </div>
-
-
-
-  <!--<div *ngIf="submited">
-    <h3>You have added...</h3>
-    <p><label>Objective : </label> {{returnedObject.objective}}</p>
-    <p><label>Total Cost</label> : {{returnedObject.totalCost}}</p>
-    <p><label>Spis:</label></p>
-    <div *ngFor="let s of returnedObject.spis;let i = index;">
-      <p><label>{{i}}) SPI :</label>{{s.spi}}</p>
-      <p><label> CurrentLevel :</label>{{s.currentLevel}}</p>
-      <p><label> Measure Unit :</label>{{s.measureUnit}}</p>
-      <div *ngFor="let t of s.targetDigital;let j = index;">
-        <p><label>{{t.year}} : </label>{{t.level}}</p>
+<!--<div class="row">
+  <h3>Strategic Goals</h3>
+  <ul class="collapsible popout" data-collapsible="accordion">
+    <li *ngFor="let g of objectives; let i = index;">
+      <div class="collapsible-header active"><b>{{g.objective}}</b><i class="material-icons right" style="margin-right: 0rem;">close</i></div>
+      <div class="collapsible-body">
+        <div class="row">
+          <div class="row" *ngFor="let spi of g.spis; let j = index;">
+            <div class="col s12 m12">
+              <div class="card-panel" style="margin:1rem !important">
+                <span class="card-title"><i class="material-icons">label_outline</i><b>Strategic Performance indicator</b><i class="material-icons right">close</i></span>
+                <p style="    padding: 0 2rem !important;">{{spi.spi}}</p>
+                <b>CurrentLevel : </b>{{spi.currentLevel}}
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Target Digital</th>
+                    </tr>
+                  </thead>
+                  <thead>
+                    <tr>
+                      <th *ngFor="let y of spi.targetDigital">{{y.year}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td *ngFor="let td of spi.targetDigital;">{{td.level}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <a class="waves-effect waves-light btn" style="float: right;right: 25px;" [routerLink]="['/goal-initiative',g.id]">Add Initiative</a>
+        </div>
       </div>
-    </div>
-    <button type="button" class="waves-effect waves-light btn" (click)="addMoreObjective()">Add More Objeactive</button>
-    <button type="button" class="waves-effect waves-light btn" [routerLink]="['/goal-initiative',orgId]">Add Initiative</button>
-  </div>
-</div>-->
-
-
-
-  <!--<div class="card">
-    <form [formGroup]="goalForm" (submit)="onSubmit()" *ngIf="!submited">
-      <div class="row">
-        <div class="col-lg-12 col-sm-12">
-          <div class="card-panel">
-            <span class="card-title">New Goal<i class="material-icons right" (click)="addGoalForm = false">close</i></span>
-            <div class="input-field col-lg-12 col-sm-12">
-              <textarea id="textarea1" formControlName="objective" class="materialize-textarea" style="margin: 0 !important"></textarea>
-              <label for="textarea1">Enter Objective</label>
-            </div>
-            <div class="input-field col-lg-12 col-sm-12">
-              <input id="total_cost" type="number" class="validate" formControlName="totalCost">
-              <label class="active" for="total_cost">Total Cost</label>
-            </div>
-            <div class="card-action">
-              <div formArrayName="spis">
-                <div class="card-panel row" *ngFor="let s of goalForm.controls.spis.controls;let i = index;" [formGroupName]="i">
-                  <span class="card-title activator">Strategic Performance indicator<i class="material-icons right" (click)="removeSpi(i)">close</i></span>
-                  <div class="input-field col-lg-12 col-sm-12">
-                    <textarea id="textarea2" formControlName="spi" class="materialize-textarea" style="margin: 0 !important"></textarea>
-                    <label for="textarea2">Enter SPI</label>
-                  </div>
-                  <div class="col-lg-12 col-sm-12">
-                    <label>Select Measure</label>
-                    <select formControlName="measureUnit">
+    </li>
+  </ul>
+  <form class="col s12" [formGroup]="goalForm" (submit)="onSubmit()" *ngIf="!submited">
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="card-panel ">
+          <span class="card-title">New Goal<i class="material-icons right" (click)="addGoalForm = false">close</i></span>
+          <div class="input-field col s12">
+            <textarea id="textarea1" formControlName="objective" class="materialize-textarea" style="margin: 0 !important"></textarea>
+            <label for="textarea1">Enter Objective</label>
+            <div>*objective is required</div>
+          </div>
+          <div class="input-field col s12">
+            <input id="total_cost" type="number" class="validate" formControlName="totalCost">
+            <label class="active" for="total_cost">Total Cost</label>
+            <div>*enter a valid total cost</div>
+          </div>
+          <div class="card-action">
+            <div formArrayName="spis">
+              <div class="card-panel row" *ngFor="let s of goalForm.controls.spis.controls;let i = index;" [formGroupName]="i">
+                <span class="card-title activator">Strategic Performance indicator<i class="material-icons right" (click)="removeSpi(i)">close</i></span>
+                <div class="input-field col s12">
+                  <textarea id="textarea2" formControlName="spi" class="materialize-textarea" style="margin: 0 !important"></textarea>
+                  <label for="textarea2">Enter SPI</label>
+                  <div>*SPI is required</div>
+                </div>
+                <div class="col s12">
+                  <label>Select Measure</label>
+                  <select formControlName="measureUnit">
                     <option value="" disabled selected>Choose Measurement Unit</option>
                     <option value="Percent">Percent</option>
                     <option value="Decimal">Decimal</option>
-                  </select>
-                  </div>
-                  <div class="input-field col-lg-12 col-sm-12">
-                    <input id="cur_level" type="text" formControlName="currentLevel">
-                    <label class="active" for="cur_level">Enter Current Level</label>
-                  </div>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Target Digital</th>
-                      </tr>
-                    </thead>
-                    <thead>
-                      <tr>
-                        <th>Year</th>
-                        <th>Level</th>
-                      </tr>
-                    </thead>
-                    <tbody formArrayName="targetDigital">
-                      <tr *ngFor="let td of goalForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;" [formGroupName]="m">
-                        <td>{{td.value.year}}</td>
-                        <td><input value="2011" id="level_'m'" type="text" class="validate" formControlName="level"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  </select>                  
                 </div>
+                <div class="input-field col s12">
+                  <input id="cur_level" type="text" class="validate" formControlName="currentLevel">
+                  <label class="active" for="cur_level">Enter Current Level</label>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Target Digital</th>
+                    </tr>
+                  </thead>
+                  <thead>
+                    <tr>
+                      <th>Year</th>
+                      <th>Level</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="targetDigital">
+                    <tr *ngFor="let td of goalForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;" [formGroupName]="m">
+                      <td>{{td.value.year}}</td>
+                      <td><input value="2011" id="level_'m'" type="text" class="validate" formControlName="level"></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <button type="button" class="waves-effect waves-light btn" (click)="addSpi()">Add SPI</button>
-              <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
             </div>
+            <button type="button" class="waves-effect waves-light btn" (click)="addSpi()">Add SPI</button>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
           </div>
         </div>
       </div>
-    </form>
-  </div>-->
-
+    </div>
+  </form>
   <div *ngIf="submited">
     <h3>You have added...</h3>
     <p><label>Objective : </label> {{returnedObject.objective}}</p>
@@ -239,4 +210,4 @@
     <button type="button" class="waves-effect waves-light btn" (click)="addMoreObjective()">Add More Objeactive</button>
     <button type="button" class="waves-effect waves-light btn" [routerLink]="['/goal-initiative',orgId]">Add Initiative</button>
   </div>
-</div>
+</div>-->
