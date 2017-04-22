@@ -31,7 +31,7 @@ export class GoalInitiative implements AfterViewInit{
     this.route.params.subscribe(param => {
       if (param['goalId']) this.goalId = param['goalId'];
     });
-    this.orgService.fetchInitiative(this.dataservice.objective.id,this.dataservice.objective.cycles[0].id,this.goalId)
+    this.orgService.fetchInitiative(this.dataservice.objective.id,this.dataservice.objective.cycles.id,this.goalId)
     .then(response =>{
       console.log(response);
       this.initiatives = response.json();
@@ -107,7 +107,7 @@ export class GoalInitiative implements AfterViewInit{
   submited:boolean = false;
   submitInitiative() {
     this.orgId = this.dataservice.objective.id;
-    this.cycleId = this.dataservice.objective.cycles[0].id;
+    this.cycleId = this.dataservice.objective.cycles.id;
     delete this.initiativeForm.value['activities'][0].departments;
     console.log("object", this.initiativeForm.value);
     this.orgService.addInitiative(this.orgId, this.cycleId, this.goalId, this.initiativeForm.value).then(res => {
