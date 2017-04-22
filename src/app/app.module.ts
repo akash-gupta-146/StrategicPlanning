@@ -7,12 +7,12 @@ import { ConfigurationService } from './services/configuration.service';
 import { GoalService } from './services/goal.service';
 import { OrganizationService } from './services/organization.service';
 import { DataService } from './services/data.service';
-import { LoggedInGuard } from './pages/login/login.guard';
+import { LoggedInGuard } from './components/login/login.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { StrategicGoal } from './pages/strategic-goal/goal.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { LoggedInGuard } from './pages/login/login.guard';
+import { LoginComponent } from './components/login/login.component';
+import { LoggedInGuard } from './components/login/login.guard';
 import { StrategicGoal } from './pages/strategic-goal/goal.component';
 import { GoalInitiative } from './pages/goal-initiative/initiative.component';
 import { Dashboard } from './pages/dashboard/dashboard.component';
