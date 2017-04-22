@@ -1,17 +1,25 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CredentialService } from './services/credential.service';
-import { OrganizationService} from './services/organization.service';
-declare let $;
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app',
   templateUrl: './app.component.html',
   styleUrls:['./app.component.css']
 })
-export class AppComponent implements AfterViewInit{
-  constructor(private credentialService: CredentialService) {}
+
+export class AppComponent {
+
+  constructor(private credentialService: CredentialService,
+              private router: Router) { }
+
   isLoggedIn() {
     return this.credentialService.isLoggedIn();
   }
-  ngAfterViewInit(){
+
+  logout() {
+    localStorage.clear();
+    this.router.navigateByUrl("/login");
   }
+
 }
