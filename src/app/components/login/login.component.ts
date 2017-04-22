@@ -55,15 +55,16 @@ export class LoginComponent implements OnInit {
   public getCycle(data) {
     this.commonService.storeData("access_token", data.access_token);
     this.org_ser.getCycle().subscribe((res) => {
-      this.fetchOrganizationInfo();
+      this.fetchOrganizationInfo(res);
     }, (err) => {
       this.onError();
     });
   }
 
-  public fetchOrganizationInfo() {
+  public fetchOrganizationInfo(data) {
     this.org_ser.fetchOrganizationInfo().subscribe((res) => {
-      console.log("AAAAAA", res);
+      this.commonService.storeData("org_cycle", data);
+      this.commonService.storeData("org_info", res);
       this.onSuccess();
     }, (err) => {
       this.onError();
