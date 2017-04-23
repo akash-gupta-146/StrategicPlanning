@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { OrganizationService } from '../../services/organization.service';
 import { DataService } from '../../services/data.service';
+import { CommonService } from '../../providers/common.service';
 
 @Component({
   selector: 'initial-setup',
@@ -14,7 +15,8 @@ export class InitialSetup implements OnInit {
 
   constructor(public formBuilder: FormBuilder,
               public orgService: OrganizationService,
-              public dataservice: DataService) { }
+              public dataservice: DataService,
+              public commonService: CommonService,) { }
 
   ngOnInit() {
      this.cmvvForm = this.formBuilder.group({
@@ -64,7 +66,7 @@ export class InitialSetup implements OnInit {
       this.returnObject = res.json();
       this.submitted = true;
       this.returnObject['cycle'] = this.cycle;
-      // this.dataservice.objective = this.returnObject;
+      this.commonService.storeData('org_info',this.returnObject)
       this.dataservice.setObjective(this.returnObject);
     }, (error) => {
       console.log(error);
