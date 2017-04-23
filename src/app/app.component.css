@@ -62,7 +62,6 @@
 
 .nav li{
   border-top:2px solid var(--main-light-border);
-  padding-left:20px;
 }
 
 .nav li a:hover{
