@@ -13,6 +13,11 @@ body{
 
   --main-light-border:#e6e6e6;
   --main-gray-text: #727272;
+
+  --main-heading-text: #31769c;
+}
+h1,h2,h3,h4,h5,h6{
+    color: var(--main-heading-text);
 }
 .main-color{
     background:var(--main-color);
@@ -189,3 +194,22 @@ h4 {
 .hover-orange:hover{
     color:orange;
 }
+
+/* Loader styles */
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+.loading-text{
+    text-align:center;
+    color:#007282;
+    font-weight:bold;
+}
+/* End of Loader styles */
