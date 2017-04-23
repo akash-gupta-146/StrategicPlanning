@@ -1,18 +1,141 @@
 <div class="background row">
-  <h2>Strategic Goals</h2>
+  <h2>Initiative</h2>
   <!-- Present Initiatives list -->
-  <div class="panel-group col-lg-12 col-sm-12" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel-group col-lg-12 col-sm-12" id="accordion1" role="tablist" aria-multiselectable="true">
     <div class="panel panel-info" *ngFor="let ini of initiatives;let i=index;">
       <div class="panel-heading" role="tab" id="headingOne">
         <b class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#initiative{{i}}" aria-expanded="true" aria-controls="collapseOne">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewinitiative{{i}}" aria-expanded="true" aria-controls="collapseOne">
             {{ini.initiative}}
           </a>
         </b>
       </div>
-      <div id="initiative{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div id="viewinitiative{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
-          Initiative detail will come here .....
+          <div class="row">
+            <p><b>Total Cost : </b>{{ini.totalCost}}</p>
+            <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-info" *ngFor="let act of ini.activities;let p = index;">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <b class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewActivity{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                      Activity {{ i+1 }}
+                    </a>
+                  </b>
+                </div>
+                <div id="viewActivity{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    <p> {{act.activity}}</p>
+                    <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
+                      <div class="panel panel-info" *ngFor="let measr of act.measures;let me = index;">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <b class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewMeasure{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                              Measure {{ me+1 }}
+                            </a>
+                          </b>
+                        </div>
+                        <div id="viewMeasure{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-lg-4 col-sm-12">
+                                <b>Description:</b> {{measr.measure}}
+                              </div>
+                              <div class="col-lg-4 col-sm-12">
+                                <b>Current Level:</b> {{measr.currentLevel}}
+                              </div>
+                              <div class="col-lg-4 col-sm-12">
+                                <b>Frequency:</b> {{measr.frequency}}
+                              </div>                            
+                            </div>
+                            <div class="row marginT-20">
+                              <div class="center-align"><b> Annual Target</b></div>
+                                <div class="row jumbotron" *ngFor="let td of measr.annualTarget;let at = index;">
+                                  <div class="row">
+                                    <div class="col-lg-4 col-sm-12">
+                                      <b>Year:</b> {{ td.year }}
+                                    </div>
+                                    <div class="col-lg-4 col-sm-12">
+                                      <b>Cost:</b> {{td.cost}}
+                                    </div>    
+                                    <div class="col-lg-4 col-sm-12">
+                                      <b>Total Levels:</b> {{td.levels.length}}
+                                    </div>                                        
+                                  </div>
+                                  <div class="row marginT-20" *ngFor="let lev of td.levels; let in = index;">
+                                    <div class="col-lg-3 col-sm-12">
+                                        <b>Level:</b> {{ lev.level }}
+                                    </div>                        
+                                    <div class="col-lg-3 col-sm-12">
+                                        <b>Quarter:</b> {{ lev.quarter }}
+                                    </div>                        
+                                    <div class="col-lg-3 col-sm-12">
+                                        <b>Start Date:</b> start date
+                                    </div>                        
+                                    <div class="col-lg-3 col-sm-12">
+                                        <b>End Date:</b> end date
+                                    </div> 
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+            
+            <!--<p><b>Activities : ╗</b></p>
+            <div *ngFor="let act of ini.activities;let p = index;">
+              <p><b>{{p + 1}}) Activity:</b>{{act.activity}}</p>
+              <p><b>Measures : ╗</b></p>
+              <div *ngFor="let measr of act.measures;let me = index;">
+                <p><b>{{me + 1}}) Measure:</b>{{measr.measure}}</p>
+                <p><b>Current Level:</b>{{measr.currentLevel}}</p>
+                <p><b>Frequency:</b>{{measr.frequency}}</p>
+                <p><b>Annual Target : ╗</b></p>
+                <div class="row">
+                  <div class="row" *ngFor="let td of measr.annualTarget;let at = index;">
+                    <div class="row">
+                      <div class="col-lg-4 col-sm-12">
+                        Year: {{ td.year }}
+                      </div>
+                      <div class="col-lg-4 col-sm-12">
+                        Cost: {{td.cost}}
+                      </div>    
+                      <div class="col-lg-4 col-sm-12">
+                        Level: {{td.levels.length}}
+                      </div>                                        
+                    </div>
+                    <div class="row" *ngFor="let lev of td.levels; let in = index;">
+                       <div class="col-lg-3 col-sm-12">
+                          Level: {{ lev.level }}
+                       </div>                        
+                       <div class="col-lg-3 col-sm-12">
+                           Quarter:{{ lev.quarter }}
+                       </div>                        
+                       <div class="col-lg-3 col-sm-12">
+                          Start Date: start date
+                       </div>                        
+                       <div class="col-lg-3 col-sm-12">
+                         End Date: end date
+                       </div> 
+                    </div>
+                  </div>
+                </div>-->
+              
+            </div>
+          </div> 
         </div>
       </div>
     </div>
@@ -25,16 +148,16 @@
     <div class="card-content row">
       <form class="col-lg-12 col-sm-12" [formGroup]="initiativeForm" (submit)="submitInitiative()">
         <div class="row">
-          <div class="panel-group col-lg-12 col-sm-12" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel-group col-lg-12 col-sm-12" id="accordion4" role="tablist" aria-multiselectable="true">
             <div class="panel panel-info">
               <div class="panel-heading" role="tab" id="headingOne">
                 <b class="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#addInitiative" aria-expanded="true" aria-controls="collapseOne">
                     Proposed Initiative / Initiative
                   </a>
                 </b>
               </div>
-              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div id="addInitiative" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
                   <div class="col-lg-6 col-sm-12">
                     <label class="control-label">Proposed Initiative / Initiative</label>
@@ -50,7 +173,7 @@
                   </div>
                   <div class="card card-panel marginT-20" formArrayName="activities">
                     <div *ngFor="let act of initiativeForm.controls.activities.controls;let i = index;" [formGroupName]="i" class="panel-group col-lg-12 col-sm-12"
-                      id="accordion" role="tablist" aria-multiselectable="true">
+                      id="accordion5" role="tablist" aria-multiselectable="true">
                       <hr>
                       <div class="panel panel-info">
                         <div class="panel-heading" role="tab">
@@ -79,18 +202,18 @@
                             </div>
                             <div class="row marginT-20">
                               <div formArrayName="measures">
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel-group" id="accordion6" role="tablist" aria-multiselectable="true">
                                   <div class="panel panel-info" *ngFor="let measureAct of initiativeForm.controls.activities.controls[i].controls.measures.controls;let j = index;"
                                     [formGroupName]="j">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                       <b class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#setMeasure{{i}}" aria-expanded="true" aria-controls="collapseOne">
                          Set Measure {{ i+1 }} For The Activity
                         </a>
                         <span class="glyphicon glyphicon-remove hover-orange pull-right" (click)="removeMeasure(initiativeForm.controls.activities.controls[i],j)" aria-hidden="true"></span>
                       </b>
                                     </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div id="setMeasure{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                       <div class="panel-body">
                                         <div class="row">
                                           <div class="col-lg-4 col-sm-12">
