@@ -91,11 +91,16 @@ export class LoginComponent implements OnInit {
 
   // Check if user loggedIn or not
   public userRedirectTo() {
+    let user_roleInfo = this.commonService.getData("user_roleInfo");
     let org_info = this.commonService.getData("org_info");
-    if (org_info[0].cycles === null) {
-      this.router.navigate(['/initial-setup']);
-    } else {
-      this.router.navigate(['/home']);
+    if(user_roleInfo[0].roleId == 2){      
+      if (org_info[0].cycles === null) {
+        this.router.navigate(['/initial-setup']);
+      } else {
+        this.router.navigate(['/home']);
+      }
+    } else if(user_roleInfo[0].roleId == 4){
+      this.router.navigate(['/hod-home-page']);
     }
   }
 

@@ -87,7 +87,7 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   // }
   inItTarget() {
     const fa = [];
-    this.cycle.forEach(element => {
+    this.commonService.getData('org_info')[0].cycle.forEach(element => {
       fa.push(this.inItTargetDigital(element));
     });
     return fa;

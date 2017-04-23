@@ -82,7 +82,7 @@ export class GoalInitiative implements AfterViewInit{
   }
   setAnnualTarget() {
     const annualTarget = [];
-    this.cycle.forEach(element => {
+    this.commonService.getData('org_info')[0].cycle.forEach(element => {
       annualTarget.push(this.inItTarget(element));
     });
     return annualTarget;
@@ -95,7 +95,7 @@ export class GoalInitiative implements AfterViewInit{
     });
   }
   setTargetTable(form, e) {
-    for (var index = 0; index < this.cycle.length; index++) {
+    for (var index = 0; index < this.commonService.getData('org_info')[0].cycle.length; index++) {
       form[index].controls['levels'] = this.formBuilder.array([]);
       const levels = <FormArray>form[index].controls['levels'];
       for (var i = 0; i < e; i++) {
@@ -106,6 +106,8 @@ export class GoalInitiative implements AfterViewInit{
   inItLevels(q) {
     return this.formBuilder.group({
       "quarter": [q + "quarter"],
+      "startDate": ["2017-04-01"],
+      "endDate":["2018-04-15"],
       "level": ['', [Validators.required]]
     });
   }

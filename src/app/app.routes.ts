@@ -3,10 +3,11 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoggedInGuard } from './components/login/login.guard';
-import { StrategicGoal } from './pages/strategic-goal/goal.component';
-import { GoalInitiative } from './pages/goal-initiative/initiative.component';
+import { StrategicGoal } from './components/strategic-goal/goal.component';
+import { GoalInitiative } from './components/goal-initiative/initiative.component';
 import { Dashboard } from './pages/dashboard/dashboard.component';
 import { InitialSetup } from './components/initial-setup/initial.setup.component';
+import { HODComponent } from './pages/hod/hod.component';
 
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const rootRouterConfig: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [LoggedInGuard] },
   { path: 'strategic-goal', component: StrategicGoal, canActivate: [LoggedInGuard] },
   { path: 'strategic-goal/:orgId', component: StrategicGoal, canActivate: [LoggedInGuard] },
-  { path: 'goal-initiative/:goalId', component: GoalInitiative, canActivate: [LoggedInGuard] }
+  { path: 'goal-initiative/:goalId', component: GoalInitiative, canActivate: [LoggedInGuard] },
+  { path: 'hod-home-page', component: HODComponent, canActivate: [LoggedInGuard]}
 ];
 

@@ -48,6 +48,12 @@ export class OrganizationService2 {
                     .catch(this.handleError);
   }
 
+  public fetchAssignedActivity(){
+    return this.http.get("/hod/department/" + this.con.getData('user_departmentInfo')[0].departmentId+"/activity")
+                    .map(this.extractData)
+                    .catch(this.handleError); 
+  }
+
   private extractData(res: Response) {
     if (res.status === 204) { return res; }
     let body = res.json();
