@@ -10,7 +10,7 @@
       </h3>
       <div class="panel panel-info">
         <div class="panel-heading">
-          Mission
+          <b class="panel-title">Mission</b>
         </div>
         <div class="panel-body">
           {{organizationInfo[0].mission}}
@@ -18,19 +18,19 @@
       </div>
       <div class="panel panel-info">
         <div class="panel-heading">
-          Vision
+          <b class="panel-title">Vision</b>
         </div>
         <div class="panel-body">
           {{organizationInfo[0].vision}}
         </div>
       </div>
-      <span class="text-primary center-align"><b>Values</b></span>
+      <!--<span class="text-primary center-align"><b>Values</b></span>-->
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-info" *ngFor="let val of organizationInfo[0].values;let i = index;">
           <div class="panel-heading" role="tab" id="headingOne">
             <h3 class="panel-title">
               <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" aria-expanded="true" aria-controls="collapseOne">
-                {{val.title}}</a>
+                Value {{i+1}} - {{val.title}}</a>
             </h3>
           </div>
           <div id="collapse{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
