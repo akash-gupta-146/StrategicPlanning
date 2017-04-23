@@ -49,7 +49,7 @@ export class OrganizationService2 {
   }
 
   public fetchAssignedActivity(){
-    return this.http.get("/hod/department/" + this.con.getData('user_departmentInfo')[0].departmentId+"/activity")
+    return this.http.get(this.baseUrl + "/hod/department/" + this.con.getData('user_departmentInfo')[0].departmentId+"/activity")
                     .map(this.extractData)
                     .catch(this.handleError); 
   }
