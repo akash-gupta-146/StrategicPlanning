@@ -70,10 +70,10 @@
                                         <b>Quarter:</b> {{ lev.quarter }}
                                     </div>                        
                                     <div class="col-lg-3 col-sm-12">
-                                        <b>Start Date:</b> start date
+                                        <b>Start Date:</b> {{ lev.startDate }}
                                     </div>                        
                                     <div class="col-lg-3 col-sm-12">
-                                        <b>End Date:</b> end date
+                                        <b>End Date:</b> {{ lev.endDate }}
                                     </div> 
                                   </div>
                                 </div>
@@ -89,50 +89,6 @@
               </div>
             </div>
 
-
-
-
-
-
-            
-            <!--<p><b>Activities : ╗</b></p>
-            <div *ngFor="let act of ini.activities;let p = index;">
-              <p><b>{{p + 1}}) Activity:</b>{{act.activity}}</p>
-              <p><b>Measures : ╗</b></p>
-              <div *ngFor="let measr of act.measures;let me = index;">
-                <p><b>{{me + 1}}) Measure:</b>{{measr.measure}}</p>
-                <p><b>Current Level:</b>{{measr.currentLevel}}</p>
-                <p><b>Frequency:</b>{{measr.frequency}}</p>
-                <p><b>Annual Target : ╗</b></p>
-                <div class="row">
-                  <div class="row" *ngFor="let td of measr.annualTarget;let at = index;">
-                    <div class="row">
-                      <div class="col-lg-4 col-sm-12">
-                        Year: {{ td.year }}
-                      </div>
-                      <div class="col-lg-4 col-sm-12">
-                        Cost: {{td.cost}}
-                      </div>    
-                      <div class="col-lg-4 col-sm-12">
-                        Level: {{td.levels.length}}
-                      </div>                                        
-                    </div>
-                    <div class="row" *ngFor="let lev of td.levels; let in = index;">
-                       <div class="col-lg-3 col-sm-12">
-                          Level: {{ lev.level }}
-                       </div>                        
-                       <div class="col-lg-3 col-sm-12">
-                           Quarter:{{ lev.quarter }}
-                       </div>                        
-                       <div class="col-lg-3 col-sm-12">
-                          Start Date: start date
-                       </div>                        
-                       <div class="col-lg-3 col-sm-12">
-                         End Date: end date
-                       </div> 
-                    </div>
-                  </div>
-                </div>-->
               
             </div>
           </div> 

@@ -20,7 +20,8 @@ import { GoalInitiative } from './components/goal-initiative/initiative.componen
 import { Dashboard } from './pages/dashboard/dashboard.component';
 import { AddEmployee } from './pages/admin/employee/add.employee.component';
 import { InitialSetup } from './components/initial-setup/initial.setup.component';
-import { HODComponent } from './pages/hod/hod.component';
+import { HODComponent } from './components/hod/hod.component';
+import { QuarterResult } from './components/hod/result/quarter.result.component';
 
 // import service
 import { CustomHttpService } from './providers/default.header.service';
@@ -38,7 +39,8 @@ import { NavService } from './providers/event.service';
     GoalInitiative,
     AddEmployee,
     InitialSetup,
-    HODComponent
+    HODComponent,
+    QuarterResult
   ],
   imports: [
     BrowserModule,
