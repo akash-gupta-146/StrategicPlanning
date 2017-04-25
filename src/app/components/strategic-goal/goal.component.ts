@@ -32,17 +32,14 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     let cycleId = commonService.getData('org_info')[0].cycles.id;
     console.log("DSDA", cycleId);
     this.orgService.fetchObjectives(this.orgId,cycleId).subscribe(response =>{
-      this.objectives = response;
+      if(response.status === 204) {
+        this.objectives = [];
+      } else {
+        this.objectives = response;
+      }
     },error =>{
 
     });
-    // this.orgService.fetchOrganizationInfoById(this.orgId).then(res => {
-    //   this.orgInfo = res.json();
-    //   this.getCycle(this.orgInfo.cycles);
-    //   console.log(this.orgInfo);
-    // }, (err) => {
-    //   console.log(err);
-    // });
     this.goalForm = this.formBuilder.group({
       "objective": ['', [Validators.required]],
       "totalCost": ['', [Validators.required]],
@@ -50,13 +47,12 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     });
   }
   ngOnInit() {
-    // this.orgInfo = this.dataservice.getObjective();
     this.cycle = this.commonService.getData('org_info')[0].cycle;
-    console.log("DSADASDAS", this.cycle)
   }
+
   ngAfterViewChecked() {
-    // $('select').material_select();
   }
+
   inItSpi() {
     return this.formBuilder.group({
       "spi": ['', [Validators.required]],
@@ -65,26 +61,24 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
       "targetDigital": this.formBuilder.array(this.inItTarget()),
     });
   }
+
   inItTargetDigital(year) {
     return this.formBuilder.group({
       "year": [year, [Validators.required]],
       "level": ['', [Validators.required]],
     });
   }
+
   addSpi() {
     const control = <FormArray>this.goalForm.controls['spis'];
     control.push(this.inItSpi());
   }
+
   removeSpi(index) {
     const control = <FormArray>this.goalForm.controls['spis'];
     control.removeAt(index);
   }
-  // getCycle(cycles) {
-  //   var startYear = new Date(cycles[0].startCycle).getFullYear();
-  //   var endYear = new Date(cycles[this.orgInfo.cycles.length - 1].endCycle).getFullYear();
-  //   for (var y = startYear; y <= endYear; y++)
-  //     this.cycle.push(y);
-  // }
+
   inItTarget() {
     const fa = [];
     this.commonService.getData('org_info')[0].cycle.forEach(element => {
@@ -102,7 +96,8 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   onSubmit() {
     console.log(this.goalForm.value);
     this.orgService.addObjective(this.orgId, this.commonService.getData('org_info')[0].cycles.id, this.goalForm.value).subscribe(response => {
-      this.returnedObject = this.goalForm.value;
+      // this.returnedObject = this.goalForm.value;
+      this.returnedObject = response;
       this.objectives.push(this.returnedObject);
       this.resetForm();
       this.submited = true;

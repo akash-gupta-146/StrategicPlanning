@@ -1,5 +1,5 @@
 <div class="background row">
-  <div class="container main-content" *ngIf="!submitted">
+  <div class="container main-content">
     <h2>Initial Setup</h2>
     <hr>
     <div class="card col-lg-12 col-sm-12 col-md-12 padding-10">
@@ -54,7 +54,7 @@
       </form>
     </div>
   </div>
-  <div *ngIf="submitted">
+  <!--<div *ngIf="submitted">
     <h2>You created the following Initial Setup:</h2>
     <p><label>Mission : </label> {{returnObject.mission}}</p>
     <p><label>Vision : </label> {{returnObject.vision}}</p>
@@ -64,5 +64,5 @@
       <p><label>Description : </label> {{val.description}}</p>
     </div>
     <button class="btn btn-default" [routerLink]="['/strategic-goal',returnObject.id]">Add Objective</button>
-  </div>
+  </div>-->
 </div>

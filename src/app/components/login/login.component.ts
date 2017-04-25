@@ -50,6 +50,9 @@ export class LoginComponent implements OnInit {
   private onSubmit() {
     this.loginStart = true;
     this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
+      this.commonService.storeData("access_token", res.access_token);
+      this.commonService.storeData("user_departmentInfo", res.departmentInfo)
+      this.commonService.storeData("user_roleInfo", res.roleInfo);
       this.fetchOrganizationInfo(res);
     }, (err) => {
       this.onError();
@@ -57,31 +60,33 @@ export class LoginComponent implements OnInit {
   }
 
   public fetchOrganizationInfo(user_info) {
-    this.commonService.storeData("access_token", user_info.access_token);
     this.org_ser.fetchOrganizationInfo().subscribe((res) => {
-      this.buildData(user_info, res);
+      if(res[0].cycles) {
+        this.buildData(res);
+      } else {
+         this.commonService.storeData("org_info", res);
+        this.onSuccess();
+      }
+      this.onSuccess();    
     }, (err) => {
       this.onError();
     });
   }
 
-  public buildData(user_info, info) {
-    let cycle = [];
-    let org_info = info;
-    var startYear = new Date(org_info[0].cycles.startCycle).getFullYear();
-    var endYear = new Date(org_info[0].cycles.endCycle).getFullYear();
-    for (var y = startYear; y <= endYear; y++) {
-      cycle.push(y);
-    }
-    org_info[0]['cycle'] = cycle;
-    this.storeDataToLocalStorage(user_info, org_info);
+  public buildData(info) {
+      let cycle = [];
+      let org_info = info;
+      var startYear = new Date(org_info[0].cycles.startCycle).getFullYear();
+      var endYear = new Date(org_info[0].cycles.endCycle).getFullYear();
+      for (var y = startYear; y <= endYear; y++) {
+        cycle.push(y);
+      }
+      org_info[0]['cycle'] = cycle;
+      this.commonService.storeData("org_info", org_info);
   }
 
   public storeDataToLocalStorage(user_info, org_info) {
-    this.commonService.storeData("user_departmentInfo", user_info.departmentInfo)
-    this.commonService.storeData("user_roleInfo", user_info.roleInfo)
-    this.commonService.storeData("org_info", org_info);
-    this.onSuccess();
+    
   }
 
   public onSuccess() {
@@ -99,7 +104,7 @@ export class LoginComponent implements OnInit {
       } else {
         this.router.navigate(['/home']);
       }
-    } else if(user_roleInfo[0].roleId == 4){
+    } else if(user_roleInfo[0].role == "hod"){
       this.router.navigate(['/hod-home-page']);
     }
   }

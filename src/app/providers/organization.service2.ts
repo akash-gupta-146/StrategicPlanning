@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Response, Http } from '@angular/http';
+import { Response, Http, Headers, RequestOptions} from '@angular/http';
 import { CommonService } from './common.service';
 import { CustomHttpService } from './default.header.service';
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -50,6 +51,12 @@ export class OrganizationService2 {
 
   public fetchAssignedActivity(){
     return this.http.get(this.baseUrl + "/hod/department/" + this.con.getData('user_departmentInfo')[0].departmentId+"/activity")
+                    .map(this.extractData)
+                    .catch(this.handleError); 
+  }
+
+  public saveQuarteResult(data, quarterId){
+    return this.http.post(this.baseUrl + "/hod/quarter/"+quarterId+"/result",data)
                     .map(this.extractData)
                     .catch(this.handleError); 
   }
