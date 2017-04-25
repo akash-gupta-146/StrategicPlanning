@@ -15,7 +15,7 @@
           <div class="row">
             <div class="row" *ngFor="let spi of g.spis; let j = index;">
                 <div class="col-lg-12 col-sm-12">
-                  <b>SPI : </b> {{spi.spi}}
+                  <b>SPI {{j+1}}: </b> {{spi.spi}}
                 </div>
                 <div class="col-lg-12 col-sm-12">
                   <b>CurrentLevel :</b> {{spi.currentLevel}}

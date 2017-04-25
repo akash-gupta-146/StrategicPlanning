@@ -13,7 +13,7 @@ declare let $;
   styleUrls: ['./goal.component.css'],
 
 })
-export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
+export class StrategicGoal implements OnInit{
   public objectives = [];
   addGoalForm: boolean = false;
   public goalForm: FormGroup;
@@ -40,6 +40,9 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     },error =>{
 
     });
+    this.initializeGoalForm();
+  }
+  initializeGoalForm(){
     this.goalForm = this.formBuilder.group({
       "objective": ['', [Validators.required]],
       "totalCost": ['', [Validators.required]],
@@ -50,8 +53,6 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     this.cycle = this.commonService.getData('org_info')[0].cycle;
   }
 
-  ngAfterViewChecked() {
-  }
 
   inItSpi() {
     return this.formBuilder.group({
@@ -72,6 +73,7 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
   addSpi() {
     const control = <FormArray>this.goalForm.controls['spis'];
     control.push(this.inItSpi());
+    console.log(this.goalForm.value);
   }
 
   removeSpi(index) {
@@ -86,29 +88,16 @@ export class StrategicGoal implements AfterViewInit, OnInit, AfterViewChecked {
     });
     return fa;
   }
-  resetForm() {
-    this.goalForm.controls['objective'].reset();
-    this.goalForm.controls['totalCost'].reset();
-    this.goalForm.controls['spis'] = this.formBuilder.array([this.inItSpi()]);
-  }
+
   returnedObject;
-  submited: boolean = false;
   onSubmit() {
     console.log(this.goalForm.value);
     this.orgService.addObjective(this.orgId, this.commonService.getData('org_info')[0].cycles.id, this.goalForm.value).subscribe(response => {
-      // this.returnedObject = this.goalForm.value;
       this.returnedObject = response;
       this.objectives.push(this.returnedObject);
-      this.resetForm();
-      this.submited = true;
+      this.initializeGoalForm();
     }, (error) => {
       console.log(error);
     });
-  }
-  addMoreObjective() {
-    this.submited = false;
-  }
-  ngAfterViewInit() {
-    
   }
 }
