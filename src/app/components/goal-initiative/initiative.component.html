@@ -10,7 +10,7 @@
           </a>
         </b>
       </div>
-      <div id="viewinitiative{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div id="viewinitiative{{i}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
           <div class="row">
             <p><b>Total Cost : </b>{{ini.totalCost}}</p>
@@ -18,24 +18,24 @@
               <div class="panel panel-info" *ngFor="let act of ini.activities;let p = index;">
                 <div class="panel-heading" role="tab" id="headingOne">
                   <b class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewActivity{{i}}" aria-expanded="true" aria-controls="collapseOne">
-                      Activity {{ i+1 }}
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewActivity{{p}}" aria-expanded="true" aria-controls="collapseOne">
+                      Activity {{ p+1 }}
                     </a>
                   </b>
                 </div>
-                <div id="viewActivity{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div id="viewActivity{{p}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                     <p> {{act.activity}}</p>
                     <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
                       <div class="panel panel-info" *ngFor="let measr of act.measures;let me = index;">
                         <div class="panel-heading" role="tab" id="headingOne">
                           <b class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewMeasure{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewMeasure{{me}}" aria-expanded="true" aria-controls="collapseOne">
                               Measure {{ me+1 }}
                             </a>
                           </b>
                         </div>
-                        <div id="viewMeasure{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="viewMeasure{{me}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
                             <div class="row">
                               <div class="col-lg-4 col-sm-12">
