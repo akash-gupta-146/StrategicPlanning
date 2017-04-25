@@ -74,6 +74,9 @@ h1,h2,h3,h4,h5,h6{
 .marginT-20{
     margin-top: 20px;
 }
+.marginT-10{
+    margin-top: 10px;
+}
 .marginT--50{
     margin-top: -50px;
 }

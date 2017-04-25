@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 function getToken(): any {
-  let token = JSON.parse(localStorage.getItem('access_token'));
+  let token = localStorage.getItem('access_token');
   let header;
   if (token == null) {
     header;
@@ -30,9 +30,12 @@ export class CustomHttpService extends Http {
     if (typeof url === 'string') {
       if (!options) {
         options = { headers: new Headers() };
+        options.headers.set('Content-Type', 'application/json');
+        options.headers.set('Authorization', `${getToken()}`);
+      } else {
+        
       }
-      options.headers.set('Content-Type', 'application/json');
-      options.headers.set('Authorization', `${getToken()}`);
+      
     } else {
       url.headers.set('Content-Type', 'application/json');
       url.headers.set('Authorization', `${getToken()}`);

@@ -20,4 +20,15 @@ export class ConfigurationService {
     });
     return options;
   }
+  getHeaderForFile(){
+    this.headers = new Headers({
+      'Content-Type': 'multipart/form-data',
+      'Accept':'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+    var options = new RequestOptions({
+      headers: this.headers
+    });
+    return options;
+  }
 }

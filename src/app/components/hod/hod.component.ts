@@ -8,7 +8,10 @@ export class HODComponent{
   public assignedActivities = [];
   constructor(public orgService:OrganizationService2){
     this.orgService.fetchAssignedActivity().subscribe(response =>{
-      this.assignedActivities = response;
+      if(response.status === 204)
+        this.assignedActivities = [];
+      else
+        this.assignedActivities = response;
       console.log(this.assignedActivities);
     });
   }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { OrganizationService } from '../../services/organization.service';
 import { DataService } from '../../services/data.service';
 import { CommonService } from '../../providers/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'initial-setup',
@@ -16,7 +17,12 @@ export class InitialSetup implements OnInit {
   constructor(public formBuilder: FormBuilder,
               public orgService: OrganizationService,
               public dataservice: DataService,
-              public commonService: CommonService,) { }
+              public commonService: CommonService,
+              private router: Router) { 
+                 if (this.commonService.getData('org_info')[0].cycles) {
+                    this.router.navigate(['/home']);
+                  }
+              }
 
   ngOnInit() {
      this.cmvvForm = this.formBuilder.group({
@@ -45,7 +51,7 @@ export class InitialSetup implements OnInit {
     control.push(this.inItValue());
   }
 
-  returnObject;
+  returnObject = [];
   cycle = [];
   submitted: boolean = false;
 
@@ -55,19 +61,18 @@ export class InitialSetup implements OnInit {
     for (var y = startYear; y <= endYear; y++)
       this.cycle.push(y);
 
-    this.cmvvForm.value['cycle'] = {};
-    this.cmvvForm.value.cycle = {
+    // this.cmvvForm.value['cycle'] = {};
+    this.cmvvForm.value['cycle'] = {
       "startCycle": this.cmvvForm.value.startCycle,
       "endCycle": this.cmvvForm.value.endCycle
     };
     delete this.cmvvForm.value['startCycle'];
     delete this.cmvvForm.value['endCycle'];
     this.orgService.orgInitialSetup(this.cmvvForm.value).then(res => {
-      this.returnObject = res.json();
-      this.submitted = true;
+      this.returnObject.push(res.json());
       this.returnObject['cycle'] = this.cycle;
       this.commonService.storeData('org_info',this.returnObject)
-      this.dataservice.setObjective(this.returnObject);
+      this.router.navigate(['/home']);
     }, (error) => {
       console.log(error);
     })
