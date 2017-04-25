@@ -5,12 +5,12 @@
     <div class="panel panel-info" >
       <div class="panel-heading" role="tab" id="headingOne">
         <b class="panel-title">
-              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{i}}" aria-expanded="true" aria-controls="collapseOne">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{i}}" aria-expanded="false" aria-controls="collapseOne">
                 Objective {{i+1}}: {{g.objective}}
               </a>
             </b>
       </div>
-      <div id="collapseOne{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div id="collapseOne{{i}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
           <div class="row">
             <div class="row" *ngFor="let spi of g.spis; let j = index;">
@@ -72,7 +72,7 @@
               <div class="panel panel-info">
                 <div class="panel-heading" role="tab" id="headingOne">
                   <b class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#strategic{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#strategic{{i}}" aria-expanded="false" aria-controls="collapseOne">
                       Strategic Performance indicator - {{ i+1 }} 
                     </a>
                     <span (click)="removeSpi(i)" class="glyphicon glyphicon-remove pull-right hover-orange" aria-hidden="true"></span> 
