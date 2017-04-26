@@ -67,7 +67,7 @@ export class GoalInitiative implements AfterViewInit{
   setActivity() {
     return this.formBuilder.group({
       "activity": ['', [Validators.required]],
-      "departments": ['', [Validators.required]],
+      // "departments": ['', [Validators.required]],
       "measures": this.formBuilder.array([this.setMeasure()])
     });
   }
@@ -116,7 +116,7 @@ export class GoalInitiative implements AfterViewInit{
   submitInitiative() {
     this.orgId = this.commonService.getData('org_info')[0].id;
     this.cycleId = this.commonService.getData('org_info')[0].cycles.id;
-    delete this.initiativeForm.value['activities'][0].departments;
+    // delete this.initiativeForm.value['activities'][0].departments;
     console.log("object", this.initiativeForm.value);
     this.orgService.addInitiative(this.orgId, this.cycleId, this.goalId, this.initiativeForm.value).subscribe(res => {
       this.submited = true;

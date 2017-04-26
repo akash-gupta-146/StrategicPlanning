@@ -22,8 +22,8 @@ export class ConfigurationService {
   }
   getHeaderForFile(){
     this.headers = new Headers({
-      'Content-Type': 'multipart/form-data',
-      'Accept':'application/json',
+      // 'Content-Type': 'multipart/form-data',
+      // 'Accept':'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     });
     var options = new RequestOptions({

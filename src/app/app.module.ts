@@ -25,7 +25,6 @@ import { QuarterResult } from './components/hod/result/quarter.result.component'
 
 // import service
 import { CustomHttpService } from './providers/default.header.service';
-import { MultipartHttpService } from './providers/default.header.multipart.service';
 import { CommonService } from './providers/common.service';
 import { OrganizationService2 } from './providers/organization.service2';
 import { NavService } from './providers/event.service';

@@ -7,6 +7,7 @@
     
     /* Set gray background color and 100% height */
     .sidenav {
+      position: fixed;
       background:white;
       height: 110%;
       padding: 0px;

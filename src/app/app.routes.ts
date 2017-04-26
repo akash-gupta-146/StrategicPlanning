@@ -20,6 +20,6 @@ export const rootRouterConfig: Routes = [
   { path: 'strategic-goal/:orgId', component: StrategicGoal, canActivate: [LoggedInGuard] },
   { path: 'goal-initiative/:goalId', component: GoalInitiative, canActivate: [LoggedInGuard] },
   { path: 'hod-home-page', component: HODComponent, canActivate: [LoggedInGuard]},
-  { path: 'quarter-result', component:QuarterResult, canActivate:[LoggedInGuard]}
+  { path: 'quarter-result/:levelId', component:QuarterResult, canActivate:[LoggedInGuard]}
 ];
 

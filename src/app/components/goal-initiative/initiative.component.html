@@ -10,7 +10,7 @@
           </a>
         </b>
       </div>
-      <div id="viewinitiative{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div id="viewinitiative{{i}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
           <div class="row">
             <p><b>Total Cost : </b>{{ini.totalCost}}</p>
@@ -18,24 +18,24 @@
               <div class="panel panel-info" *ngFor="let act of ini.activities;let p = index;">
                 <div class="panel-heading" role="tab" id="headingOne">
                   <b class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewActivity{{i}}" aria-expanded="true" aria-controls="collapseOne">
-                      Activity {{ i+1 }}
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewActivity{{p}}" aria-expanded="true" aria-controls="collapseOne">
+                      Activity {{ p+1 }}
                     </a>
                   </b>
                 </div>
-                <div id="viewActivity{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div id="viewActivity{{p}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                     <p> {{act.activity}}</p>
                     <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
                       <div class="panel panel-info" *ngFor="let measr of act.measures;let me = index;">
                         <div class="panel-heading" role="tab" id="headingOne">
                           <b class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewMeasure{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewMeasure{{me}}" aria-expanded="true" aria-controls="collapseOne">
                               Measure {{ me+1 }}
                             </a>
                           </b>
                         </div>
-                        <div id="viewMeasure{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="viewMeasure{{me}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
                             <div class="row">
                               <div class="col-lg-4 col-sm-12">
@@ -46,52 +46,47 @@
                               </div>
                               <div class="col-lg-4 col-sm-12">
                                 <b>Frequency:</b> {{measr.frequency}}
-                              </div>                            
+                              </div>
                             </div>
                             <div class="row marginT-20">
                               <div class="center-align"><b> Annual Target</b></div>
-                                <div class="row jumbotron" *ngFor="let td of measr.annualTarget;let at = index;">
-                                  <div class="row">
-                                    <div class="col-lg-4 col-sm-12">
-                                      <b>Year:</b> {{ td.year }}
-                                    </div>
-                                    <div class="col-lg-4 col-sm-12">
-                                      <b>Cost:</b> {{td.cost}}
-                                    </div>    
-                                    <div class="col-lg-4 col-sm-12">
-                                      <b>Quater Levels:</b> {{td.levels.length}}
-                                    </div>                                        
+                              <div class="row jumbotron" *ngFor="let td of measr.annualTarget;let at = index;">
+                                <div class="row">
+                                  <div class="col-lg-4 col-sm-12">
+                                    <b>Year:</b> {{ td.year }}
                                   </div>
-                                  <div class="row marginT-20" *ngFor="let lev of td.levels; let in = index;">
-                                    <div class="col-lg-3 col-sm-12">
-                                        <b>Level:</b> {{ lev.level }}
-                                    </div>                        
-                                    <div class="col-lg-3 col-sm-12">
-                                        <b>Quarter:</b> {{ lev.quarter }}
-                                    </div>                        
-                                    <div class="col-lg-3 col-sm-12">
-                                        <b>Start Date:</b> {{ lev.startDate }}
-                                    </div>                        
-                                    <div class="col-lg-3 col-sm-12">
-                                        <b>End Date:</b> {{ lev.endDate }}
-                                    </div> 
+                                  <div class="col-lg-4 col-sm-12">
+                                    <b>Cost:</b> {{td.cost}}
+                                  </div>
+                                  <div class="col-lg-4 col-sm-12">
+                                    <b>Quater Levels:</b> {{td.levels.length}}
                                   </div>
                                 </div>
+                                <div class="row marginT-20" *ngFor="let lev of td.levels; let in = index;">
+                                  <div class="col-lg-3 col-sm-12">
+                                    <b>Level:</b> {{ lev.level }}
+                                  </div>
+                                  <div class="col-lg-3 col-sm-12">
+                                    <b>Quarter:</b> {{ lev.quarter }}
+                                  </div>
+                                  <div class="col-lg-3 col-sm-12">
+                                    <b>Start Date:</b> {{ lev.startDate }}
+                                  </div>
+                                  <div class="col-lg-3 col-sm-12">
+                                    <b>End Date:</b> {{ lev.endDate }}
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-
-
-
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
-              
-            </div>
-          </div> 
+          </div>
         </div>
       </div>
     </div>
@@ -143,18 +138,18 @@
                         <div id="activity{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
                             <div class="row">
-                              <div class="col-lg-6 col-sm-12">
+                              <div class="col-lg-12 col-sm-12">
                                 <label class="control-label">Activity</label>
                                 <textarea class="form-control" rows="3" formControlName="activity"></textarea>
                               </div>
-                              <div class="col-lg-6 col-sm-12">
+                              <!--<div class="col-lg-6 col-sm-12">
                                 <label class="control-label">Select Department</label>
                                 <select class="form-control" formControlName="departments">
                                     <option value="1">Department 1</option>
                                     <option value="2">Department 2</option>
                                     <option value="3">Department 3</option>
                                 </select>
-                              </div>
+                              </div>-->
                             </div>
                             <div class="row marginT-20">
                               <div formArrayName="measures">
