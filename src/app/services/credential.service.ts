@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http,Response, Headers, RequestOptions } from '@angular/http';
 import { ConfigurationService } from './configuration.service';
+import { CommonService } from '../providers/common.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -11,14 +12,14 @@ export class CredentialService {
   login: any = false;
   headers: any;
   access_token: string;
-  public user = {
-    username: "pankaj123",
-    password: "pkj123456"
-  };
   private loggedIn = false;
-  constructor(private http: Http, private conf: ConfigurationService) {
-    this.baseUrl = this.conf.baseUrl;
+  constructor(private http: Http, private conf: CommonService) {
+    
     this.loggedIn = !!localStorage.getItem('access_token');
+    if(this.loggedIn){
+      this.conf.updateBaseUrl();
+    } 
+    this.baseUrl = this.conf.baseUrl;
   }
 
   resetLoginStatus() {
@@ -26,7 +27,7 @@ export class CredentialService {
   }
 
   isLoggedIn() {
-    let access_token = localStorage.getItem("org_info");
+    let access_token = localStorage.getItem("access_token");
     if (access_token) {
       return !this.login;
     } else {
@@ -35,9 +36,15 @@ export class CredentialService {
   }
 
   verifyUser(data: Object) {
+    this.baseUrl = this.conf.baseUrl;
     return this.http.post(this.baseUrl + "/login", data)
                     .map(this.extractData)
                     .catch(this.handleError);
+  }
+
+  logOut(){
+    this.conf.resetBaseUrl();
+    localStorage.clear();    
   }
 
   private extractData(res: Response) {

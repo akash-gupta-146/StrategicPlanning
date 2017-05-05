@@ -1,7 +1,7 @@
 body{
     padding-top: 50px;
     background:#ececec;
-    padding-bottom:70px;
+    /*padding-bottom:70px;*/
 }
 .row{
         margin-left: 0px !important;
@@ -155,7 +155,7 @@ bWhite{
 
 
 /* Loader css */
-h4 {
+/*h4 {
   position: absolute;
   bottom: 20px;
   left: 20px;
@@ -164,7 +164,7 @@ h4 {
   opacity: .5;
 	font-family: sans-serif;
   color: #fff;
-}
+}*/
 #loader {
   width: 100px;
   height: 40px;

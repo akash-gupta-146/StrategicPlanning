@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top bWhite" style="margin-bottom: 0px !important;" *ngIf="isLoggedIn()">
+<nav class="navbar navbar-default navbar-fixed-top bWhite" *ngIf="isLoggedIn()">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -12,7 +12,7 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="sr-only">(current)</span></a></li>
+        <li><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="sr-only">(current)</span></a></li>
       </ul>
 
       <form class="navbar-form navbar-left">
@@ -26,27 +26,27 @@
         <li><a [routerLink]="['/home']">Home</a></li>
         <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Role<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Role<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Role 1</a></li>
-            <li><a href="#">Role 2</a></li>
-            <li><a href="#">Role 3</a></li>
+            <li><a>Role 1</a></li>
+            <li><a>Role 2</a></li>
+            <li><a>Role 3</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Role 4</a></li>
+            <li><a>Role 4</a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mr. Andrew<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mr. Andrew<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">History</a></li>
-            <li><a href="#">Help</a></li>
+            <li><a>Profile</a></li>
+            <li><a>History</a></li>
+            <li><a>Help</a></li>
             <li role="separator" class="divider"></li>
             <li><a (click)="logout()">Logout</a></li>
           </ul>
         </li>
         <li>
-          <a href="#"><img width="20px" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/4/005/08e/246/28ca3a5.jpg" alt="no-picture"
+          <a><img width="20px" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/4/005/08e/246/28ca3a5.jpg" alt="no-picture"
               class="img-circle"></a>
         </li>
       </ul>
@@ -54,27 +54,31 @@
   </div>
 </nav>
 <main>
-    <div class="row content">
-      <!-- side bar -->
-      <div class="col-sm-3 sidenav" *ngIf="isLoggedIn()" style="background:white">
-        <div class="sidebar-header">
-          <img class="sidebar-image center-box" src="https://www.thersa.org/globalassets/profile-images/staff/ben-dellot.jpg">
-          <div class="text-center">
-            <h5 class="text-white">Mr. Andrew Williams</h5>
-          </div>  
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" *ngIf="isLoggedIn()" style="background:white">
+      <div class="sidebar-header">
+        <img class="sidebar-image center-box" src="https://www.thersa.org/globalassets/profile-images/staff/ben-dellot.jpg">
+        <div class="text-center">
+          <h5 class="text-white">Mr. Andrew Williams</h5>
         </div>
-        <ul class="nav nav-pills nav-stacked">
-          <li class="active"><a href="#section1"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-          <li><a href="#section2"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Cycle</a></li>
-          <li><a href="#section3"><span class="glyphicon glyphicon-italic" aria-hidden="true"></span>Initiatives</a></li>
-          <li><a href="#section3"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Objectives</a></li>
-        </ul><br>
       </div>
-      <!-- End of sidebar -->
-      <!-- Main content -->
-      <div class="col-sm-9 col-sm-offset-3">
-        <router-outlet></router-outlet>
-      </div>
-      <!-- End of main content -->
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href=""><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+        <li><a href=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Cycle</a></li>
+        <li><a href=""><span class="glyphicon glyphicon-italic" aria-hidden="true"></span>Initiatives</a></li>
+        <li><a href=""><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Objectives</a></li>
+      </ul><br>
     </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <a id="menu-toggle" style="cursor: pointer"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
+      <!--<a class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
+      <router-outlet></router-outlet>
+    </div>
+    <!-- /#page-content-wrapper -->
+  </div>
 </main>

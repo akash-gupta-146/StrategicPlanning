@@ -1,5 +1,5 @@
 <div class="background row">
-  <h2>Strategic Goals</h2> 
+  <h2 style="text-align: center;margin-bottom:20px;">Strategic Goals</h2> 
   <div class="row">
   <div class="panel-group col-lg-12 col-sm-12" id="accordion" role="tablist" aria-multiselectable="true" *ngFor="let g of objectives; let i = index;">
     <div class="panel panel-info" >
@@ -37,98 +37,14 @@
                   </table>
                 </div>       
             </div>
-            <button type="button" class="btn btn-info pull-right" [routerLink]="['/goal-initiative',g.id]">Add Initiative</button>
+            <button type="button" class="btn btn-info pull-right" [routerLink]="['/goal-initiative',g.id]">View/Add Initiative</button>
           </div>
         </div>
       </div>
     </div>
   </div>
   </div>
-  <div class="row">
-    <button class="btn btn-info btn-lg center-block" type="button" data-toggle="collapse" data-target="#objectiveForm" aria-expanded="false" aria-controls="collapseExample">
-      Add New Objective
-    </button>
-    <div class="collapse" id="objectiveForm">
-        <div class="card col-lg-12 col-sm-12" >
-          <div class="row card-heading">
-            <h3>New Objective</h3>
-          </div>
-          <div class="row card-content">
-            <form [formGroup]="goalForm">
-              <div class="row">
-                <div class="col-lg-6 col-sm-12">
-                  <label class="control-label">Enter Objective</label>
-                  <textarea class="form-control" rows="3" formControlName="objective"></textarea>
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                  <label class="control-label">Total Estimated Cost</label>
-                  <div class="input-group">
-                    <span class="input-group-addon">$</span>
-                    <input type="number" class="form-control" placeholder="20000" formControlName="totalCost" aria-label="Amount (to the nearest dollar)">
-                    <span class="input-group-addon">.00</span>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div formArrayName="spis">
-                <div class="row" *ngFor="let s of goalForm.controls.spis.controls;let i = index;" [formGroupName]="i">
-                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-info">
-                      <div class="panel-heading" role="tab" id="headingOne">
-                        <b class="panel-title">
-                          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#strategic{{i}}" aria-expanded="false" aria-controls="collapseOne">
-                            Strategic Performance indicator - {{ i+1 }} 
-                          </a>
-                          <span (click)="removeSpi(i)" class="glyphicon glyphicon-remove pull-right hover-orange" aria-hidden="true"></span> 
-                        </b>
-                      </div>
-                      <div id="strategic{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-                          <div class="row">
-                            <div class="col-lg-4 col-sm-12">
-                              <label class="control-label">Enter Spi</label>
-                              <textarea class="form-control" rows="3" formControlName="spi"></textarea>
-                            </div>
-                            <div class="col-lg-4 col-sm-12">
-                              <label class="control-label">Select Measure</label>
-                              <select class="form-control" formControlName="measureUnit">
-                                  <option value="" disabled selected>Choose Measurement Unit</option>
-                                  <option value="Percent">Percent</option>
-                                  <option value="Decimal">Decimal</option>
-                              </select>
-                            </div>
-                            <div class="col-lg-4 col-sm-12">
-                              <label class="active">Enter Current Level</label>
-                              <input type="number" min="0" step="1" class="form-control" formControlName="currentLevel">
-                            </div>
-                          </div>
-                          <div class="row padding-10">
-                            <label class="control-label">Target Digital</label>
-                            <div class="col-lg-12 col-sm-12" formArrayName="targetDigital">
-                              <div class="col-lg-3 col-sm-12" *ngFor="let td of goalForm.controls.spis.controls[i].controls.targetDigital.controls;let m = index;"
-                                [formGroupName]="m">
-                                <div class="row">
-                                  <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon3">{{td.value.year}}</span>
-                                    <input type="number" min="0" step="1" class="form-control" id="basic-url" formControlName="level" aria-describedby="basic-addon3">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row padding-50">
-                <button class="center-block" type="button" (click)="addSpi()" class="btn btn-info" [disabled]="goalForm.controls.spis.invalid">Add SPI</button>
-                <button class="center-block" type="button" (click)="onSubmit()" class="btn btn-success" [disabled]="goalForm.invalid">Submit</button>
-              </div>
-            </form>
-          </div>
-        </div>
-    </div>
-  </div>
+  <button class="btn btn-info btn-lg center-block" type="button" [routerLink]="['/new-goal']">
+    Add New Objective
+  </button>
 </div>

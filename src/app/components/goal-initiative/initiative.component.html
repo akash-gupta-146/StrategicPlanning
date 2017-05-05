@@ -18,24 +18,24 @@
               <div class="panel panel-info" *ngFor="let act of ini.activities;let p = index;">
                 <div class="panel-heading" role="tab" id="headingOne">
                   <b class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewActivity{{p}}" aria-expanded="true" aria-controls="collapseOne">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{i}}viewActivity{{p}}" aria-expanded="true" aria-controls="collapseOne">
                       Activity {{ p+1 }}
-                    </a>
+                    </a>                    
                   </b>
                 </div>
-                <div id="viewActivity{{p}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div id="{{i}}viewActivity{{p}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                     <p> {{act.activity}}</p>
                     <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
                       <div class="panel panel-info" *ngFor="let measr of act.measures;let me = index;">
                         <div class="panel-heading" role="tab" id="headingOne">
                           <b class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewMeasure{{me}}" aria-expanded="true" aria-controls="collapseOne">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{i}}view{{p}}Measure{{me}}" aria-expanded="true" aria-controls="collapseOne">
                               Measure {{ me+1 }}
                             </a>
                           </b>
                         </div>
-                        <div id="viewMeasure{{me}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="{{i}}view{{p}}Measure{{me}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
                             <div class="row">
                               <div class="col-lg-4 col-sm-12">
@@ -82,10 +82,31 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="row" *ngIf="act.assignedDepartments.length">
+                        <b>Assigned Departments</b>
+                        <ul class="list-group">
+                          <li class="list-group-item" *ngFor="let dept of act.assignedDepartments;let d = index;">{{dept.department}}</li>                        
+                        </ul>
+                      </div>
+                      <a class="btn btn-info" type="button" data-toggle="collapse" href="#{{i}}activity{{p}}" aria-expanded="false" aria-controls="collapseExample">Assign</a>
+                      <div class="collapse row" id="{{i}}activity{{p}}">
+                        <div class="col-lg-10">
+                          <select multiple class="form-control" [(ngModel)]="department" (ngModelChange)="selectDepartment($event)">
+                            <option *ngFor="let dept of act.otherDepartments;" [ngValue]="dept">{{dept.department}}</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-2">
+                          <a class="btn btn-info" type="button" data-toggle="collapse" href="#{{i}}activity{{p}}" 
+                          aria-expanded="false" aria-controls="collapseExample" (click)="assignActivity(act.id,act.assignedDepartments)">Assign</a>                          
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </div>                
+              </div>              
             </div>
+            <button class="btn btn-info btn-lg center-block" [routerLink]="['/new-activity',goalId,ini.id]">Add New Activity</button>
           </div>
         </div>
       </div>
@@ -118,7 +139,7 @@
                     <label class="control-label">Toatal Cost</label>
                     <div class="input-group">
                       <span class="input-group-addon">$</span>
-                      <input type="number" class="form-control" placeholder="20000" formControlName="totalCost" aria-label="Amount (to the nearest dollar)">
+                      <input type="number" min="0" step="1" class="form-control" placeholder="20000" formControlName="totalCost" aria-label="Amount (to the nearest dollar)">
                       <span class="input-group-addon">.00</span>
                     </div>
                   </div>
@@ -142,14 +163,6 @@
                                 <label class="control-label">Activity</label>
                                 <textarea class="form-control" rows="3" formControlName="activity"></textarea>
                               </div>
-                              <!--<div class="col-lg-6 col-sm-12">
-                                <label class="control-label">Select Department</label>
-                                <select class="form-control" formControlName="departments">
-                                    <option value="1">Department 1</option>
-                                    <option value="2">Department 2</option>
-                                    <option value="3">Department 3</option>
-                                </select>
-                              </div>-->
                             </div>
                             <div class="row marginT-20">
                               <div formArrayName="measures">
@@ -158,13 +171,13 @@
                                     [formGroupName]="j">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                       <b class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#setMeasure{{i}}" aria-expanded="true" aria-controls="collapseOne">
-                         Set Measure {{ i+1 }} For The Activity
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{i}}setMeasure{{j}}" aria-expanded="true" aria-controls="collapseOne">
+                         Set Measure {{ j+1 }} For The Activity
                         </a>
                         <span class="glyphicon glyphicon-remove hover-orange pull-right" (click)="removeMeasure(initiativeForm.controls.activities.controls[i],j)" aria-hidden="true"></span>
                       </b>
                                     </div>
-                                    <div id="setMeasure{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div id="{{i}}setMeasure{{j}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                       <div class="panel-body">
                                         <div class="row">
                                           <div class="col-lg-4 col-sm-12">
@@ -181,7 +194,7 @@
                                           <div class="col-lg-2 col-sm-12">
                                             <div class="form-group">
                                               <label for="currentLevel">Current <br>Level</label>
-                                              <input type="number" formControlName="currentLevel" class="form-control" id="currentLevel" placeholder="1">
+                                              <input type="number" min="0" step="1" formControlName="currentLevel" class="form-control" id="currentLevel" placeholder="1">
                                             </div>
                                           </div>
                                           <div class="col-lg-3 col-sm-12">
@@ -205,7 +218,7 @@
                                               <thead>
                                                 <tr>
                                                   <th width="20%">Year</th>
-                                                  <th width="60%">Levels</th>
+                                                  <th width="60%">Target</th>
                                                   <th width="20%">Cost</th>
                                                 </tr>
                                               </thead>

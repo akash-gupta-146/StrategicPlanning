@@ -14,6 +14,7 @@ declare let $;
 export class GoalInitiative implements AfterViewInit{
   public selectedGoal;
   public cycle = [];
+  public addActiviti = [];
   public orgId;
   public cycleId;
   public goalId;
@@ -44,6 +45,7 @@ export class GoalInitiative implements AfterViewInit{
       console.log(error);
     });
     this.cycle = commonService.getData('org_info')[0].cycle;
+    this.getDepartments();
   }
   ngAfterViewInit() {
     // $('.collapsible').collapsible();
@@ -67,7 +69,6 @@ export class GoalInitiative implements AfterViewInit{
   setActivity() {
     return this.formBuilder.group({
       "activity": ['', [Validators.required]],
-      // "departments": ['', [Validators.required]],
       "measures": this.formBuilder.array([this.setMeasure()])
     });
   }
@@ -116,15 +117,44 @@ export class GoalInitiative implements AfterViewInit{
   submitInitiative() {
     this.orgId = this.commonService.getData('org_info')[0].id;
     this.cycleId = this.commonService.getData('org_info')[0].cycles.id;
-    // delete this.initiativeForm.value['activities'][0].departments;
     console.log("object", this.initiativeForm.value);
     this.orgService.addInitiative(this.orgId, this.cycleId, this.goalId, this.initiativeForm.value).subscribe(res => {
       this.submited = true;
-      this.initiatives.push(this.initiativeForm.value);
+      this.initiatives.push(res);
       this.returnObject = res;
-      console.log("afsd", res);
     }, err => {
       console.log(err);
+    });
+  }
+  departmentIds = [];
+  department;
+  selectDepartment(e){
+    e.forEach(element => {
+      this.departmentIds.push(element.departmentId);
+    });
+    this.department = e;
+    console.log(this.departmentIds);    
+  }
+  departments = [];
+  colleges;
+  getDepartments(){
+    this.orgService.fetchDepartments().subscribe( res =>{
+      if(res.status == 204){
+        this.departments = [];
+      } else{
+        this.departments = res;
+        this.departments.splice(0,2);
+      }
+    });
+    this.departments = [];
+  }
+  getColleges(){
+    this.colleges = [];
+  }
+  assignActivity(activityId,assignedDept){
+    this.orgService.assignActivity(activityId,this.departmentIds).subscribe(res =>{
+      console.log(res);
+      // assignedDept.push(this.department);
     });
   }
   addMoreInitiative(){

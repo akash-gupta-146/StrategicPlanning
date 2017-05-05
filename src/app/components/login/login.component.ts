@@ -5,6 +5,7 @@ import { CredentialService } from '../../services/credential.service';
 import { CommonService } from '../../providers/common.service';
 import { OrganizationService2 } from '../../providers/organization.service2';
 import { NavService } from '../../providers/event.service';
+import { ConfigurationService } from '../../services/configuration.service';
 declare let $;
 
 @Component({
@@ -52,8 +53,14 @@ export class LoginComponent implements OnInit {
     this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
       this.commonService.storeData("access_token", res.access_token);
       this.commonService.storeData("user_departmentInfo", res.departmentInfo)
-      this.commonService.storeData("user_roleInfo", res.roleInfo);
-      this.fetchOrganizationInfo(res);
+      this.commonService.storeData("user_roleInfo", res.roleInfo);  
+      this.commonService.updateBaseUrl(); 
+      if(res.roleInfo[0].roleId == 2){
+        this.fetchOrganizationInfo(res);
+      } else {
+        this.onSuccess();
+      }  
+        
     }, (err) => {
       this.onError();
     });
@@ -105,6 +112,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     } else if(user_roleInfo[0].role == "hod"){
+      console.log("asddf");
       this.router.navigate(['/hod-home-page']);
     }
   }
@@ -113,6 +121,4 @@ export class LoginComponent implements OnInit {
     this.loginStart = false;
     this.error = true;
   }
-
 }
-

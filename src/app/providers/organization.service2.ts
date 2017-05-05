@@ -20,45 +20,65 @@ export class OrganizationService2 {
   }
 
   public fetchOrganizationInfo() {
+    this.baseUrl = this.con.baseUrl;
     return this.http.get(this.baseUrl + "/university")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   public fetchObjectives(orgId, cycleId) {
-    return this.http.get(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective")
+    return this.http.get(this.baseUrl + "/university/" + orgId + "/cycle/" + cycleId + "/objective")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   public addObjective(orgId, cycleId, objective) {
-    return this.http.post(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective", objective)
+    return this.http.post(this.baseUrl + "/university/" + orgId + "/cycle/" + cycleId + "/objective", objective)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   public addInitiative(universityId, cycleId, goalId, initiative) {
-    return this.http.post(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative)
+    return this.http.post(this.baseUrl + "/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   public fetchInitiative(universityId, cycleId, goalId){
-    return this.http.get(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
+    return this.http.get(this.baseUrl + "/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   public fetchAssignedActivity(){
-    return this.http.get(this.baseUrl + "/hod/department/" + this.con.getData('user_departmentInfo')[0].departmentId+"/activity")
+    this.baseUrl = this.con.baseUrl;
+    return this.http.get(this.baseUrl + "/department/" + this.con.getData('user_departmentInfo')[0].departmentId+"/activity")
                     .map(this.extractData)
                     .catch(this.handleError); 
   }
 
   public saveQuarteResult(data, quarterId){
-    return this.http.post(this.baseUrl + "/hod/quarter/"+quarterId+"/result",data)
+    return this.http.post(this.baseUrl + "/quarter/"+quarterId+"/result",data)
                     .map(this.extractData)
                     .catch(this.handleError); 
+  }
+
+  public fetchDepartments(){
+    return this.http.get(this.baseUrl + "/university/1/department")
+            .map(this.extractData)
+            .catch(this.handleError);
+  }
+
+  public assignActivity(actId,departments){
+    return this.http.post(this.baseUrl+"/assign/activity/"+actId+"/departments",{'departments':departments})
+      .map(this.extractData)
+      .catch(this.handleError); 
+  }
+
+  public saveActivity(universityId,cycleId,objectiveId,initiativeId,activity){
+    return this.http.post(this.baseUrl + "/university/"+universityId+"/cycle/"+cycleId+"/objective/"+objectiveId+"/initiative/"+initiativeId+"/activity",activity)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   private extractData(res: Response) {

@@ -17,17 +17,19 @@ import { HomeComponent } from './components/home/home.component';
 import { StrategicGoal } from './components/strategic-goal/goal.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { GoalInitiative } from './components/goal-initiative/initiative.component';
-import { Dashboard } from './pages/dashboard/dashboard.component';
-import { AddEmployee } from './pages/admin/employee/add.employee.component';
+import { Dashboard } from './components/dashboard/dashboard.component';
 import { InitialSetup } from './components/initial-setup/initial.setup.component';
 import { HODComponent } from './components/hod/hod.component';
 import { QuarterResult } from './components/hod/result/quarter.result.component';
+import { NewActivity } from './components/goal-initiative/new.activity.component';
+import { NewGoalComponent } from './components/strategic-goal/new.goal.component';
 
 // import service
 import { CustomHttpService } from './providers/default.header.service';
 import { CommonService } from './providers/common.service';
 import { OrganizationService2 } from './providers/organization.service2';
 import { NavService } from './providers/event.service';
+import { GoogleChart} from './custom-component/chart.directive';
 
 @NgModule({
   declarations: [
@@ -37,10 +39,12 @@ import { NavService } from './providers/event.service';
     HomeComponent,
     StrategicGoal,
     GoalInitiative,
-    AddEmployee,
     InitialSetup,
     HODComponent,
-    QuarterResult
+    QuarterResult,
+    NewActivity,
+    NewGoalComponent,
+    GoogleChart,
   ],
   imports: [
     BrowserModule,

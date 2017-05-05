@@ -10,6 +10,7 @@ export class ConfigurationService {
     // this.baseUrl = "http://192.168.1.4:8080/StrategicPlanning";
     // this.baseUrl = "http://localhost:8080/StrategicPlanning";
   }
+
   getHeaderWithWeb() {
     this.headers = new Headers({
       'Content-Type': 'application/json',
