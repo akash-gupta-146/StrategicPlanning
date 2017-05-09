@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { OrganizationService } from '../../services/organization.service';
-import { DataService } from '../../services/data.service';
 import { CommonService } from '../../providers/common.service';
 import { Router } from '@angular/router';
-
+import { OrganizationService2 } from '../../providers/organization.service2';
 @Component({
   selector: 'initial-setup',
   templateUrl: './initial.setup.component.html'
@@ -15,8 +13,7 @@ export class InitialSetup implements OnInit {
   cmvvForm: FormGroup;
 
   constructor(public formBuilder: FormBuilder,
-              public orgService: OrganizationService,
-              public dataservice: DataService,
+              public orgService: OrganizationService2,
               public commonService: CommonService,
               private router: Router) { 
                  if (this.commonService.getData('org_info')[0].cycles) {
@@ -68,8 +65,8 @@ export class InitialSetup implements OnInit {
     };
     delete this.cmvvForm.value['startCycle'];
     delete this.cmvvForm.value['endCycle'];
-    this.orgService.orgInitialSetup(this.cmvvForm.value).then(res => {
-      this.returnObject.push(res.json());
+    this.orgService.orgInitialSetup(this.cmvvForm.value).subscribe(res => {
+      this.returnObject.push(res);
       this.returnObject['cycle'] = this.cycle;
       this.commonService.storeData('org_info',this.returnObject)
       this.router.navigate(['/home']);

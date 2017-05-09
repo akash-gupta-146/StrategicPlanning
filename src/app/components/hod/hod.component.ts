@@ -8,6 +8,8 @@ declare let $;
 })
 export class HODComponent implements AfterViewInit{
   public assignedActivities = [];
+  actTar = [];
+  targetIndex = 0;
   public approvalData = [
           ['state', 'data'],
           ['Approved', 20],
@@ -16,7 +18,7 @@ export class HODComponent implements AfterViewInit{
         ];
   public approvalChartOption = {
           title: 'Assigned Activities result: 2014-2017',
-          chartArea: { width: '50%' }, 
+          chartArea: { width: '80%' }, 
           is3D: true
         };
 
@@ -25,9 +27,20 @@ export class HODComponent implements AfterViewInit{
           is3D: true,
           pieSliceText: 'label',
           slices: {  1: {offset: 0.2}},
-          chartArea: { width: '50%' },
+          chartArea: { width: '80%' },
         };
-  public targetData = [['Target', 'level'],['Target',60],['Under Target',40]];
+  public targetData = [['Target', 'level'],['Exceeded',60],['Under Target',40],['Meet',60]];
+
+  public progressData = [['status', 'progress', { role: 'style' }],
+                        ['Filled',50,'color: green'],
+                        ['Inprogress',20,'color: blue'],
+                        ['Incomplete',30,'color: red']];
+  public progressChartOption = {
+        title: "Current progress of the Activities",
+        bar: {groupWidth: "50%"},
+        legend: { position: "none" },
+      };                        
+
   constructor(public orgService:OrganizationService2){
     this.orgService.fetchAssignedActivity().subscribe(response =>{
       if(response.status === 204)
@@ -70,7 +83,8 @@ export class HODComponent implements AfterViewInit{
 
     });
     $(".panel.panel-chat > .panel-heading > .chatClose").click(function(){
-        $(this).parent().parent().remove();
+        // $(this).parent().parent().remove();
+        $(this).parent().parent().hide();
     });
   }
 }

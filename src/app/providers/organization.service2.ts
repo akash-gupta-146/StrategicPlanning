@@ -15,8 +15,15 @@ export class OrganizationService2 {
   private baseUrl: string = "";
 
   constructor(public http: CustomHttpService,
+              public htttp:Http,
               public con: CommonService) {
     this.baseUrl = con.baseUrl;
+  }
+
+  public orgInitialSetup(data) {
+    return this.http.post(this.baseUrl + "/university/1/initialSetup", data)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
   public fetchOrganizationInfo() {
@@ -58,7 +65,12 @@ export class OrganizationService2 {
   }
 
   public saveQuarteResult(data, quarterId){
-    return this.http.post(this.baseUrl + "/quarter/"+quarterId+"/result",data)
+    var options = new RequestOptions({
+      headers: new Headers({
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      })
+    });
+    return this.htttp.post(this.baseUrl + "/quarter/"+quarterId+"/result",data, options)
                     .map(this.extractData)
                     .catch(this.handleError); 
   }

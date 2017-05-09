@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" [routerLink]="['/']">Strategic Planning</a>
+      <a class="navbar-brand" id="menu-toggle" style="cursor: pointer"><i class="glyphicon glyphicon-menu-hamburger"></i>Menu</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -75,8 +75,7 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-      <a id="menu-toggle" style="cursor: pointer"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
-      <!--<a class="btn btn-default" id="menu-toggle">Toggle Menu</a>-->
+      <!--<a id="menu-toggle" style="cursor: pointer"><i class="glyphicon glyphicon-menu-hamburger"></i></a>-->
       <router-outlet></router-outlet>
     </div>
     <!-- /#page-content-wrapper -->

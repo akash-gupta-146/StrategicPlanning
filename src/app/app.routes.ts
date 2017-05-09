@@ -11,6 +11,7 @@ import { HODComponent } from './components/hod/hod.component';
 import { QuarterResult } from './components/hod/result/quarter.result.component';
 import { NewActivity } from './components/goal-initiative/new.activity.component';
 import { NewGoalComponent } from './components/strategic-goal/new.goal.component';
+import { NewInitiative } from './components/goal-initiative/new.initiative.component';
 
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const rootRouterConfig: Routes = [
   { path: 'hod-home-page', component: HODComponent, canActivate: [LoggedInGuard]},
   { path: 'quarter-result/:levelId', component:QuarterResult, canActivate:[LoggedInGuard]},
   { path: 'new-activity/:goalId/:initiativeId', component:NewActivity, canActivate:[LoggedInGuard]},
-  { path: 'new-goal', component:NewGoalComponent, canActivate:[LoggedInGuard]}
+  { path: 'new-goal', component:NewGoalComponent, canActivate:[LoggedInGuard]},
+  { path: 'new-initiative/:goalId', component:NewInitiative, canActivate:[LoggedInGuard]}
 ];
 

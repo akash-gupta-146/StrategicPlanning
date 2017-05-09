@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OrganizationService } from '../../../services/organization.service';
 import { OrganizationService2} from '../../../providers/organization.service2';
 import { CommonService } from '../../../providers/common.service';
 @Component({
@@ -13,7 +12,7 @@ export class QuarterResult {
     public files: any[] = new Array();
     public levelId;
     public departmentId;
-    constructor(private orgServ:OrganizationService,private route: ActivatedRoute,private commonService:CommonService) {
+    constructor(private orgServ:OrganizationService2,private route: ActivatedRoute,private commonService:CommonService) {
         this.route.params.subscribe(param => {
             if (param['levelId']) this.levelId = param['levelId'];
         });
@@ -33,7 +32,7 @@ export class QuarterResult {
         formData.append('level',this.uploadForm.value['level']);
         formData.append('departmentId',4);
         formData.append('files',this.files);
-        this.orgServ.saveQuarteResult(formData,this.levelId).then(res =>{
+        this.orgServ.saveQuarteResult(formData,this.levelId).subscribe(res =>{
             console.log("dsafsdf",res);
         });        
     } 

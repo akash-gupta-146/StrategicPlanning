@@ -1,11 +1,10 @@
 import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CredentialService } from '../../services/credential.service';
+import { CredentialService } from '../../providers/credential.service';
 import { CommonService } from '../../providers/common.service';
 import { OrganizationService2 } from '../../providers/organization.service2';
 import { NavService } from '../../providers/event.service';
-import { ConfigurationService } from '../../services/configuration.service';
 declare let $;
 
 @Component({

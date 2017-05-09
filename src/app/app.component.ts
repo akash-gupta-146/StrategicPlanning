@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { CredentialService } from './services/credential.service';
+import { CredentialService } from './providers/credential.service';
 import { Router } from '@angular/router';
 declare let $;
 @Component({

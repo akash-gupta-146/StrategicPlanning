@@ -2,11 +2,7 @@ import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RequestOptions, HttpModule, XHRBackend } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { rootRouterConfig } from './app.routes';
-import { CredentialService } from './services/credential.service';
-import { ConfigurationService } from './services/configuration.service';
-import { GoalService } from './services/goal.service';
-import { OrganizationService } from './services/organization.service';
-import { DataService } from './services/data.service';
+import { CredentialService } from './providers/credential.service';
 import { LoggedInGuard } from './components/login/login.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,6 +19,7 @@ import { HODComponent } from './components/hod/hod.component';
 import { QuarterResult } from './components/hod/result/quarter.result.component';
 import { NewActivity } from './components/goal-initiative/new.activity.component';
 import { NewGoalComponent } from './components/strategic-goal/new.goal.component';
+import { NewInitiative } from './components/goal-initiative/new.initiative.component';
 
 // import service
 import { CustomHttpService } from './providers/default.header.service';
@@ -44,6 +41,7 @@ import { GoogleChart} from './custom-component/chart.directive';
     QuarterResult,
     NewActivity,
     NewGoalComponent,
+    NewInitiative,
     GoogleChart,
   ],
   imports: [
@@ -55,10 +53,6 @@ import { GoogleChart} from './custom-component/chart.directive';
   ],
   providers: [
     CredentialService,
-    ConfigurationService,
-    OrganizationService,
-    GoalService,
-    DataService,
     LoggedInGuard,
     CommonService,
     OrganizationService2,
