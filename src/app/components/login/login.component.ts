@@ -104,16 +104,32 @@ export class LoginComponent implements OnInit {
   public userRedirectTo() {
     let user_roleInfo = this.commonService.getData("user_roleInfo");
     let org_info = this.commonService.getData("org_info");
-    if(user_roleInfo[0].roleId == 2){      
-      if (org_info[0].cycles === null) {
-        this.router.navigate(['/initial-setup']);
-      } else {
-        this.router.navigate(['/home']);
-      }
-    } else if(user_roleInfo[0].role == "hod"){
-      console.log("asddf");
-      this.router.navigate(['/hod-home-page']);
+    switch (user_roleInfo[0].roleId) {
+      case 2:
+        if (org_info[0].cycles === null) {
+          this.router.navigate(['/initial-setup']);
+        } else {
+          this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
+        }
+        break;
+      
+      case 3:
+        this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
+        break;
+    
+      default:
+        break;
     }
+    // if(user_roleInfo[0].roleId == 2){      
+    //   if (org_info[0].cycles === null) {
+    //     this.router.navigate(['/initial-setup']);
+    //   } else {
+    //     this.router.navigate(['/home']);
+    //   }
+    // } else if(user_roleInfo[0].role == "hod"){
+    //   console.log("asddf");
+    //   this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
+    // }
   }
 
   public onError() {

@@ -2,7 +2,7 @@ import {Component, AfterViewInit} from '@angular/core';
 import {OrganizationService2} from '../../providers/organization.service2';
 declare let $;
 @Component({
-  selector:'hod-home-page',
+  selector:'hod-home',
   templateUrl:'./hod.component.html',
   styleUrls:['./hod.component.css']
 })

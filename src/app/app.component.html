@@ -11,7 +11,7 @@
       <a class="navbar-brand" id="menu-toggle" style="cursor: pointer"><i class="glyphicon glyphicon-menu-hamburger"></i>Menu</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <!--<ul class="nav navbar-nav">
         <li><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="sr-only">(current)</span></a></li>
       </ul>
 
@@ -19,13 +19,13 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
-      </form>
+      </form>-->
       <ul class="nav navbar-nav navbar-right">
-        <li><a><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
-        <li><a><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> </a></li>
-        <li><a [routerLink]="['/home']">Home</a></li>
+        <!--<li><a><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
+        <li><a><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> </a></li>-->
+        <li><a [routerLink]="['/'+commonService.getData('user_roleInfo')[0].role+'-home']">Home</a></li>
         <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
-        <li class="dropdown">
+        <!--<li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Role<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a>Role 1</a></li>
@@ -34,9 +34,9 @@
             <li role="separator" class="divider"></li>
             <li><a>Role 4</a></li>
           </ul>
-        </li>
+        </li>-->
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mr. Andrew<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mr. Andrew<i class="glyphicon glyphicon-chevron-down"></i></a>
           <ul class="dropdown-menu">
             <li><a>Profile</a></li>
             <li><a>History</a></li>
@@ -45,10 +45,10 @@
             <li><a (click)="logout()">Logout</a></li>
           </ul>
         </li>
-        <li>
+        <!--<li>
           <a><img width="20px" src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/4/005/08e/246/28ca3a5.jpg" alt="no-picture"
               class="img-circle"></a>
-        </li>
+        </li>-->
       </ul>
     </div>
   </div>

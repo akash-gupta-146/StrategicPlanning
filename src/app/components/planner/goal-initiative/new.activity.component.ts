@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import {Location} from '@angular/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { CommonService } from '../../providers/common.service';
-import { OrganizationService2 } from '../../providers/organization.service2';
+import { CommonService } from '../../../providers/common.service';
+import { OrganizationService2 } from '../../../providers/organization.service2';
 @Component({
   selector: 'new-activity',
   templateUrl: './new.activity.component.html'

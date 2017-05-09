@@ -9,17 +9,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { StrategicGoal } from './components/strategic-goal/goal.component';
+import { HomeComponent } from './components/planner/home/home.component';
+import { StrategicGoal } from './components/planner/strategic-goal/goal.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { GoalInitiative } from './components/goal-initiative/initiative.component';
+import { GoalInitiative } from './components/planner/goal-initiative/initiative.component';
 import { Dashboard } from './components/dashboard/dashboard.component';
-import { InitialSetup } from './components/initial-setup/initial.setup.component';
+import { InitialSetup } from './components/planner/initial-setup/initial.setup.component';
 import { HODComponent } from './components/hod/hod.component';
 import { QuarterResult } from './components/hod/result/quarter.result.component';
-import { NewActivity } from './components/goal-initiative/new.activity.component';
-import { NewGoalComponent } from './components/strategic-goal/new.goal.component';
-import { NewInitiative } from './components/goal-initiative/new.initiative.component';
+import { NewActivity } from './components/planner/goal-initiative/new.activity.component';
+import { NewGoalComponent } from './components/planner/strategic-goal/new.goal.component';
+import { NewInitiative } from './components/planner/goal-initiative/new.initiative.component';
+import { AdminHome } from './components/admin/home/home.component';
 
 // import service
 import { CustomHttpService } from './providers/default.header.service';
@@ -43,6 +44,7 @@ import { GoogleChart} from './custom-component/chart.directive';
     NewGoalComponent,
     NewInitiative,
     GoogleChart,
+    AdminHome
   ],
   imports: [
     BrowserModule,

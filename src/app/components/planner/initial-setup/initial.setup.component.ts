@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { CommonService } from '../../providers/common.service';
+import { CommonService } from '../../../providers/common.service';
 import { Router } from '@angular/router';
-import { OrganizationService2 } from '../../providers/organization.service2';
+import { OrganizationService2 } from '../../../providers/organization.service2';
 @Component({
   selector: 'initial-setup',
   templateUrl: './initial.setup.component.html'

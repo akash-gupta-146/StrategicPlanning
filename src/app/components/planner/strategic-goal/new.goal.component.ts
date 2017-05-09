@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OrganizationService2 } from '../../providers/organization.service2';
-import { CommonService } from '../../providers/common.service';
+import { OrganizationService2 } from '../../../providers/organization.service2';
+import { CommonService } from '../../../providers/common.service';
 @Component({
   selector: 'new-goal',
   templateUrl: './new.goal.component.html'

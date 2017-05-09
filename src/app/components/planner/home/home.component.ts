@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../providers/common.service';
+import { CommonService } from '../../../providers/common.service';
 
 @Component({
-  selector: 'home',
+  selector: 'planner-home',
   styleUrls: ['./home.component.css'],
   templateUrl: './home.component.html'
 })

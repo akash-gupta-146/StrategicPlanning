@@ -1,5 +1,6 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit,AfterViewChecked} from '@angular/core';
 import { CredentialService } from './providers/credential.service';
+import { CommonService } from './providers/common.service';
 import { Router } from '@angular/router';
 declare let $;
 @Component({
@@ -11,11 +12,14 @@ declare let $;
 export class AppComponent implements AfterViewInit{
 
   private loggedIn: boolean = false;
-
+  private role:string;
   constructor(private credentialService: CredentialService,
-              private router: Router) {
-                
+              private commonService:CommonService,
+              private router: Router) {  
+                // if(this.commonService.getData("user_roleInfo"))
+                //   this.role = this.commonService.getData("user_roleInfo")[0].role;              
   }
+
 
   ngAfterViewInit(){
     $("#wrapper").toggleClass("toggled");
