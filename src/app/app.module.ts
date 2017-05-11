@@ -19,8 +19,11 @@ import { HODComponent } from './components/hod/hod.component';
 import { QuarterResult } from './components/hod/result/quarter.result.component';
 import { NewActivity } from './components/planner/goal-initiative/new.activity.component';
 import { NewGoalComponent } from './components/planner/strategic-goal/new.goal.component';
+import { NewSpi } from './components/planner/strategic-goal/new.spi.component';
 import { NewInitiative } from './components/planner/goal-initiative/new.initiative.component';
 import { AdminHome } from './components/admin/home/home.component';
+import { NewUniversity} from './components/admin/university/new.university.component'; 
+import { NewDepartment } from './components/admin/department/new.department.component';
 
 // import service
 import { CustomHttpService } from './providers/default.header.service';
@@ -42,9 +45,12 @@ import { GoogleChart} from './custom-component/chart.directive';
     QuarterResult,
     NewActivity,
     NewGoalComponent,
+    NewSpi,
     NewInitiative,
     GoogleChart,
-    AdminHome
+    AdminHome,
+    NewUniversity,
+    NewDepartment
   ],
   imports: [
     BrowserModule,

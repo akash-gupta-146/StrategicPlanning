@@ -11,7 +11,11 @@ import { HODComponent } from './components/hod/hod.component';
 import { QuarterResult } from './components/hod/result/quarter.result.component';
 import { NewActivity } from './components/planner/goal-initiative/new.activity.component';
 import { NewGoalComponent } from './components/planner/strategic-goal/new.goal.component';
+import { NewSpi } from './components/planner/strategic-goal/new.spi.component';
 import { NewInitiative } from './components/planner/goal-initiative/new.initiative.component';
+import { AdminHome } from './components/admin/home/home.component';
+import { NewUniversity} from './components/admin/university/new.university.component';
+import { NewDepartment } from './components/admin/department/new.department.component';
 
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,6 +30,10 @@ export const rootRouterConfig: Routes = [
   { path: 'quarter-result/:levelId', component:QuarterResult, canActivate:[LoggedInGuard]},
   { path: 'new-activity/:goalId/:initiativeId', component:NewActivity, canActivate:[LoggedInGuard]},
   { path: 'new-goal', component:NewGoalComponent, canActivate:[LoggedInGuard]},
-  { path: 'new-initiative/:goalId', component:NewInitiative, canActivate:[LoggedInGuard]}
+  { path: 'new-spi/:goalId', component:NewSpi, canActivate:[LoggedInGuard]},
+  { path: 'new-initiative/:goalId', component:NewInitiative, canActivate:[LoggedInGuard]},
+  { path: 'admin-home', component:AdminHome, canActivate:[LoggedInGuard]},
+  { path: 'new-university', component:NewUniversity, canActivate:[LoggedInGuard]},
+  { path: 'new-department', component:NewDepartment, canActivate:[LoggedInGuard]}
 ];
 

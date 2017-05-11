@@ -70,8 +70,7 @@ export class LoginComponent implements OnInit {
       if(res[0].cycles) {
         this.buildData(res);
       } else {
-         this.commonService.storeData("org_info", res);
-        this.onSuccess();
+         this.commonService.storeData("org_info", res);        
       }
       this.onSuccess();    
     }, (err) => {
@@ -118,6 +117,7 @@ export class LoginComponent implements OnInit {
         break;
     
       default:
+        this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
         break;
     }
     // if(user_roleInfo[0].roleId == 2){      

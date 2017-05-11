@@ -37,6 +37,7 @@ export class GoalInitiative{
   departmentIds = [];
   department;
   selectDepartment(e){
+    this.departmentIds = [];
     e.forEach(element => {
       this.departmentIds.push(element.departmentId);
     });

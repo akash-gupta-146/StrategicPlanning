@@ -15,14 +15,12 @@ export class AppComponent implements AfterViewInit{
   private role:string;
   constructor(private credentialService: CredentialService,
               private commonService:CommonService,
-              private router: Router) {  
-                // if(this.commonService.getData("user_roleInfo"))
-                //   this.role = this.commonService.getData("user_roleInfo")[0].role;              
+              private router: Router) {             
   }
 
 
   ngAfterViewInit(){
-    $("#wrapper").toggleClass("toggled");
+    // $("#wrapper").toggleClass("toggled");
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");

@@ -20,9 +20,9 @@ export class NewActivity {
               this.activityForm = this.setActivity();
                   this.route.params.subscribe(param => {
                     console.log(param);
-      if (param['goalId']) this.goalId = param['goalId'];
-      if (param['initiativeId']) this.initiativeId = param['initiativeId'];
-    });
+                    if (param['goalId']) this.goalId = param['goalId'];
+                    if (param['initiativeId']) this.initiativeId = param['initiativeId'];
+                  });
   }
   setActivity() {
     return this.formBuilder.group({
