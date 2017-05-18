@@ -16,6 +16,7 @@ import { NewInitiative } from './components/planner/goal-initiative/new.initiati
 import { AdminHome } from './components/admin/home/home.component';
 import { NewUniversity} from './components/admin/university/new.university.component';
 import { NewDepartment } from './components/admin/department/new.department.component';
+import { NewEmployee } from './components/admin/employee/new.employee';
 
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,6 +35,7 @@ export const rootRouterConfig: Routes = [
   { path: 'new-initiative/:goalId', component:NewInitiative, canActivate:[LoggedInGuard]},
   { path: 'admin-home', component:AdminHome, canActivate:[LoggedInGuard]},
   { path: 'new-university', component:NewUniversity, canActivate:[LoggedInGuard]},
-  { path: 'new-department', component:NewDepartment, canActivate:[LoggedInGuard]}
+  { path: 'new-department', component:NewDepartment, canActivate:[LoggedInGuard]},
+  { path: 'new-employee', component:NewEmployee, canActivate:[LoggedInGuard]}
 ];
 

@@ -24,13 +24,14 @@ import { NewInitiative } from './components/planner/goal-initiative/new.initiati
 import { AdminHome } from './components/admin/home/home.component';
 import { NewUniversity} from './components/admin/university/new.university.component'; 
 import { NewDepartment } from './components/admin/department/new.department.component';
-
+import { NewEmployee } from './components/admin/employee/new.employee';
 // import service
 import { CustomHttpService } from './providers/default.header.service';
 import { CommonService } from './providers/common.service';
 import { OrganizationService2 } from './providers/organization.service2';
 import { NavService } from './providers/event.service';
 import { GoogleChart} from './custom-component/chart.directive';
+import { AdminService } from './providers/admin.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { GoogleChart} from './custom-component/chart.directive';
     GoogleChart,
     AdminHome,
     NewUniversity,
-    NewDepartment
+    NewDepartment,
+    NewEmployee
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,7 @@ import { GoogleChart} from './custom-component/chart.directive';
     CredentialService,
     LoggedInGuard,
     CommonService,
+    AdminService,
     OrganizationService2,
     NavService,
     {

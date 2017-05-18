@@ -20,7 +20,7 @@ export class AppComponent implements AfterViewInit{
 
 
   ngAfterViewInit(){
-    // $("#wrapper").toggleClass("toggled");
+    $("#wrapper").toggleClass("toggled");
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
