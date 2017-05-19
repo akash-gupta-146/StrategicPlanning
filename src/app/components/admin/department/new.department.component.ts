@@ -1,22 +1,41 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { OrganizationService2 } from '../../../providers/organization.service2';
+import { AdminService } from '../../../providers/admin.service';
+declare let $;
 @Component({
   selector:'new-department',
   templateUrl:'./new.department.component.html',
   styleUrls:['./new.department.component.css']
 })
 export class NewDepartment{
+  public universities = [];
   public newDepartment: FormGroup;
   constructor(public formBuilder: FormBuilder,
-              public orgServ:OrganizationService2){
+              public adminService:AdminService){
+              
+              adminService.getUniversity().subscribe(response =>{
+                if (response.status === 204) {
+                  this.universities = [];
+                  alert("There is not Universities Entry yet.\nFirst Feed the entries of University");
+                } else {
+                  console.log(response);
+                  this.universities = response;
+                }
+              }, err =>{
+                this.universities = [];
+                console.log(err);
+              });
 
               this.newDepartment = this.formBuilder.group({
-                "name": ['', [Validators.required]]
+                "department": ['', [Validators.required]],
+                "universityId": ['', [Validators.required]],
+                
               });
   }
   onSubmit(){
-    this.orgServ.addDepartment(1,this.newDepartment.value).subscribe(res =>{
+    this.adminService.addDepartment(this.newDepartment.value).subscribe(res =>{
+      $('#deptModal').modal('show');
+      this.newDepartment.reset();
       console.log(res);
     }, err =>{
       console.log(err);

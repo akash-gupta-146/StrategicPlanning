@@ -99,19 +99,6 @@ export class OrganizationService2 {
     .catch(this.handleError);
   }
 
-  public addUniversity(data){
-    return this.http.post(this.baseUrl + "/university",data)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  public addDepartment(uid,department){
-    this.baseUrl = this.con.baseUrl;
-    return this.http.post(this.baseUrl + "/university/"+uid+"/department",department)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
   private extractData(res: Response) {
     if (res.status === 204) { return res; }
     let body = res.json();

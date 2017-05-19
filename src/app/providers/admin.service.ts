@@ -34,6 +34,26 @@ export class AdminService {
             .catch(this.handleError);
   }
 
+  getUniversity(){
+    this.baseUrl = this.con.baseUrl;
+    return this.http.get(this.baseUrl + "/university")
+            .map(this.extractData)
+            .catch(this.handleError);
+  }
+
+  public addUniversity(data){
+    return this.http.post(this.baseUrl + "/university",data)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  public addDepartment(department){
+    this.baseUrl = this.con.baseUrl;
+    return this.http.post(this.baseUrl + "/department",department)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }  
+
   addEmployee(employee){
     this.baseUrl = this.con.baseUrl;
     return this.http.post(this.baseUrl + "/employee",employee)

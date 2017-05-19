@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { OrganizationService2 } from '../../../providers/organization.service2';
+import { AdminService } from '../../../providers/admin.service';
+declare let $;
 @Component({
   selector:'new-university',
   templateUrl:'./new.university.component.html',
@@ -9,15 +10,17 @@ import { OrganizationService2 } from '../../../providers/organization.service2';
 export class NewUniversity{
   public newUniversity: FormGroup;
   constructor(public formBuilder: FormBuilder,
-              public orgServ:OrganizationService2){
+              public adminService:AdminService){
 
               this.newUniversity = this.formBuilder.group({
-                "name": ['', [Validators.required]]
+                "university": ['', [Validators.required]]
               });
   }
   onSubmit(){
-    this.orgServ.addUniversity(this.newUniversity.value).subscribe(res =>{
+    this.adminService.addUniversity(this.newUniversity.value).subscribe(res =>{
       console.log(res);
+      $('#utModal').modal('show');
+      this.newUniversity.reset();
     }, err =>{
       console.log(err);
     })

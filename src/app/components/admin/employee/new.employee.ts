@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { AdminService } from '../../../providers/admin.service';
+declare let $;
 @Component({
   selector: 'new-employee',
   templateUrl: './new.employee.html',
@@ -59,6 +60,8 @@ export class NewEmployee {
     console.log(this.newEmployee.value);
     this.adminService.addEmployee(this.newEmployee.value).subscribe(response =>{
       console.log(response);
+      $('#empModal').modal('show');
+      this.newEmployee.reset();
     }, error =>{
       console.log("Somthing went wrong", error);
     });
