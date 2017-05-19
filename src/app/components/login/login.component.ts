@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       this.commonService.storeData("user_departmentInfo", res.departmentInfo)
       this.commonService.storeData("user_roleInfo", res.roleInfo);  
       this.commonService.updateBaseUrl(); 
-      if(res.roleInfo[0].roleId == 2){
+      if(res.roleInfo[0].role == "planner"){
         this.fetchOrganizationInfo(res);
       } else {
         this.onSuccess();
@@ -103,8 +103,8 @@ export class LoginComponent implements OnInit {
   public userRedirectTo() {
     let user_roleInfo = this.commonService.getData("user_roleInfo");
     let org_info = this.commonService.getData("org_info");
-    switch (user_roleInfo[0].roleId) {
-      case 2:
+    switch (user_roleInfo[0].role) {
+      case "planner":
         if (org_info[0].cycles === null) {
           this.router.navigate(['/initial-setup']);
         } else {
@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
         }
         break;
       
-      case 3:
+      case "hod":
         this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
         break;
     

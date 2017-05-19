@@ -17,6 +17,8 @@ import { AdminHome } from './components/admin/home/home.component';
 import { NewUniversity} from './components/admin/university/new.university.component';
 import { NewDepartment } from './components/admin/department/new.department.component';
 import { NewEmployee } from './components/admin/employee/new.employee';
+import { ExistingDepartment } from './components/admin/department/existing.department.component';
+import { AddRole } from './components/admin/employee/role/add.role.component';
 
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -36,6 +38,8 @@ export const rootRouterConfig: Routes = [
   { path: 'admin-home', component:AdminHome, canActivate:[LoggedInGuard]},
   { path: 'new-university', component:NewUniversity, canActivate:[LoggedInGuard]},
   { path: 'new-department', component:NewDepartment, canActivate:[LoggedInGuard]},
-  { path: 'new-employee', component:NewEmployee, canActivate:[LoggedInGuard]}
+  { path: 'new-employee', component:NewEmployee, canActivate:[LoggedInGuard]},
+  { path: 'existing-department', component:ExistingDepartment, canActivate:[LoggedInGuard]},
+  { path: 'add-role', component:AddRole, canActivate:[LoggedInGuard]}
 ];
 

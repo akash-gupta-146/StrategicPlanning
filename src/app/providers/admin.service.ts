@@ -54,9 +54,16 @@ export class AdminService {
       .catch(this.handleError);
   }  
 
-  addEmployee(employee){
+  public addEmployee(employee){
     this.baseUrl = this.con.baseUrl;
     return this.http.post(this.baseUrl + "/employee",employee)
+            .map(this.extractData)
+            .catch(this.handleError);
+  }
+
+  public addRole(role){
+    this.baseUrl = this.con.baseUrl;
+    return this.http.post(this.baseUrl + "/role",role)
             .map(this.extractData)
             .catch(this.handleError);
   }

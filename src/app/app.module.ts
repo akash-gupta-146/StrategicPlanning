@@ -25,6 +25,8 @@ import { AdminHome } from './components/admin/home/home.component';
 import { NewUniversity} from './components/admin/university/new.university.component'; 
 import { NewDepartment } from './components/admin/department/new.department.component';
 import { NewEmployee } from './components/admin/employee/new.employee';
+import { ExistingDepartment } from './components/admin/department/existing.department.component';
+import { AddRole } from './components/admin/employee/role/add.role.component';
 // import service
 import { CustomHttpService } from './providers/default.header.service';
 import { CommonService } from './providers/common.service';
@@ -32,6 +34,7 @@ import { OrganizationService2 } from './providers/organization.service2';
 import { NavService } from './providers/event.service';
 import { GoogleChart} from './custom-component/chart.directive';
 import { AdminService } from './providers/admin.service';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +55,9 @@ import { AdminService } from './providers/admin.service';
     AdminHome,
     NewUniversity,
     NewDepartment,
-    NewEmployee
+    NewEmployee,
+    ExistingDepartment,
+    AddRole
   ],
   imports: [
     BrowserModule,
