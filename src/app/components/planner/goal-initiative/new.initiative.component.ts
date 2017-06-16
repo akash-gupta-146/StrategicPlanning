@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { OrganizationService2 } from '../../../providers/organization.service2';
 import { CommonService } from '../../../providers/common.service';
 
+declare let $;
+
 @Component({
   selector: 'new-initiative',
   templateUrl: './new.initiative.component.html'
@@ -22,13 +24,16 @@ export class NewInitiative{
       if (param['goalId']) this.goalId = param['goalId'];
     });
     this.cycle = commonService.getData('org_info')[0].cycle;
-    this.initiativeForm = this.formBuilder.group({
+    this.initiativeForm = this.initForm();
+  }
+  initForm(){
+    return this.formBuilder.group({
       "initiative": ['', [Validators.required]],
       "totalCost": ['', [Validators.required]],
       "activities": this.formBuilder.array([this.setActivity()])
     });
   }
-    addActivity() {
+  addActivity() {
     const control = <FormArray>this.initiativeForm.controls['activities'];
     control.push(this.setActivity());
   }
@@ -70,7 +75,7 @@ export class NewInitiative{
     return this.formBuilder.group({
       "year": [year, [Validators.required]],
       "levels": this.formBuilder.array([this.inItLevels(1)]),
-      "cost": ['', [Validators.required]]
+      "estimatedCost": ['', [Validators.required]]
     });
   }
   setTargetTable(form, e) {
@@ -87,15 +92,16 @@ export class NewInitiative{
       "quarter": [q + "quarter"],
       "startDate": ["2017-04-01"],
       "endDate":["2018-04-15"],
-      "level": ['', [Validators.required]]
+      "estimatedTargetLevel": ['', [Validators.required]]
     });
   }
   submitInitiative() {
-    this.orgId = this.commonService.getData('org_info')[0].id;
-    this.cycleId = this.commonService.getData('org_info')[0].cycles.id;
+    this.initiativeForm.value['objectiveId'] = this.goalId;
     console.log("object", this.initiativeForm.value);
-    this.orgService.addInitiative(this.orgId, this.cycleId, this.goalId, this.initiativeForm.value).subscribe(res => {
+    this.orgService.addInitiative(this.initiativeForm.value).subscribe(res => {
       // this.initiatives.push(res);
+      $('#initiativeModal').modal('show');
+      this.initForm();
     }, err => {
       console.log(err);
     });

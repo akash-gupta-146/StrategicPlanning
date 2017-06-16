@@ -21,10 +21,10 @@ export class GoalInitiative{
     this.route.params.subscribe(param => {
       if (param['goalId']) this.goalId = param['goalId'];
     });
-    this.orgService.fetchInitiative(commonService.getData('org_info')[0].id, commonService.getData('org_info')[0].cycles.id,this.goalId)
+    this.orgService.fetchInitiative(this.goalId)
     .subscribe(response =>{
       if (response.status === 204) {
-        return
+        return;
       }
       console.log(response);
       this.initiatives = response;
@@ -34,15 +34,16 @@ export class GoalInitiative{
     
   }
 
-  departmentIds = [];
-  department;
+  public departmentIds = [];
+  public department;
   selectDepartment(e){
+    console.log(e);
     this.departmentIds = [];
     e.forEach(element => {
-      this.departmentIds.push(element.departmentId);
+      this.departmentIds.push(element.id);
     });
     this.department = e;
-    console.log(this.departmentIds);    
+    console.log(this.departmentIds);
   }
   assignActivity(activityId,assignedDept){
     this.orgService.assignActivity(activityId,this.departmentIds).subscribe(res =>{

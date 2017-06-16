@@ -1,0 +1,99 @@
+<div class="background row">
+  <!--<h2 style="text-align: center;margin-bottom:20px;">New Strategic Performance indicator</h2>-->
+  <div class="row">
+    <div class="card col-lg-12 col-sm-12">
+      <div class="row card-heading">
+        <h3>New Measure</h3>
+      </div>
+      <div class="row card-content">
+        <form [formGroup]="measureForm" (submit)="submitMeasure()">
+          <div class="row">
+            <div class="col-lg-4 col-sm-12">
+              <label class="control-label">Measure</label>
+              <textarea class="form-control" rows="3" formControlName="measure"></textarea>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+              <label class="control-label">Select Measurement Unit</label>
+              <select class="form-control" formControlName="measureUnit">
+              <option value="percentage">Percentage</option>
+              <option value="decimal">Decimal</option>  
+            </select>
+            </div>
+            <div class="col-lg-2 col-sm-12">
+              <div class="form-group">
+                <label for="currentLevel">Current <br>Level</label>
+                <input type="number" min="0" step="1" formControlName="currentLevel" class="form-control" id="currentLevel" placeholder="1">
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+              <label class="control-label">Frequency of Measurement</label>
+              <select class="form-control" formControlName="frequencyId" (ngModelChange)="setTargetTable(measureForm.controls.annualTarget.controls,$event)">
+              <option value="1">Annually</option>
+              <option value="2">Semi-Annual</option>      
+              <option value="4">Quarterly</option> 
+            </select>
+            </div>
+          </div>
+          <div class="row marginT-20">
+            <div class="">
+              <table class="">
+                <thead>
+                  <tr>
+                    <th colspan="3">{{commonService.getData('org_info')[0].cycle[0]}} - {{commonService.getData('org_info')[0].cycle[commonService.getData('org_info')[0].cycle.length-1]}}
+                      Annual Target</th>
+                  </tr>
+                </thead>
+                <thead>
+                  <tr>
+                    <th width="20%">Year</th>
+                    <th width="60%">Levels</th>
+                    <th width="20%">Cost</th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="annualTarget">
+                  <tr *ngFor="let td of measureForm.controls.annualTarget.controls;let k = index;" [formGroupName]="k">
+                    <td>{{td.value.year}}</td>
+                    <div style="display: inline-table;" formArrayName="levels">
+                      <td *ngFor="let le of measureForm.controls.annualTarget.controls[k].controls.levels.controls;let l = index;"
+                        [formGroupName]="l">
+                        <input type="text" style="width:50%" formControlName="quarter" hidden>
+                        <input type="text" style="width:50%" formControlName="startDate" hidden>
+                        <input type="text" style="width:50%" formControlName="endDate" hidden>
+                        <input type="text" style="width:50%" class="validate" formControlName="estimatedTargetLevel">
+                      </td>
+                    </div>
+                    <td><input type="text" class="validate" formControlName="estimatedCost"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <button type="submit" class="btn btn-success" [disabled]="measureForm.invalid">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="measureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You have successfully added a new Measure.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="goBack()" >Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" >Add More</button>
+      </div>
+    </div>
+  </div>
+</div>

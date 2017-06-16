@@ -21,7 +21,13 @@ export class OrganizationService2 {
   }
 
   public orgInitialSetup(data) {
-    return this.http.post(this.baseUrl + "/university/1/initialSetup", data)
+    return this.http.post(this.baseUrl + "/initialSetup", data)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  public getUniversities(){
+    return this.http.get(this.baseUrl + "/university")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
@@ -33,47 +39,55 @@ export class OrganizationService2 {
                     .catch(this.handleError);
   }
 
-  public fetchObjectives(orgId, cycleId) {
-    return this.http.get(this.baseUrl + "/university/" + orgId + "/cycle/" + cycleId + "/objective")
+  public fetchObjectives(cycleId) {
+    return this.http.get(this.baseUrl + "/cycle/" + cycleId + "/objective")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  public addObjective(orgId, cycleId, objective) {
-    return this.http.post(this.baseUrl + "/university/" + orgId + "/cycle/" + cycleId + "/objective", objective)
+  public addObjective(objective) {
+    return this.http.post(this.baseUrl + "/objective", objective)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  public addInitiative(universityId, cycleId, goalId, initiative) {
-    return this.http.post(this.baseUrl + "/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative)
+  public addInitiative(initiative) {
+    return this.http.post(this.baseUrl + "/initiative", initiative)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  public fetchInitiative(universityId, cycleId, goalId){
-    return this.http.get(this.baseUrl + "/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
+  public fetchInitiative(goalId){
+    return this.http.get(this.baseUrl + "/objective/" + goalId + "/initiative")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   public fetchAssignedActivity(){
     this.baseUrl = this.con.baseUrl;
-    return this.http.get(this.baseUrl + "/department/" + this.con.getData('user_departmentInfo')[0].departmentId+"/activity")
+    return this.http.get(this.baseUrl + "/department/" + this.con.getData('user_roleInfo')[0].departmentId+"/activity")
                     .map(this.extractData)
                     .catch(this.handleError); 
   }
 
   public saveQuarteResult(data, quarterId){
+    return this.http.post(this.baseUrl + "/quarter/"+quarterId+"/result",data)
+                    .map(this.extractData)
+                    .catch(this.handleError); 
+  }
+
+  public saveEvidence(data, quarterId, resultId){
     var options = new RequestOptions({
       headers: new Headers({
         'Authorization': 'Bearer ' + localStorage.getItem('access_token')
       })
     });
-    return this.htttp.post(this.baseUrl + "/quarter/"+quarterId+"/result",data, options)
+    console.log(data);
+    return this.htttp.post(this.baseUrl + "/quarter/"+quarterId+"/result/"+resultId+"/evidance",data,options)
                     .map(this.extractData)
                     .catch(this.handleError); 
   }
+
 
   public fetchDepartments(){
     return this.http.get(this.baseUrl + "/university/1/department")
@@ -87,14 +101,20 @@ export class OrganizationService2 {
       .catch(this.handleError); 
   }
 
-  public saveActivity(universityId,cycleId,objectiveId,initiativeId,activity){
-    return this.http.post(this.baseUrl + "/university/"+universityId+"/cycle/"+cycleId+"/objective/"+objectiveId+"/initiative/"+initiativeId+"/activity",activity)
+  public saveActivity(activity){
+    return this.http.post(this.baseUrl + "/activity",activity)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
-  public saveSpi(universityId,cycleId,objectiveId,spi){
-    return this.http.post(this.baseUrl + "/university/"+universityId+"/cycle/"+cycleId+"/objective/"+objectiveId+"/spi",spi)
+  public saveSpi(spi){
+    return this.http.post(this.baseUrl + "/spi",spi)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public saveMeasure(measure){
+    return this.http.post(this.baseUrl + "/measures",measure)
     .map(this.extractData)
     .catch(this.handleError);
   }

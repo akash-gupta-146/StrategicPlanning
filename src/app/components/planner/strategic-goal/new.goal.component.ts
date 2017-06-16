@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@ang
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OrganizationService2 } from '../../../providers/organization.service2';
 import { CommonService } from '../../../providers/common.service';
+
+declare let $;
+
 @Component({
   selector: 'new-goal',
   templateUrl: './new.goal.component.html'
@@ -36,14 +39,15 @@ export class NewGoalComponent {
       "spi": ['', [Validators.required]],
       "measureUnit": ['', [Validators.required]],
       "currentLevel": ['', [Validators.required]],
-      "targetDigital": this.formBuilder.array(this.inItTarget()),
+      "frequencyId":[1],
+      "targetDigital": this.formBuilder.array(this.inItTarget())
     });
   }
 
   inItTargetDigital(year) {
     return this.formBuilder.group({
       "year": [year, [Validators.required]],
-      "level": ['', [Validators.required]],
+      "expectedLevel": ['', [Validators.required]],
     });
   }
 
@@ -67,12 +71,12 @@ export class NewGoalComponent {
   }
 
   returnedObject;
-  orgId;
   onSubmit() {
-    this.orgId = this.commonService.getData('org_info')[0].id;
-    this.orgService.addObjective(this.orgId, this.commonService.getData('org_info')[0].cycles.id, this.goalForm.value).subscribe(response => {
+    this.goalForm.value["cycleId"] = this.commonService.getData('org_info')[0].cycles.id;
+    this.orgService.addObjective(this.goalForm.value).subscribe(response => {
       this.returnedObject = response;
       // this.objectives.push(this.returnedObject);
+      $('#goalModal').modal('show');
       this.initializeGoalForm();
     }, (error) => {
       console.log(error);

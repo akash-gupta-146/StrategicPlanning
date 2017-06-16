@@ -4,31 +4,25 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { CommonService } from '../../../providers/common.service';
 import { OrganizationService2 } from '../../../providers/organization.service2';
+
+declare let $;
+
 @Component({
-  selector: 'new-activity',
-  templateUrl: './new.activity.component.html'
+  selector: 'new-measure',
+  templateUrl: './new.measure.component.html'
 })
-export class NewActivity {
-  activityForm: FormGroup;
-  goalId;
-  initiativeId;
-  constructor(public formBuilder: FormBuilder, 
-              private commonService: CommonService,
-              private _location: Location,
-              private orgService: OrganizationService2,
-              private route:ActivatedRoute) {
-              this.activityForm = this.setActivity();
-                  this.route.params.subscribe(param => {
-                    console.log(param);
-                    if (param['goalId']) this.goalId = param['goalId'];
-                    if (param['initiativeId']) this.initiativeId = param['initiativeId'];
-                  });
-  }
-  setActivity() {
-    return this.formBuilder.group({
-      "activity": ['', [Validators.required]],
-      "measures": this.formBuilder.array([this.setMeasure()])
-    });
+export class NewMeasure {
+  public measureForm: FormGroup;
+  public activityId;
+  constructor(private formBuilder: FormBuilder,
+    private commonService: CommonService,
+    private orgService: OrganizationService2,
+    private _location: Location,
+    private route: ActivatedRoute) {
+    this.route.params.subscribe(param =>{
+      if (param['activityId']) this.activityId = param['activityId'];
+    })
+    this.measureForm = this.setMeasure();
   }
   setMeasure() {
     return this.formBuilder.group({
@@ -70,20 +64,16 @@ export class NewActivity {
       }
     }
   }
-  removeMeasure(form, j) {
-    const control = <FormArray>form.controls['measures'];
-    control.removeAt(j);
+  submitMeasure(){
+    this.measureForm.value['activityId'] = this.activityId;
+    this.orgService.saveMeasure(this.measureForm.value).subscribe(response =>{
+      this.measureForm = this.setMeasure();
+      $('#measureModal').modal('show');
+    }, error =>{
+      console.log(error);
+    });
   }
-  addMeasure(form) {
-    const control = <FormArray>form.controls['measures'];
-    control.push(this.setMeasure());
-  }
-  submitActivity(){
-    this.activityForm.value['initiativeId'] = this.initiativeId;
-    this.orgService.saveActivity(this.activityForm.value)
-    .subscribe(response =>{
-      console.log(response);
-      this._location.back();
-    });    
+  goBack(){
+    this._location.back();
   }
 }

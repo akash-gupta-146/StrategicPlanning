@@ -27,6 +27,9 @@ import { NewDepartment } from './components/admin/department/new.department.comp
 import { NewEmployee } from './components/admin/employee/new.employee';
 import { ExistingDepartment } from './components/admin/department/existing.department.component';
 import { AddRole } from './components/admin/employee/role/add.role.component';
+import { NewMeasure } from './components/planner/goal-initiative/new.measure.component';
+import { CoordinatorHome } from './components/coordinator/coordinator.component';
+
 // import service
 import { CustomHttpService } from './providers/default.header.service';
 import { CommonService } from './providers/common.service';
@@ -57,7 +60,9 @@ import { AdminService } from './providers/admin.service';
     NewDepartment,
     NewEmployee,
     ExistingDepartment,
-    AddRole
+    AddRole,
+    NewMeasure,
+    CoordinatorHome
   ],
   imports: [
     BrowserModule,

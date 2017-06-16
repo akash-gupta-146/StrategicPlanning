@@ -19,7 +19,8 @@ import { NewDepartment } from './components/admin/department/new.department.comp
 import { NewEmployee } from './components/admin/employee/new.employee';
 import { ExistingDepartment } from './components/admin/department/existing.department.component';
 import { AddRole } from './components/admin/employee/role/add.role.component';
-
+import { NewMeasure } from './components/planner/goal-initiative/new.measure.component';
+import { CoordinatorHome } from './components/coordinator/coordinator.component';
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -28,10 +29,12 @@ export const rootRouterConfig: Routes = [
   { path: 'planner-home', component: HomeComponent, canActivate: [LoggedInGuard] },
   { path: 'strategic-goal', component: StrategicGoal, canActivate: [LoggedInGuard] },
   { path: 'strategic-goal/:orgId', component: StrategicGoal, canActivate: [LoggedInGuard] },
+  { path: 'goal-initiative', component: GoalInitiative, canActivate: [LoggedInGuard] },
   { path: 'goal-initiative/:goalId', component: GoalInitiative, canActivate: [LoggedInGuard] },
   { path: 'hod-home', component: HODComponent, canActivate: [LoggedInGuard]},
   { path: 'quarter-result/:levelId', component:QuarterResult, canActivate:[LoggedInGuard]},
   { path: 'new-activity/:goalId/:initiativeId', component:NewActivity, canActivate:[LoggedInGuard]},
+  { path: 'new-measure/:activityId', component:NewMeasure, canActivate:[LoggedInGuard]},
   { path: 'new-goal', component:NewGoalComponent, canActivate:[LoggedInGuard]},
   { path: 'new-spi/:goalId', component:NewSpi, canActivate:[LoggedInGuard]},
   { path: 'new-initiative/:goalId', component:NewInitiative, canActivate:[LoggedInGuard]},
@@ -40,6 +43,7 @@ export const rootRouterConfig: Routes = [
   { path: 'new-department', component:NewDepartment, canActivate:[LoggedInGuard]},
   { path: 'new-employee', component:NewEmployee, canActivate:[LoggedInGuard]},
   { path: 'existing-department', component:ExistingDepartment, canActivate:[LoggedInGuard]},
-  { path: 'add-role', component:AddRole, canActivate:[LoggedInGuard]}
+  { path: 'add-role', component:AddRole, canActivate:[LoggedInGuard]},
+  { path: 'coordinator-home', component:CoordinatorHome, canActivate:[LoggedInGuard]}
 ];
 

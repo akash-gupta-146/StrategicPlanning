@@ -1,0 +1,223 @@
+<div class="background">
+  <h2>Assigned Objectives </h2>
+  <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-info" *ngFor="let act of assignedActivities; let i = index;">
+      <div class="panel-heading" role="tab" id="headingOne" [ngClass]="{'bg-success': i%2}">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#hodActivity{{i}}" aria-expanded="true" aria-controls="collapseOne">
+          <div class="row">
+            <b class="panel-title"></b>
+            <div class="col-lg-12 col-sm-12">
+              <b class="panel-title">{{i+1}}) Activity : </b>
+              <p>{{ act.activity }}</p>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+              <b>Objective : </b>
+              <p>{{act.objective}}</p>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+              <b>Initiative : </b>
+              <p>{{act.initiative}}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div id="hodActivity{{i}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+          <div class="panel-group" id="accordion{{i}}" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-info" *ngFor="let measr of act.activityMeasures;let me = index;">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <b class="panel-title">
+                <a role="button" data-toggle="collapse" [attr.data-parent]="'#accordion' + i" href="#hod{{i}}Measure{{me}}" aria-expanded="true" aria-controls="collapseOne">
+                  Measure {{me+1}}) : {{measr.measure}}
+                </a>
+                </b>
+              </div>
+              <div id="hod{{i}}Measure{{me}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                      <b>Current Level:</b> {{measr.currentLevel}}
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                      <b>Frequency:</b> {{measr.frequency}}
+                    </div>
+                  </div>
+                  <div class="row marginT-20">
+                    <div class="target-table-title"><b> Annual Target</b></div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Year</th>
+                          <th>Estimated Cost</th>                          
+                          <th>Target</th>
+                          <th>End Date</th>
+                          <th>Actual Cost</th>
+                          <th>Actual Target</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody *ngFor="let tdl of measr.annualTarget;let at = index;">
+                        <tr>
+                          <td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1">{{ tdl.year }}</td>
+                          <td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1">{{tdl.estimatedCost}}</td>
+                        </tr>
+                        <tr *ngFor="let lev of tdl.levels; let in = index;">
+                          <td>{{ lev.estimatedTargetLevel }}</td>                          
+                          <td>{{ lev.endDate }}</td>
+                          <td><input type="number" min="0" step="1"></td>
+                          <td><input type="number" min="0" step="1"><i style="padding: 5px;color: green;" class="glyphicon glyphicon-ok"></i></td>
+                          <td class="oprations">
+                            <ul>
+                              <li><a data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-upload"></i>Evidence</a></li>
+                              <li><a onclick="$('.panel.panel-chat').show();"><i class="glyphicon glyphicon-comment"></i>Comments</a></li>
+                              <li><a><i class="glyphicon glyphicon-edit"></i>Edit</a></li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>-->
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-info" *ngFor="let obj of assignedActivities; let i = index;">
+      <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" [attr.data-target]="'#obj' + i">{{i+1}}) {{obj.objective}}</div>
+      <div class="panel-body collapse" [attr.id]="'obj' + i" ><b>Related Initiatives</b>
+        <div class="panel panel-default" *ngFor="let ini of obj.initiatives; let j = index;">
+          <div class="panel-heading" data-toggle="collapse"  [attr.data-parent]="'#obj' + i" [attr.data-target]="'#obj' + i + 'ini' + j">{{j+1}}) {{ini.initiative}}</div>
+          <div class="panel-body collapse" [attr.id]="'obj' + i + 'ini' + j"><b>Related Activities</b>
+            <div class="panel panel-default" *ngFor="let act of ini.activities; let k = index;">
+              <div class="panel-heading" data-toggle="collapse"  [attr.data-parent]="'#obj' + i + 'ini' + j" [attr.data-target]="'#obj' + i + 'ini' + j + 'act' + k">{{k+1}}) {{act.activity}}</div>
+              <div class="panel-body collapse" [attr.id]="'obj' + i + 'ini' + j + 'act' + k"><b>Related Measures</b>
+                <div class="panel panel-default" *ngFor="let measr of act.activityMeasures;let l = index;">
+                  <div class="panel-heading" data-toggle="collapse"  [attr.data-parent]="'#obj' + i + 'ini' + j + 'act' + k" [attr.data-target]="'#obj' + i + 'ini' + j + 'act' + k + 'measr' + l">{{l+1}}) {{measr.measure}}</div>
+                  <div class="panel-body collapse" [attr.id]="'obj' + i + 'ini' + j + 'act' + k + 'measr' + l">
+                    <label>Current Level:</label> {{measr.currentLevel}}<br>
+                    <label>Frequency:</label> {{measr.frequency}}
+                    <div class="panel panel-default">
+                      <div class="panel-heading text-center"><b>Annual Target</b></div>
+                      <div class="panel-body">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Year</th>
+                              <th>Estimated Cost</th>
+                              <th>Target</th>
+                              <th>End Date</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody *ngFor="let tdl of measr.annualTarget;let at = index;">
+                            <tr>
+                              <td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1">{{ tdl.year }}</td>
+                              <td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1">{{tdl.estimatedCost}}</td>
+                            </tr>
+                            <tr *ngFor="let lev of tdl.levels; let in = index;">
+                              <td>{{ lev.estimatedTargetLevel }}</td>
+                              <td>{{ lev.endDate }}</td>
+                              <td *ngIf="!lev.result.length"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#quarterResultForm" (click)="selectQuarter(lev)">Fill Actual Target</button></td>
+                              <td *ngIf="lev.result.length"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evidenceForm" (click)="attachEvidence(lev)">View Filled Target</button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="quarterResultForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" *ngIf="selectedQuarter">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Fill Actual Target
+        </h4>
+      </div>
+      <!-- Modal Body -->
+      <form role="form" [formGroup]="resultForm" (submit)="onResultSubmit()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Actual Level</label>
+            <input type="number" class="form-control" id="exampleInputEmail1" formControlName="currentLevel"  />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Actual Cost</label>
+            <input type="number" class="form-control" id="exampleInputPassword1" formControlName="currentCost" />
+          </div>
+        </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="evidenceForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" *ngIf="selectedQuarter">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Filled Result
+        </h4>
+        <div class="row" *ngIf="selectedQuarter.result[0]">
+          <div class="col-lg-6"><label>Current Level :</label>{{selectedQuarter.result[0].currentLevel}}</div>
+          <div class="col-lg-6"><label>Current Level :</label>{{selectedQuarter.result[0].currentCost}}</div>
+          <div class="col-lg-12"><label>Evidance :</label><a href="{{selectedQuarter.result[0].evidance[0].url}}">Attachment1</a></div>          
+        </div>
+      </div>
+      <!-- Modal Body -->
+      <form [formGroup]="evidencForm" (submit)="onEvidenceSubmit()">
+        <div class="modal-body">
+          <h4 class="modal-title" id="myModalLabel">
+            Attach Evidence
+          </h4>
+          <hr>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" formControlName="title"  />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea type="text" class="form-control" id="description" formControlName="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile">Attachment</label>
+            <input type="file" class="form-control-file" id="exampleInputFile" formControlName="files" (change)="getFile($event)" aria-describedby="fileHelp">
+            <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+          </div>
+        </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

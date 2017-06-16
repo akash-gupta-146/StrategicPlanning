@@ -9,10 +9,22 @@ declare let $;
 })
 export class NewDepartment{
   public universities = [];
+  public departments = [];
   public newDepartment: FormGroup;
   constructor(public formBuilder: FormBuilder,
               public adminService:AdminService){
-              
+              adminService.getDepartments().subscribe(response =>{
+                if (response.status === 204) {
+                  this.departments = [];
+                  alert("There is not Departments Entry yet.\nFirst Feed the entries of Departments");
+                } else {
+                  console.log(response);
+                  this.departments = response;
+                }
+              }, err =>{
+                this.departments = [];
+                console.log(err);
+              });
               adminService.getUniversity().subscribe(response =>{
                 if (response.status === 204) {
                   this.universities = [];
@@ -28,6 +40,7 @@ export class NewDepartment{
 
               this.newDepartment = this.formBuilder.group({
                 "department": ['', [Validators.required]],
+                "parentDepartmentId":['',[Validators.required]],
                 "universityId": ['', [Validators.required]],
                 
               });

@@ -15,15 +15,13 @@ export class StrategicGoal implements OnInit{
   public orgId;
   constructor(private route: ActivatedRoute,
               public orgService: OrganizationService2,
-              public commonService: CommonService) {
-              this.orgId = this.commonService.getData('org_info')[0].id;
-              
+              public commonService: CommonService) {              
               
     }
     ngOnInit(){
       this.loader = true;
       let cycleId = this.commonService.getData('org_info')[0].cycles.id;
-      this.orgService.fetchObjectives(this.orgId, cycleId).subscribe(response => {
+      this.orgService.fetchObjectives(cycleId).subscribe(response => {
                 if (response.status === 204) {
                   this.objectives = [];
                 } else {

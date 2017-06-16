@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@ang
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OrganizationService2 } from '../../../providers/organization.service2';
 import { CommonService } from '../../../providers/common.service';
+
+declare let $;
+
 @Component({
   selector: 'new-spi',
   templateUrl: './new.spi.component.html'
@@ -18,10 +21,14 @@ export class NewSpi {
                     console.log(param);
                     if (param['goalId']) this.goalId = param['goalId'];
                   });
-                  this.spiForm = this.formBuilder.group({
+                  this.spiForm = this.initSpiForm();
+  }
+  initSpiForm(){
+    return this.formBuilder.group({
                     "spi": ['', [Validators.required]],
                     "measureUnit": ['', [Validators.required]],
-                    "currentLevel": ['', [Validators.required]],
+                    "currentLevel": ['', [Validators.required]],                    
+                    "frequencyId":[1],
                     "targetDigital": this.formBuilder.array(this.inItTarget()),
                   });
   }
@@ -35,17 +42,19 @@ export class NewSpi {
   public inItTargetDigital(year) {
     return this.formBuilder.group({
       "year": [year, [Validators.required]],
-      "level": ['', [Validators.required]],
+      "expectedLevel": ['', [Validators.required]],
     });
   }
   orgId;
   cycleId;
   public submitSpi(){
-    this.orgId = this.commonService.getData('org_info')[0].id;
-    this.cycleId = this.commonService.getData('org_info')[0].cycles.id;
-    console.log(this.spiForm.value);
-    this.orgService.saveSpi(this.orgId,this.cycleId,this.goalId,this.spiForm.value).subscribe(res =>{
-      console.log("asdfds",res);
+    // this.orgId = this.commonService.getData('org_info')[0].id;
+    // this.cycleId = this.commonService.getData('org_info')[0].cycles.id;
+    // console.log(this.spiForm.value);
+    this.spiForm.value['objectiveId'] = this.goalId;
+    this.orgService.saveSpi(this.spiForm.value).subscribe(res =>{
+      $('#spiModal').modal('show');
+      this.spiForm = this.initSpiForm();
     },err =>{
       console.log("asdfds",err);
     })

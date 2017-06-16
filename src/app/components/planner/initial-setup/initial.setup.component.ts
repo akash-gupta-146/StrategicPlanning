@@ -11,17 +11,18 @@ import { OrganizationService2 } from '../../../providers/organization.service2';
 export class InitialSetup implements OnInit {
 
   cmvvForm: FormGroup;
-
+  uid;
   constructor(public formBuilder: FormBuilder,
               public orgService: OrganizationService2,
               public commonService: CommonService,
               private router: Router) { 
                  if (this.commonService.getData('org_info')[0].cycles) {
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/'+this.commonService.getData('user_roleInfo')[0].role+'-home']);
                   }
               }
 
   ngOnInit() {
+     this.uid = this.getUniversity();
      this.cmvvForm = this.formBuilder.group({
       "startCycle": ['', [Validators.required]],
       "endCycle": ['', [Validators.required]],
@@ -52,7 +53,16 @@ export class InitialSetup implements OnInit {
   cycle = [];
   submitted: boolean = false;
 
-  onSubmit() {
+  getUniversity(){
+    this.orgService.getUniversities().subscribe(response =>{
+      this.uid = response[0].id;
+    }, error =>{
+      console.log(error);
+    })
+  }
+
+  onSubmit() {    
+    this.cmvvForm.value['universityId'] = 116303243;
     var startYear = new Date(this.cmvvForm.value.startCycle).getFullYear();
     var endYear = new Date(this.cmvvForm.value.endCycle).getFullYear();
     for (var y = startYear; y <= endYear; y++)
@@ -69,7 +79,7 @@ export class InitialSetup implements OnInit {
       this.returnObject.push(res);
       this.returnObject['cycle'] = this.cycle;
       this.commonService.storeData('org_info',this.returnObject)
-      this.router.navigate(['/home']);
+      this.router.navigate(['/'+this.commonService.getData('user_roleInfo')[0].role+'-home']);
     }, (error) => {
       console.log(error);
     })
