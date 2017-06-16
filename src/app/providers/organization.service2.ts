@@ -15,50 +15,108 @@ export class OrganizationService2 {
   private baseUrl: string = "";
 
   constructor(public http: CustomHttpService,
+              public htttp:Http,
               public con: CommonService) {
     this.baseUrl = con.baseUrl;
   }
 
-  public fetchOrganizationInfo() {
+  public orgInitialSetup(data) {
+    return this.http.post(this.baseUrl + "/initialSetup", data)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  public getUniversities(){
     return this.http.get(this.baseUrl + "/university")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  public fetchObjectives(orgId, cycleId) {
-    return this.http.get(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective")
+  public fetchOrganizationInfo() {
+    this.baseUrl = this.con.baseUrl;
+    return this.http.get(this.baseUrl + "/university")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  public addObjective(orgId, cycleId, objective) {
-    return this.http.post(this.baseUrl + "/planner/university/" + orgId + "/cycle/" + cycleId + "/objective", objective)
+  public fetchObjectives(cycleId) {
+    return this.http.get(this.baseUrl + "/cycle/" + cycleId + "/objective")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  public addInitiative(universityId, cycleId, goalId, initiative) {
-    return this.http.post(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative", initiative)
+  public addObjective(objective) {
+    return this.http.post(this.baseUrl + "/objective", objective)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  public fetchInitiative(universityId, cycleId, goalId){
-    return this.http.get(this.baseUrl + "/planner/university/" + universityId + "/cycle/" + cycleId + "/objective/" + goalId + "/initiative")
+  public addInitiative(initiative) {
+    return this.http.post(this.baseUrl + "/initiative", initiative)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  public fetchInitiative(goalId){
+    return this.http.get(this.baseUrl + "/objective/" + goalId + "/initiative")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   public fetchAssignedActivity(){
-    return this.http.get(this.baseUrl + "/hod/department/" + this.con.getData('user_departmentInfo')[0].departmentId+"/activity")
+    this.baseUrl = this.con.baseUrl;
+    return this.http.get(this.baseUrl + "/department/" + this.con.getData('user_roleInfo')[0].departmentId+"/activity")
                     .map(this.extractData)
                     .catch(this.handleError); 
   }
 
   public saveQuarteResult(data, quarterId){
-    return this.http.post(this.baseUrl + "/hod/quarter/"+quarterId+"/result",data)
+    return this.http.post(this.baseUrl + "/quarter/"+quarterId+"/result",data)
                     .map(this.extractData)
                     .catch(this.handleError); 
+  }
+
+  public saveEvidence(data, quarterId, resultId){
+    var options = new RequestOptions({
+      headers: new Headers({
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      })
+    });
+    console.log(data);
+    return this.htttp.post(this.baseUrl + "/quarter/"+quarterId+"/result/"+resultId+"/evidance",data,options)
+                    .map(this.extractData)
+                    .catch(this.handleError); 
+  }
+
+
+  public fetchDepartments(){
+    return this.http.get(this.baseUrl + "/university/1/department")
+            .map(this.extractData)
+            .catch(this.handleError);
+  }
+
+  public assignActivity(actId,departments){
+    return this.http.post(this.baseUrl+"/assign/activity/"+actId+"/departments",{'departments':departments})
+      .map(this.extractData)
+      .catch(this.handleError); 
+  }
+
+  public saveActivity(activity){
+    return this.http.post(this.baseUrl + "/activity",activity)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public saveSpi(spi){
+    return this.http.post(this.baseUrl + "/spi",spi)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  public saveMeasure(measure){
+    return this.http.post(this.baseUrl + "/measures",measure)
+    .map(this.extractData)
+    .catch(this.handleError);
   }
 
   private extractData(res: Response) {

@@ -1,0 +1,173 @@
+<div class="card col-lg-12 col-sm-12">
+  <div class="card-heading">
+    <h3>Add Initiatives for Strategic Objective</h3>
+  </div>
+  <div class="card-content row">
+    <form class="col-lg-12 col-sm-12" [formGroup]="initiativeForm" (submit)="submitInitiative()">
+      <div class="row">
+        <div class="panel-group col-lg-12 col-sm-12" id="accordion4" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-info">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <b class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#addInitiative" aria-expanded="true" aria-controls="collapseOne">
+                    Proposed Initiative / Initiative
+                  </a>
+                </b>
+            </div>
+            <div id="addInitiative" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <div class="col-lg-6 col-sm-12">
+                  <label class="control-label">Proposed Initiative / Initiative</label>
+                  <textarea class="form-control" rows="3" formControlName="initiative"></textarea>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                  <label class="control-label">Toatal Cost</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="number" min="0" step="1" class="form-control" placeholder="20000" formControlName="totalCost" aria-label="Amount (to the nearest dollar)">
+                    <span class="input-group-addon">.00</span>
+                  </div>
+                </div>
+                <div class="card card-panel marginT-20" formArrayName="activities">
+                  <div *ngFor="let act of initiativeForm.controls.activities.controls;let i = index;" [formGroupName]="i" class="panel-group col-lg-12 col-sm-12"
+                    id="accordion5" role="tablist" aria-multiselectable="true">
+                    <hr>
+                    <div class="panel panel-info">
+                      <div class="panel-heading" role="tab">
+                        <b class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#activity{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                    Proposed Activity - {{i+1}}
+                  </a>
+                  <span class="glyphicon glyphicon-remove hover-orange pull-right" (click)="removeActivity(initiativeForm,i)" aria-hidden="true"></span>
+                </b>
+                      </div>
+                      <div id="activity{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                              <label class="control-label">Activity</label>
+                              <textarea class="form-control" rows="3" formControlName="activity"></textarea>
+                            </div>
+                          </div>
+                          <div class="row marginT-20">
+                            <div formArrayName="measures">
+                              <div class="panel-group" id="accordion6" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-info" *ngFor="let measureAct of initiativeForm.controls.activities.controls[i].controls.measures.controls;let j = index;"
+                                  [formGroupName]="j">
+                                  <div class="panel-heading" role="tab" id="headingOne">
+                                    <b class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{i}}setMeasure{{j}}" aria-expanded="true" aria-controls="collapseOne">
+                         Set Measure {{ j+1 }} For The Activity
+                        </a>
+                        <span class="glyphicon glyphicon-remove hover-orange pull-right" (click)="removeMeasure(initiativeForm.controls.activities.controls[i],j)" aria-hidden="true"></span>
+                      </b>
+                                  </div>
+                                  <div id="{{i}}setMeasure{{j}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                      <div class="row">
+                                        <div class="col-lg-4 col-sm-12">
+                                          <label class="control-label">Measure</label>
+                                          <textarea class="form-control" rows="3" formControlName="measure"></textarea>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                          <label class="control-label">Select Measurement Unit</label>
+                                          <select class="form-control" formControlName="measureUnit">
+                                            <option value="percentage">Percent</option>
+                                            <option value="decimal">Decimal</option>  
+                                          </select>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-12">
+                                          <div class="form-group">
+                                            <label for="currentLevel">Current <br>Level</label>
+                                            <input type="number" min="0" step="1" formControlName="currentLevel" class="form-control" id="currentLevel" placeholder="1">
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-12">
+                                          <label class="control-label">Frequency of Measurement</label>
+                                          <select class="form-control" formControlName="frequencyId" (ngModelChange)="setTargetTable(initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.annualTarget.controls,$event)">
+                                            <option value="1">Annually</option>
+                                            <option value="2">Semi-Annual</option>      
+                                            <option value="4">Quarterly</option> 
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="row marginT-20">
+                                        <div class="">
+                                          <table class="">
+                                            <thead>
+                                              <tr>
+                                                <th colspan="3">{{commonService.getData('org_info')[0].cycle[0]}} - {{commonService.getData('org_info')[0].cycle[commonService.getData('org_info')[0].cycle.length-1]}}
+                                                  Annual Target</th>
+                                              </tr>
+                                            </thead>
+                                            <thead>
+                                              <tr>
+                                                <th width="20%">Year</th>
+                                                <th width="60%">Estimate Target</th>
+                                                <th width="20%">Estimate Cost</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody formArrayName="annualTarget">
+                                              <tr *ngFor="let td of initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.annualTarget.controls;let k = index;"
+                                                [formGroupName]="k">
+                                                <td>{{td.value.year}}</td>
+                                                <div style="display: inline-table;" formArrayName="levels">
+                                                  <td *ngFor="let le of initiativeForm.controls.activities.controls[i].controls.measures.controls[j].controls.annualTarget.controls[k].controls.levels.controls;let l = index;"
+                                                    [formGroupName]="l">
+                                                    <input type="text" style="width:50%" formControlName="quarter" hidden>
+                                                    <input type="text" style="width:50%" formControlName="startDate" hidden>
+                                                    <input type="text" style="width:50%" formControlName="endDate" hidden>
+                                                    <input type="text" style="width:50%" class="validate" formControlName="estimatedTargetLevel">
+                                                  </td>
+                                                </div>
+                                                <td><input type="text" class="validate" formControlName="estimatedCost"></td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <button type="button" (click)="addMeasure(initiativeForm.controls.activities.controls[i])" class="btn btn-info" [disabled]="initiativeForm.controls.activities.controls[i].controls.measures.invalid">Add Measures</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <button type="button" class="btn btn-info" (click)="addActivity()" [disabled]="initiativeForm.controls.activities.invalid">Add Activities</button>
+        <button type="submit" class="btn btn-success" [disabled]="initiativeForm.invalid">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="initiativeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You have successfully added a new Initiative.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" [routerLink]="['/goal-initiative',goalId]">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" >Add More</button>
+      </div>
+    </div>
+  </div>
+</div>

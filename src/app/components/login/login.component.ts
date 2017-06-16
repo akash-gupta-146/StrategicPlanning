@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CredentialService } from '../../services/credential.service';
+import { CredentialService } from '../../providers/credential.service';
 import { CommonService } from '../../providers/common.service';
 import { OrganizationService2 } from '../../providers/organization.service2';
 import { NavService } from '../../providers/event.service';
@@ -52,8 +52,14 @@ export class LoginComponent implements OnInit {
     this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
       this.commonService.storeData("access_token", res.access_token);
       this.commonService.storeData("user_departmentInfo", res.departmentInfo)
-      this.commonService.storeData("user_roleInfo", res.roleInfo);
-      this.fetchOrganizationInfo(res);
+      this.commonService.storeData("user_roleInfo", res.roleInfo);  
+      this.commonService.updateBaseUrl(); 
+      if(res.roleInfo[0].role == "planner"){
+        this.fetchOrganizationInfo(res);
+      } else {
+        this.onSuccess();
+      }  
+        
     }, (err) => {
       this.onError();
     });
@@ -64,8 +70,7 @@ export class LoginComponent implements OnInit {
       if(res[0].cycles) {
         this.buildData(res);
       } else {
-         this.commonService.storeData("org_info", res);
-        this.onSuccess();
+         this.commonService.storeData("org_info", res);        
       }
       this.onSuccess();    
     }, (err) => {
@@ -98,21 +103,37 @@ export class LoginComponent implements OnInit {
   public userRedirectTo() {
     let user_roleInfo = this.commonService.getData("user_roleInfo");
     let org_info = this.commonService.getData("org_info");
-    if(user_roleInfo[0].roleId == 2){      
-      if (org_info[0].cycles === null) {
-        this.router.navigate(['/initial-setup']);
-      } else {
-        this.router.navigate(['/home']);
-      }
-    } else if(user_roleInfo[0].role == "hod"){
-      this.router.navigate(['/hod-home-page']);
+    switch (user_roleInfo[0].role) {
+      case "planner":
+        if (org_info[0].cycles === null) {
+          this.router.navigate(['/initial-setup']);
+        } else {
+          this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
+        }
+        break;
+      
+      case "hod":
+        this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
+        break;
+    
+      default:
+        this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
+        break;
     }
+    // if(user_roleInfo[0].roleId == 2){      
+    //   if (org_info[0].cycles === null) {
+    //     this.router.navigate(['/initial-setup']);
+    //   } else {
+    //     this.router.navigate(['/home']);
+    //   }
+    // } else if(user_roleInfo[0].role == "hod"){
+    //   console.log("asddf");
+    //   this.router.navigate(['/'+user_roleInfo[0].role+'-home']);
+    // }
   }
 
   public onError() {
     this.loginStart = false;
     this.error = true;
   }
-
 }
-

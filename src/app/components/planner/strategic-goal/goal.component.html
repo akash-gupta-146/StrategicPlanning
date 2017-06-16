@@ -1,0 +1,52 @@
+<div class="background row" *ngIf="objectives">
+  <h2 style="text-align: center;margin-bottom:20px;">Strategic Objective</h2>
+  <div class="row">
+    <div class="panel-group col-lg-12 col-sm-12" id="accordion" role="tablist" aria-multiselectable="true" *ngFor="let g of objectives; let i = index;">
+      <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <b class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{i}}" aria-expanded="false" aria-controls="collapseOne">
+                Objective {{i+1}}: {{g.objective}}
+              </a>
+            </b>
+        </div>
+        <div id="collapseOne{{i}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <div class="row">
+              <div class="row" *ngFor="let spi of g.spis; let j = index;">
+                <div class="col-lg-12 col-sm-12">
+                  <b>SPI {{j+1}}: </b> {{spi.spi}}
+                </div>
+                <div class="col-lg-12 col-sm-12">
+                  <b>CurrentLevel :</b> {{spi.currentLevel}}
+                </div>
+                <hr>
+                <div class="col-lg-12 col-sm-12 marginT-20">
+                  <b>Target Digital</b>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th *ngFor="let y of spi.targetDigital">{{y.year}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td *ngFor="let td of spi.targetDigital;">{{td.expectedLevel}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <button type="button" class="btn btn-info pull-right" [routerLink]="['/new-spi',g.id]">Add Spi</button>
+              <button type="button" class="btn btn-info pull-right" [routerLink]="['/goal-initiative',g.id]">View/Add Initiative</button>              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-info btn-lg center-block" type="button" [routerLink]="['/new-goal']">
+    Add New Objective
+  </button>
+</div>
+<div class="loader" *ngIf="loader"></div>

@@ -3,10 +3,21 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class CommonService {
+  // private url:string = "https://strategic-planning.appspot.com";
+  private url:string = "http://localhost:8080/strategyPlanningV3";
+  public baseUrl: string ;
 
-  public baseUrl: string = "https://strategic-planning.appspot.com";
+  constructor() { 
+    this.baseUrl = this.url;
+  }
 
-  constructor() { }
+  updateBaseUrl() {
+    this.baseUrl = this.baseUrl + "/" + this.getData('user_roleInfo')[0].role;
+  }
+
+  resetBaseUrl(){
+    this.baseUrl = this.url;
+  }
 
   public storeData(field_name, data) {
     // if(field_name === "org_info") {

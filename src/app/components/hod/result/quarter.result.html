@@ -4,7 +4,7 @@
       <h3> Quarter Result</h3>
     </div>
     <div class="card-content">
-      <form [formGroup]="uploadForm" (submit)="onSubmit()">
+      <form [formGroup]="uploadForm" enctype="multipart/form-data" (submit)="onSubmit()">
         <div class="row">
           <div class="col-lg-12 col-sm-12">
             <div class="form-group">
@@ -23,7 +23,7 @@
           <div class="col-lg-6 col-sm-12">
             <div class="form-group">
               <label for="exampleInputFile">Evidence</label>
-              <input type="file" id="exampleInputFile" enctype="multipart/form-data" formControlName="file" (change)="postFile($event)" multiple>
+              <input type="file" id="exampleInputFile" formControlName="file" (change)="postFile($event)" multiple>
               <p class="help-block">Upload file</p>
             </div>
           </div>
@@ -31,7 +31,7 @@
         <div class="row">
           <div class="col-lg-12 marginT-10" *ngFor="let f of files; let i=index">
             {{i + 1 }}) {{f.name}}
-            <button class="center-block" class="btn btn-info btn-xs" (click)="upload(f)" type="button">upload</button>
+            <!--<button class="center-block" class="btn btn-info btn-xs" (click)="upload(f)" type="button">upload</button>-->
           </div>
         </div>
         <button class="center-block marginT-20" type="submit" class="btn btn-success">Submit</button>
