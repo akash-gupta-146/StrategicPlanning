@@ -1,11 +1,12 @@
 <form class="card card-panel marginT-20" [formGroup]="activityForm" (submit)="submitActivity()">
   <div class="panel-group col-lg-12 col-sm-12" id="accordion5" role="tablist" aria-multiselectable="true">
+    <h2 style="margin-bottom:20px;"><b>Initiative :</b>{{parent}}</h2>
     <hr>
     <div class="panel panel-info">
       <div class="panel-heading" role="tab">
         <b class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" href="#newActivity" aria-expanded="true" aria-controls="collapseOne">
-            New Activity
+            New Activity for the Initiative
           </a>
           <!--<span class="glyphicon glyphicon-remove hover-orange pull-right" (click)="removeActivity(initiativeForm,i)" aria-hidden="true"></span>-->
         </b>

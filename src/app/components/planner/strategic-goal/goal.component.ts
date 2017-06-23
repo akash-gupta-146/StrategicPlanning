@@ -33,4 +33,7 @@ export class StrategicGoal implements OnInit{
                 this.loader = false;
               });
     }
+    shareObjective(obj){
+      this.commonService.storeData("parent",obj);
+    }
 }

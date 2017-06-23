@@ -14,73 +14,46 @@
       <div class="graph-table-cell" GoogleChart id="progress_chart" [chartData]="progressData" 
       [chartOptions]="progressChartOption" chartType="ColumnChart" (onSelected)="onSelected($event)"></div>
     </div>
-    <!--<div class="marginT-20 col-lg-12 col-sm-12">
-      <div class="progress" style="height: 40px;">
-        <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">Filled<br>50%</div>
-        <div class="progress-bar bg-inprogress" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">Inprogress<br>30%</div>
-        <div class="progress-bar bg-incomplete" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Not Filled<br>20%</div>
-      </div>
-    </div>        -->
   </div>
-  <h2>Assigned Goals </h2>
-  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-info" *ngFor="let act of assignedActivities; let i = index;">
-      <div class="panel-heading" role="tab" id="headingOne" [ngClass]="{'bg-success': i%2}">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#hodActivity{{i}}" aria-expanded="true" aria-controls="collapseOne">
-          <div class="row">
-            <b class="panel-title"></b>
-            <div class="col-lg-12 col-sm-12">
-              <b class="panel-title">{{i+1}}) Activity : </b>
-              <p>{{ act.activity }}</p>
-            </div>
-            <div class="col-lg-6 col-sm-12">
-              <b>Objective : </b>
-              <p>{{act.objective}}</p>
-            </div>
-            <div class="col-lg-6 col-sm-12">
-              <b>Initiative : </b>
-              <p>{{act.initiative}}</p>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div id="hodActivity{{i}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-        <div class="panel-body">
-          <!--<div class="row marginB-20">
-            <b>Description:</b> {{ act.activity }}
-          </div>
-
-          <div class="row panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-info">
-              <div class="panel-heading" role="tab" id="headingOne">
-                <b class="panel-title">
-              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#hodObjective" aria-expanded="true" aria-controls="collapseOne">
-                Objective : {{act.objective}}
-              </a>
-              </b>
-              </div>
-              <div id="hodObjective" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                  <div class="row">
-                    <div class="row" *ngFor="let spi of act.objectiveSpi; let j = index;">
-                      <div class="col-lg-12 col-sm-12">
-                        <b>SPI : </b> {{spi.spi}}
-                      </div>
-                      <div class="col-lg-12 col-sm-12">
-                        <b>CurrentLevel :</b> {{spi.currentLevel}}
-                      </div>
-                      <hr>
-                      <div class="col-lg-12 col-sm-12 marginT-20">
-                        <b>Target Digital</b>
-                        <table class="table table-striped">
+<div class="background">
+  <h2>Assigned Objectives </h2>
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-info" *ngFor="let obj of assignedActivities; let i = index;">
+      <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" [attr.data-target]="'#obj' + i">{{i+1}}) {{obj.objective}}</div>
+      <div class="panel-body collapse" [attr.id]="'obj' + i" ><b>Related Initiatives</b>
+        <div class="panel panel-default" *ngFor="let ini of obj.initiatives; let j = index;">
+          <div class="panel-heading" data-toggle="collapse"  [attr.data-parent]="'#obj' + i" [attr.data-target]="'#obj' + i + 'ini' + j"><b>{{i+1}}.{{j+1}}</b>) {{ini.initiative}}</div>
+          <div class="panel-body collapse" [attr.id]="'obj' + i + 'ini' + j"><b>Related Activities</b>
+            <div class="panel panel-default" *ngFor="let act of ini.activities; let k = index;">
+              <div class="panel-heading" data-toggle="collapse"  [attr.data-parent]="'#obj' + i + 'ini' + j" [attr.data-target]="'#obj' + i + 'ini' + j + 'act' + k"><b>{{i+1}}.{{j+1}}.{{k+1}}</b>) {{act.activity}}</div>
+              <div class="panel-body collapse" [attr.id]="'obj' + i + 'ini' + j + 'act' + k"><b>Related Measures</b>
+                <div class="panel panel-default" *ngFor="let measr of act.activityMeasures;let l = index;">
+                  <div class="panel-heading" data-toggle="collapse"  [attr.data-parent]="'#obj' + i + 'ini' + j + 'act' + k" [attr.data-target]="'#obj' + i + 'ini' + j + 'act' + k + 'measr' + l"><b>{{i+1}}.{{j+1}}.{{k+1}}.{{l+1}}</b>) {{measr.measure}}</div>
+                  <div class="panel-body collapse" [attr.id]="'obj' + i + 'ini' + j + 'act' + k + 'measr' + l">
+                    <label>Current Level:</label> {{measr.currentLevel}}<br>
+                    <label>Frequency:</label> {{measr.frequency}}
+                    <div class="panel panel-default">
+                      <div class="panel-heading text-center"><b>Annual Target</b></div>
+                      <div class="panel-body">
+                        <table class="table">
                           <thead>
                             <tr>
-                              <th *ngFor="let y of spi.targetDigital">{{y.year}}</th>
+                              <th>Year</th>
+                              <th>Estimated Cost</th>
+                              <th>Target</th>
+                              <th>End Date</th>
+                              <th></th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody *ngFor="let tdl of measr.annualTarget;let at = index;">
                             <tr>
-                              <td *ngFor="let td of spi.targetDigital;">{{td.level}}</td>
+                              <td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1">{{ tdl.year }}</td>
+                              <td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1">{{tdl.estimatedCost}}</td>
+                            </tr>
+                            <tr *ngFor="let lev of tdl.levels; let in = index;">
+                              <td>{{ lev.estimatedTargetLevel }}</td>
+                              <td>{{ lev.endDate }}</td>
+                              <td><button type="button" class="btn btn-primary">View Filled Target</button></td>
                             </tr>
                           </tbody>
                         </table>
@@ -90,79 +63,10 @@
                 </div>
               </div>
             </div>
-          </div>-->
-
-          <div class="panel-group" id="accordion{{i}}" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-info" *ngFor="let measr of act.activityMeasures;let me = index;">
-              <div class="panel-heading" role="tab" id="headingOne">
-                <b class="panel-title">
-                <a role="button" data-toggle="collapse" [attr.data-parent]="'#accordion' + i" href="#hod{{i}}Measure{{me}}" aria-expanded="true" aria-controls="collapseOne">
-                  Measure {{me+1}}) : {{measr.measure}}
-                </a>
-                </b>
-              </div>
-              <div id="hod{{i}}Measure{{me}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                  <div class="row">
-                    <!--<div class="col-lg-12 col-sm-12">
-                      <b>Description:</b> {{measr.measure}}
-                    </div>-->
-                    <div class="col-lg-6 col-sm-12">
-                      <b>Current Level:</b> {{measr.currentLevel}}
-                    </div>
-                    <div class="col-lg-6 col-sm-12">
-                      <b>Frequency:</b> {{measr.frequency}}
-                    </div>
-                  </div>
-                  <div class="row marginT-20">
-                    <div class="target-table-title"><b> Annual Target</b></div>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Year</th>
-                          <th>Estimated Cost</th>                          
-                          <th>Target</th>
-                          
-                          <!--<th>Start Date</th>-->
-                          <th>End Date</th>
-                          <th>Actual Cost</th>
-                          <th>Actual Target</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody *ngFor="let tdl of measr.annualTarget;let at = index;">
-                        <tr>
-                          <td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1">{{ tdl.year }}</td>
-                          <td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1">{{tdl.cost}}</td>
-                          <!--<td style="vertical-align: middle;" [attr.rowspan]="tdl.levels.length + 1"><input type="number" min="0" step="1"></td>-->
-                        </tr>
-                        <tr *ngFor="let lev of tdl.levels; let in = index;">
-                          <td>{{ lev.level }}</td>                          
-                          <!--<td>{{ lev.startDate }}</td>-->
-                          <td>{{ lev.endDate }}</td>
-                          <td><input type="number" min="0" step="1"></td>
-                          <td><input type="number" min="0" step="1"><i style="padding: 5px;color: green;" class="glyphicon glyphicon-ok"></i></td>
-                          <!--<td><button type="button" class="btn" [routerLink]="['/quarter-result', lev.id]">Fill Target</button></td>-->
-                          <td class="oprations">
-                            <ul>
-                              <li><a data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-upload"></i>Evidence</a></li>
-                              <li><a onclick="$('.panel.panel-chat').show();"><i class="glyphicon glyphicon-comment"></i>Comments</a></li>
-                              <li><a><i class="glyphicon glyphicon-edit"></i>Edit</a></li>
-                              <!--<li><button type="button" class="btn" [routerLink]="['/quarter-result', lev.id]">Fill Target</button></li>-->
-                            </ul>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -194,47 +98,56 @@
 
   </div>
 </div>
-<!--<!- chat -->
-<div class="panel panel-chat">
+
+<!-- chat -->
+<div id="chat" class="panel panel-chat">
   <div class="panel-heading">
-    <a href="#" class="chatMinimize" onclick="return false"><span>Özgür Gürbüz</span></a>
+    <a href="#" class="chatMinimize" onclick="return false"><span>{{complaintTitleOfCommentModel | uppercase}}</span></a>
     <a href="#" class="chatClose" onclick="return false"><i class="glyphicon glyphicon-remove"></i></a>
     <div class="clearFix"></div>
   </div>
   <div class="panel-body">
-    <div class="messageMe">
-      <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" />
-      <span>asdasdssadasdasdassssssssssssssssssssssssssssssssssssssssssdasdasd</span>
-      <div class="clearFix"></div>
-    </div>
-    <div class="messageHer">
-      <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" />
-      <span>asdasdsassssssssssssssssssssssssssssssssssssssss</span>
-      <div class="clearFix"></div>
-    </div>
-    <div class="messageMe">
-      <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" />
-      <span>asdasdssadasdasdassssssssssssssssssssssssssssssssssssssssssdasdasd</span>
-      <div class="clearFix"></div>
-    </div>
-    <div class="messageHer">
-      <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" />
-      <span>asdasdsassssssssssssssssssssssssssssssssssssssss</span>
-      <div class="clearFix"></div>
-    </div>
-    <div class="messageMe">
-      <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" />
-      <span>asdasdssadasdasdassssssssssssssssssssssssssssssssssssssssssdasdasd</span>
-      <div class="clearFix"></div>
-    </div>
-    <div class="messageHer">
-      <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" />
-      <span>asdasdsassssssssssssssssssssssssssssssssssssssss</span>
-      <div class="clearFix"></div>
+    <!--<div class="row text-center">
+      <loader [condition]="!comments"></loader>
+    </div>-->
+    <div *ngFor="let c of comments">
+      <div *ngIf="c.employeeId == currentUser">
+        <div class="myMsg">
+          <img src="http://www.clker.com/cliparts/f/8/a/6/1376432218623075512little%20girl%20dreaming-hi.png" class="myImg" />
+          <div class="myText">
+            <span class="myText-style">
+              {{c.comment}}
+            </span>
+          </div>
+        </div>
+        <div class="myMsgDate">
+          me: {{c.commentedOn|date}}
+        </div>
+      </div>
+      <div *ngIf="c.employeeId != currentUser">
+        <div class="msg">
+          <img src="http://www.kpop-map.com/wp-content/uploads/2016/01/sm-rookies-kun-profile.jpg" class="img" />
+          <div class="text">
+            <span class="text-style">
+              {{c.comment}}
+            </span>
+          </div>
+        </div>
+        <div class="msgDate">
+          <span *ngIf="c.employeeName">{{c.employeeName}}</span>
+          <span *ngIf="c.parentName">{{c.parentName}}</span>
+          <span>: {{c.commentedOn|date}}</span>
+        </div>
+      </div>
     </div>
     <div class="clearFix"></div>
   </div>
-  <div class="panel-footer">
-    <textarea name="textMessage" cols="0" rows="0"></textarea>
+  <div class="panel-footer" *ngIf="closedOn">
+    <form [formGroup]="commentForm" (submit)="submitComment()">
+      <textarea name="comment" formControlName="comment" cols="0" rows="0"></textarea>
+      <span class="send-button">
+        <button type="submit" class="btn btn-success btn-circle btn-lg"><i class="glyphicon glyphicon-share-alt"></i></button>
+    </span>
+    </form>
   </div>
 </div>

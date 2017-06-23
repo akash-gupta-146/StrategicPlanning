@@ -71,7 +71,7 @@ export class OrganizationService2 {
   }
 
   public saveQuarteResult(data, quarterId){
-    return this.http.post(this.baseUrl + "/quarter/"+quarterId+"/result",data)
+    return this.http.post(this.baseUrl + "/result",data)
                     .map(this.extractData)
                     .catch(this.handleError); 
   }
@@ -82,10 +82,15 @@ export class OrganizationService2 {
         'Authorization': 'Bearer ' + localStorage.getItem('access_token')
       })
     });
-    console.log(data);
     return this.htttp.post(this.baseUrl + "/quarter/"+quarterId+"/result/"+resultId+"/evidance",data,options)
                     .map(this.extractData)
                     .catch(this.handleError); 
+  }
+
+  public saveComment(resultId,comment){
+    return this.http.post(this.baseUrl + "/result/" + resultId + "/discussion",comment)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
 

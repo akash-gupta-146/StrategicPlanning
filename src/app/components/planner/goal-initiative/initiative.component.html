@@ -1,8 +1,9 @@
 <div class="background row">
-  <h2 style="text-align: center;margin-bottom:20px;">Initiatives</h2>
+  <h2><b>Objective:</b>{{initiatives.objective}}</h2>
+  <h2 style="margin-bottom:20px;"><b>Initiatives</b></h2>
   <!-- Present Initiatives list -->
   <div class="panel-group col-lg-12 col-sm-12" id="accordion1" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-info" *ngFor="let ini of initiatives;let i=index;">
+    <div class="panel panel-info" *ngFor="let ini of initiatives.initiatives;let i=index;">
       <div class="panel-heading" role="tab" id="headingOne">
         <b class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" href="#viewinitiative{{i}}" aria-expanded="true" aria-controls="collapseOne">
@@ -90,9 +91,9 @@
                         </ul>
                       </div>
 
-                      <a class="btn btn-info" type="button" data-toggle="collapse" href="#{{i}}activity{{p}}" aria-expanded="false" aria-controls="collapseExample">Assign</a>
+                      <a class="btn btn-info" type="button" data-toggle="modal" data-target="#assignActivityModel" (click)="selectedActivity = act;">Assign</a>
                       <a class="btn btn-info" type="button" [routerLink]="['/new-measure',act.id]">Add New Measure</a>
-                      <div class="collapse row" id="{{i}}activity{{p}}">
+                      <!--<div class="collapse row" id="{{i}}activity{{p}}">
                         <div class="col-lg-10">
                           <select multiple class="form-control" [(ngModel)]="department" (ngModelChange)="selectDepartment($event)">
                             <option *ngFor="let dept of act.otherDepartments;" [ngValue]="dept">{{dept.department}}</option>
@@ -100,15 +101,15 @@
                         </div>
                         <div class="col-lg-2">
                           <a class="btn btn-info" type="button" data-toggle="collapse" href="#{{i}}activity{{p}}" 
-                          aria-expanded="false" aria-controls="collapseExample" (click)="assignActivity(act.id,act.assignedDepartments)">Assign</a>                          
+                          aria-expanded="false" aria-controls="collapseExample" (click)="assignActivity(act.id)">Assign</a>                          
                         </div>
-                      </div>
+                      </div>-->
                     </div>
                   </div>
                 </div>                
               </div>              
             </div>
-            <button class="btn btn-info btn-lg center-block" [routerLink]="['/new-activity',goalId,ini.id]">Add New Activity</button>
+            <button class="btn btn-info btn-lg center-block" [routerLink]="['/new-activity',goalId,ini.id]" (click)="shareInitiative(ini.initiative)">Add New Activity</button>
           </div>
         </div>
       </div>
@@ -119,18 +120,28 @@
     Add New Initiative
   </button>
 </div>
-<!--<div class="card-panel" *ngIf="submited">
-  <span class="card-title">Added Initiative</span>
-  <p><label>Initiative :</label>{{returnObject.initiative}}</p>
-  <p><label>Total Cost :</label>{{returnObject.totalCost}}</p>
-  <p><label>Activities</label></p>
-  <div *ngFor="let act of returnObject.activities;let i=index;">
-    <p><label>{{i}}</label>) {{act.activity}}</p>
-    <p><label>Measures :</label></p>
-    <div *ngFor="let m of act.measures;let j=index;">
-      <p><label>{{j}}</label>) {{m.measure}}</p>
-      <p><label>Current Level :</label>{{m.currentLevel}}</p>
+  <!-- Modal -->
+  <div class="modal fade" id="assignActivityModel" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Assign Activity to further Departments</h4>
+        </div>
+        <div class="modal-body" *ngIf="selectedActivity">
+          <!--<p>Some text in the modal.</p>-->
+          <select multiple class="form-control" [(ngModel)]="department" (ngModelChange)="departmentIds = $event">
+            <option *ngFor="let dept of selectedActivity.otherDepartments;" [value]="dept.departmentId">{{dept.department}}</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" 
+          (click)="assignActivity(selectedActivity)">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+        </div>
+      </div>
+      
     </div>
   </div>
-  <button class="waves-effect waves-light btn" type="button" (click)="addMoreInitiative()">Add More Initiative</button>
-</div>-->

@@ -37,8 +37,8 @@
                   </table>
                 </div>
               </div>
-              <button type="button" class="btn btn-info pull-right" [routerLink]="['/new-spi',g.id]">Add Spi</button>
-              <button type="button" class="btn btn-info pull-right" [routerLink]="['/goal-initiative',g.id]">View/Add Initiative</button>              
+              <button type="button" class="btn btn-info pull-right" [routerLink]="['/new-spi',g.id]" (click)="shareObjective(g.objective)">Add Spi</button>
+              <button type="button" class="btn btn-info pull-right" [routerLink]="['/goal-initiative',g.id]" (click)="shareObjective(g.objective)">View/Add Initiative</button>              
             </div>
           </div>
         </div>
