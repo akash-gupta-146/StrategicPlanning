@@ -6,7 +6,8 @@ export class CommonService {
   // private url:string = "https://strategic-planning.appspot.com";
   private url:string = "http://localhost:8080/strategyPlanningV3";
   public baseUrl: string ;
-
+  public object;
+  
   constructor() { 
     this.baseUrl = this.url;
   }

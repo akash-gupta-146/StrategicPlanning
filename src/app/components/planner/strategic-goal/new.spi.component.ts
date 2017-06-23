@@ -12,11 +12,13 @@ declare let $;
 })
 export class NewSpi {
   public spiForm:FormGroup;
+  public parent;
   goalId;
   constructor(public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     public orgService: OrganizationService2,
     public commonService: CommonService) {
+    this.parent = this.commonService.getData("parent");
       this.route.params.subscribe(param => {
                     console.log(param);
                     if (param['goalId']) this.goalId = param['goalId'];

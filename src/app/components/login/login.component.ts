@@ -51,10 +51,11 @@ export class LoginComponent implements OnInit {
     this.loginStart = true;
     this.credentialService.verifyUser(this.loginForm.value).subscribe((res) => {
       this.commonService.storeData("access_token", res.access_token);
-      this.commonService.storeData("user_departmentInfo", res.departmentInfo)
-      this.commonService.storeData("user_roleInfo", res.roleInfo);  
+      // this.commonService.storeData("user_departmentInfo", res.departmentInfo);
+      this.commonService.storeData("userDetails",res.userDetails)
+      this.commonService.storeData("user_roleInfo", res.userDetails.roleInfo);  
       this.commonService.updateBaseUrl(); 
-      if(res.roleInfo[0].role == "planner"){
+      if(res.userDetails.roleInfo[0].role == "planner"){
         this.fetchOrganizationInfo(res);
       } else {
         this.onSuccess();

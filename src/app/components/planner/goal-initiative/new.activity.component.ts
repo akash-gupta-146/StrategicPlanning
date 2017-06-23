@@ -12,11 +12,13 @@ export class NewActivity {
   activityForm: FormGroup;
   goalId;
   initiativeId;
+  parent;
   constructor(public formBuilder: FormBuilder, 
               private commonService: CommonService,
               private _location: Location,
               private orgService: OrganizationService2,
               private route:ActivatedRoute) {
+              this.parent = this.commonService.getData("parent")
               this.activityForm = this.setActivity();
                   this.route.params.subscribe(param => {
                     console.log(param);

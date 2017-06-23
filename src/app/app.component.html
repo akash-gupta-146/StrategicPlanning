@@ -73,10 +73,13 @@
         <li routerLinkActive="active"><a [routerLink]="['/add-role']"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Add Role</a></li>
       </ul><br>
       <ul class="nav nav-pills nav-stacked" *ngIf="commonService.getData('user_roleInfo')[0].role == 'planner'">
-        <li class="active"><a [routerLink]="['/'+commonService.getData('user_roleInfo')[0].role+'-home']"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-        <li><a><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Cycle</a></li>
+        <li class="active"><a [routerLink]="['/'+commonService.getData('user_roleInfo')[0].role+'-home']">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+        <li><a [routerLink]="['/strategic-goal']">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Objectives
+        </a></li>
         <li><a><span class="glyphicon glyphicon-italic" aria-hidden="true"></span>Initiatives</a></li>
-        <li><a><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Objectives</a></li>
+        <li><a><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Activities</a></li>
       </ul><br>
     </div>
     <!-- /#sidebar-wrapper -->
